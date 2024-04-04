@@ -1,0 +1,55 @@
+.centered {
+    @apply flex h-screen justify-center items-center;
+}
+
+.card {
+    @apply flex flex-col h-auto size-auto w-auto rounded-lg overflow-hidden shadow-customshadow bg-warmbeige justify-center items-center;
+}
+
+.input {
+    @apply shadow w-64 border rounded-lg py-2 px-3 bg-beige shadow-lg;
+}
+
+.h1 {
+    @apply text-center text-2xl font-bold;
+}
+
+.label {
+    @apply py-1 text-base font-bold text-softblack;
+}
+
+.button {
+    @apply bg-softblack font-medium text-warmbeige w-64 shadow px-4 py-2 rounded-full;
+
+    &:hover {
+        @apply bg-charcoalgray;
+    }
+}
+
+.forgotpassword {
+    @apply py-2 text-xs underline font-normal text-dustyblue;
+}
+
+.registered {
+    @apply text-center text-xs;
+}
+
+.padding1 {
+    @apply py-1;
+}
+
+.padding2 {
+    @apply py-2;
+}
+
+.padding3 {
+    @apply py-3;
+}
+
+.padding4 {
+    @apply py-4;
+}
+
+.padding5 {
+    @apply py-5;
+}
