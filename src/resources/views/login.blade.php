@@ -8,31 +8,31 @@
 </head>
 
 <body>
-    <div class="centered">
-        <div class="card">
+    <div class="a-login">
+        <div class="a-login__card">
             <div class="py-5 ">
             </div>
-            <div class="h1">
+            <div class="a-login__h1">
                 <h1>LOGIN</h1>
             </div>
             <div class="py-4"></div>
             <form action="">
-                <div class="label">
+                <div class="a-login__label">
                     <label for="">Email</label>
                 </div>
-                <input class="input" type="text" placeholder="example@gmail.com">
+                <input class="a-login__input" type="text" placeholder="example@gmail.com">
                 <div class="py-2"></div>
-                <div class="label">
+                <div class="a-login__label">
                     <label for="">Password</label>
                 </div>
-                <input class=" input" type="text" placeholder="******************">
-                <div class="forgotpassword">
+                <input class="a-login__input" type="text" placeholder="******************">
+                <div class="a-login__forgotpassword">
                     <a href="">Forgot Password?</a>
                 </div>
-                <div class="padding4">
-                    <button class="button">Login</button>
+                <div class="a-login__padding4">
+                    <button class="a-login__button">Login</button>
                 </div>
-                <div class="registered">
+                <div class="a-login__registered">
                     <p>Not yet registered? <a class="underline" href="">Create an account.</a></p>
                 </div>
             </form>
