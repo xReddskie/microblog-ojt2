@@ -13,11 +13,7 @@
             <p>Please Verify your email</p>
             <p>test( 0 = unverified, 1 = verified) status: {{auth()->user()->status}}</p>
         @elseif(auth()->user()->status === 1)
-            <p>Your email is verified</p>
-            <p>test( 0 = unverified, 1 = verified) status: {{auth()->user()->status}}</p>
-            <a href="/logout">
-                <button>logout</button>
-            </a>
+            @include('dummy-dashboard')
         @endif
      @else
      <form action="/register" method="POST">

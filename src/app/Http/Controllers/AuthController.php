@@ -43,7 +43,7 @@ class AuthController extends Controller
             auth()->login($user);
             event(new Registered($user));
 
-            return redirect('/register')->with('success', 'Registration is successful! Please check your email for verification.');
+            return redirect('/verify-waiting')->with('success', 'Registration is successful! Please check your email for verification.');
         } catch (\Exception $e) {
             dd($e->getMessage());
         }
@@ -70,7 +70,7 @@ class AuthController extends Controller
 
         event(new Verified($user));
 
-        return redirect('/register')->with('verified', true);
+        return redirect('/dashboard')->with('verified', true);
     }
 
     public function verifyWaiting()
@@ -84,8 +84,14 @@ class AuthController extends Controller
         return view('register');
     }
 
-    public function logout() {
+    public function logout()
+    {
         auth()->logout();
         return view('register');
+    }
+
+    public function dashboard()
+    {
+        return view('dummy-dashboard');
     }
 }
