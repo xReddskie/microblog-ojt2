@@ -10,18 +10,18 @@
 <body>
     <div class="a-login">
         <div class="a-login__card">
-            <div class="py-5 ">
+            <div class="a-login__padding5">
             </div>
             <div class="a-login__h1">
                 <h1>LOGIN</h1>
             </div>
-            <div class="py-4"></div>
+            <div class="a-login__padding5"></div>
             <form action="">
                 <div class="a-login__label">
                     <label for="">Email</label>
                 </div>
                 <input class="a-login__input" type="text" placeholder="example@gmail.com">
-                <div class="py-2"></div>
+                <div class="a-login__padding2"></div>
                 <div class="a-login__label">
                     <label for="">Password</label>
                 </div>
