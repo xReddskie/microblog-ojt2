@@ -11,8 +11,10 @@
      @auth
         @if(auth()->user()->status === 0)
             <p>Please Verify your email</p>
+            <p>test {{auth()->user()->status}}</p>
         @elseif(auth()->user()->status === 1)
             <p>Your email is verified</p>
+            <p>test {{auth()->user()->status}}</p>
         @endif
      @else
      <form action="/register" method="POST">

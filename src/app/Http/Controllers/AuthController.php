@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Events\Verified;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -51,14 +49,26 @@ class AuthController extends Controller
         }
     }
 
-    public function verifyEmail(Request $request, $id, $hash)
+    public function verifyEmail($id, $hash)
     {
-        if (
-            $id == auth()->id() &&
-            auth()->user()->markEmailAsVerified()
-        ) {
-            event(new Verified($request->user()));
+        $user = User::find($id);
+
+        if (!$user) {
+            return redirect('/register')->with('error', 'User not found.');
         }
+
+        if ($hash != sha1($user->getEmailForVerification())) {
+            return redirect('/register')->with('error', 'Invalid verification link.');
+        }
+
+        if (!$user->hasVerifiedEmail()) {
+            $user->markEmailAsVerified();
+        }
+
+        $user->status = 1;
+        $user->save();
+
+        event(new Verified($user));
 
         return redirect('/register')->with('verified', true);
     }
@@ -68,8 +78,6 @@ class AuthController extends Controller
 
         if (auth()->check()) {
             if (auth()->check() && auth()->user()->email_verified_at) {
-                auth()->user()->status = 1;
-                auth()->user()->save();
                 return view('register');
             }
         }
