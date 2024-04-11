@@ -17,7 +17,7 @@ vendor:
 	docker-compose exec -w /var/www/html php composer install
 
 backend:
-	docker exec -it microblogteam2-php-1 /bin/bash
+	docker exec -it microblog-ojt2-php-1 /bin/bash
 	cd html
 
 optimize:
