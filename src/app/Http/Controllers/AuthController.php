@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Events\Verified;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -67,7 +65,6 @@ class AuthController extends Controller
             $user->markEmailAsVerified();
         }
 
-        // Update user status to 1
         $user->status = 1;
         $user->save();
 
@@ -81,7 +78,6 @@ class AuthController extends Controller
 
         if (auth()->check()) {
             if (auth()->check() && auth()->user()->email_verified_at) {
-                auth()->user()->save();
                 return view('register');
             }
         }
