@@ -15,6 +15,9 @@
         @elseif(auth()->user()->status === 1)
             <p>Your email is verified</p>
             <p>test {{auth()->user()->status}}</p>
+            <a href="/logout">
+                <button>logout</button>
+            </a>
         @endif
      @else
      <form action="/register" method="POST">

@@ -83,4 +83,9 @@ class AuthController extends Controller
         }
         return view('register');
     }
+
+    public function logout() {
+        auth()->logout();
+        return view('register');
+    }
 }
