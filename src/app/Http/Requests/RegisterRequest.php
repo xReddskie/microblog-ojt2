@@ -26,7 +26,7 @@ class RegisterRequest extends FormRequest
             'first_name' => 'required|string|max:255',
             'middle_name' => 'nullable|string|max:255',
             'last_name' => 'required|string|max:255',
-            'birthday' => 'required|date',
+            'birthday' => 'required|date|before_or_equal:today',
             'lot_block' => 'nullable|string|max:255',
             'street' => 'required|string|max:255',
             'city' => 'required|string|max:255',
