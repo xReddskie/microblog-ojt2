@@ -10,12 +10,23 @@
  <body>
      @auth
         @if(auth()->user()->status === 0)
-            <p>Please Verify your email</p>
-            <p>test( 0 = unverified, 1 = verified) status: {{auth()->user()->status}}</p>
+            @include('dummy-verify-wait')    <!-- dummy-verify-wait.blade.php -->
         @elseif(auth()->user()->status === 1)
-            @include('dummy-dashboard')
+            @include('dummy-dashboard')                 <!-- dummy-dashboard.blade.php -->
         @endif
      @else
+     @if($errors->any())
+     <ul>
+        @foreach($errors->all() as $error)
+            <li>{{$error}}</li>
+        @endforeach
+     </ul>
+     @endif
+     @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
      <form action="/register" method="POST">
          @csrf
          <!-- First Name -->

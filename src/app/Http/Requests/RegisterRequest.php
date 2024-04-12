@@ -32,26 +32,11 @@ class RegisterRequest extends FormRequest
             'city' => 'required|string|max:255',
             'province' => 'required|string|max:255',
             'country' => 'required|string|max:255',
-            'zip_code' => 'required|string|max:255',
+            'zip_code' => 'required|digits_between:4,5',
             'email' => 'required|string|email|max:255|unique:users',
             'username' => 'required|string|max:255|unique:users',
             'phone_number' => 'nullable|string|max:255',
             'password' => 'required|string|confirmed|min:8',
         ];
-    }
-    /**
-     * Prepare the data for validation.
-     *
-     * @return array<string, mixed>
-     */
-    public function pascal(): array
-    {
-        $validated = parent::pascal();
-
-        // Convert first_name and last_name to PascalCase
-        $validated['first_name'] = Str::studly($validated['first_name']);
-        $validated['last_name'] = Str::studly($validated['last_name']);
-
-        return $validated;
     }
 }

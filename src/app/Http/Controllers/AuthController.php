@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Profile;
 use Illuminate\Support\Str;
+use Illuminate\Http\Response;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Events\Verified;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -26,26 +28,27 @@ class AuthController extends Controller
 
             Profile::create([
                 'user_id' => $user->id,
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'middle_name' => $request->middle_name,
-                'birth_date' => $request->birthday,
+                'first_name' => ucwords($request->first_name),
+                'last_name' => ucwords($request->last_name),
+                'middle_name' => ucwords($request->middle_name),
+                'birth_date' => ucwords($request->birthday),
                 'address' => implode(', ', array_filter([
                     $request->lot_block,
                     $request->street,
                     $request->city,
                     $request->province,
-                    $request->country,
+                    ucwords($request->country),
                     $request->zip_code,
                 ])),
             ]);
 
+            Session::regenerate();
             auth()->login($user);
             event(new Registered($user));
 
             return redirect('/verify-waiting')->with('success', 'Registration is successful! Please check your email for verification.');
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            return redirect('/register-page')->with('error', 'Registration failed: ' . $e->getMessage());
         }
     }
 
@@ -73,25 +76,29 @@ class AuthController extends Controller
         return redirect('/dashboard')->with('verified', true);
     }
 
-    public function verifyWaiting()
+    public function emailVerifyRedirect()
     {
-
-        if (auth()->check()) {
-            if (auth()->check() && auth()->user()->email_verified_at) {
-                return view('register');
-            }
-        }
         return view('register');
+    }
+    public function resendEmailVerification()
+    {
+        $user = auth()->user();
+        $user->sendEmailVerificationNotification();
+        return redirect()->back()->with('success', 'Email verification link resent.');
     }
 
     public function logout()
     {
         auth()->logout();
-        return view('register');
-    }
+        Session::flush();
+        Session::regenerate();
 
-    public function dashboard()
-    {
-        return view('dummy-dashboard');
+        $response = new Response(view('register'));
+
+        $response->header('Cache-Control', 'no-cache, no-store, must-revalidate');
+        $response->header('Pragma', 'no-cache');
+        $response->header('Expires', '0');
+
+        return $response;
     }
 }
