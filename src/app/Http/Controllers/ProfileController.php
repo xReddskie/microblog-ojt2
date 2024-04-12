@@ -8,7 +8,7 @@ use App\Http\Requests\RegisterRequest;
 
 class ProfileController extends Controller
 {
-    public function createProfile(RegisterRequest $request, $userId)
+    public function createProfile($request, $userId)
     {
         Profile::create([
             'user_id' => $userId,

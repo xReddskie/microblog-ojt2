@@ -18,14 +18,9 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         try {
-            $user = User::create([
-                'username' => $request->username,
-                'password' => Hash::make($request->password),
-                'email' => $request->email,
-                'status' => 0,
-                'remember_token' => Str::random(40),
-            ]);
- 
+            
+            
+            $user = app(UserController::class)->createUser($request);
             app(ProfileController::class)->createProfile($request, $user->id);
 
             Session::regenerate();
