@@ -38,13 +38,11 @@ Ubuntu cmd:
 Vscode terminal(bash):
 
 - git init
-- git clone -b dev https://github.com/XPERIA679/OJT1-Microblog
-- cd OJT1-Microblog
+- git clone https://github.com/xReddskie/microblog-ojt2
+- cd microblog-ojt2
 - sudo apt install make
 - make build 
 - make permissions
--> uncomment node service in docker-compose.yml
-- make down-up
 - make vendor
 -> configure your .env file
 - make migrate
