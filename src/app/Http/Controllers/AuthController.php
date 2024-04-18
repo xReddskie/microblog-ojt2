@@ -3,28 +3,45 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Profile;
-use Illuminate\Support\Str;
-use Illuminate\Http\Response;
+use Illuminate\View\View;
+use App\Services\UserService;
+use App\Services\ProfileService;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Auth\Events\Verified;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
+    public $userCreate;
+    public $profileCreate;
+    public function __construct()
+    {
+        $this->userCreate = new UserService;
+        $this->profileCreate = new ProfileService;
+    }
+    
+    /**
+     * Login User
+     */
+    public function login(LoginRequest $request): View
+    {
+        if (auth()->attempt(['email' => $request['email'], 'password' => $request['password']])) {
+            $request->session()->regenerate();
+        }
+        return view('/app');
+    }
+
     /**
      * Handle user registration.
-     *
-     * @param RegisterRequest $request
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request): RedirectResponse
     {
         try {
-            $user = app(UserController::class)->createUser($request);
-            app(ProfileController::class)->createProfile($request, $user->id);
+            $user = $this->userCreate->create($request);
+            $this->profileCreate->create($request, $user->id);
 
             Session::regenerate();
             auth()->login($user);
@@ -38,12 +55,8 @@ class AuthController extends Controller
 
     /**
      * Verify user's email.
-     *
-     * @param int $id
-     * @param string $hash
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function verifyEmail($id, $hash)
+    public function verifyEmail($id, $hash): RedirectResponse
     {
         $user = User::find($id);
 
@@ -69,20 +82,16 @@ class AuthController extends Controller
 
     /**
      * Redirect to email verification page.
-     *
-     * @return \Illuminate\View\View
      */
-    public function emailVerifyRedirect()
+    public function emailVerifyRedirect(): View
     {
         return view('pages/auth/register');
     }
 
     /**
      * Resend email verification link.
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function resendEmailVerification()
+    public function resendEmailVerification(): RedirectResponse
     {
         $user = auth()->user();
         $user->sendEmailVerificationNotification();
@@ -90,22 +99,12 @@ class AuthController extends Controller
     }
 
     /**
-     * Logout the user.
-     *
-     * @return \Illuminate\Http\Response
+     * Logouts the user.
      */
-    public function logout()
+    public function logout(): RedirectResponse
     {
         auth()->logout();
-        Session::flush();
-        Session::regenerate();
-
-        $response = new Response(view('app'));
-
-        $response->header('Cache-Control', 'no-cache, no-store, must-revalidate');
-        $response->header('Pragma', 'no-cache');
-        $response->header('Expires', '0');
-
-        return $response;
+        Session::invalidate();
+        return redirect('/');
     }
 }

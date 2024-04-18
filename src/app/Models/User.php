@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -47,11 +48,9 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return int
+     * Get the profile associated with this use.
      */
-    public function profile()
+    public function profile(): HasOne
     {
         return $this->hasOne(Profile::class, 'user_id');
     }

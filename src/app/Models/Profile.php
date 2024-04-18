@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Profile extends Model
 {
@@ -17,12 +18,11 @@ class Profile extends Model
         'birth_date',
         'address'
     ];
+
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return int
+     * Get the user that owns this profile.
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }

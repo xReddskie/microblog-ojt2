@@ -13,16 +13,17 @@
                 <h1>LOGIN</h1>
             </div>
             <div class="a-login__padding5"></div>
-            <form action="">
+            <form action="/login" method="POST">
+                @csrf
                 <div class="a-login__label">
                     <label for="">Email</label>
                 </div>
-                <input class="a-login__input" type="text" placeholder="example@gmail.com">
+                <input class="a-login__input" type="text" name="email" placeholder="example@gmail.com">
                 <div class="a-login__padding2"></div>
                 <div class="a-login__label">
                     <label for="">Password</label>
                 </div>
-                <input class="a-login__input" type="text" placeholder="******************">
+                <input class="a-login__input" type="password" name="password" placeholder="******************">
                 <div class="a-login__forgotpassword">
                     <a href="">Forgot Password?</a>
                 </div>

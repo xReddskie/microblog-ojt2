@@ -1,15 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\RegisterRequest;
 
-class UserController extends Controller
+class UserService
 {
-    public function createUser($request)
+    /**
+     * Create User
+     */
+    public function create(RegisterRequest $request): User
     {
         $user = User::create([
             'username' => $request->username,
