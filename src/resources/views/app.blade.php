@@ -2,6 +2,8 @@
 
 @section('content')
 
-@extends('pages.login')
+<div class="login">
+    @extends('pages.auth.login')
+</div>
 
 @endsection

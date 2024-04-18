@@ -4,8 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 
+Route::get('/', function () {
+    return view('app');
+});
 Route::get('/register-page', function () {
-    return view('register');
+    return view('pages/auth/register');
 });
 
 

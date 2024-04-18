@@ -18,8 +18,8 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         try {
-            
-            
+
+
             $user = app(UserController::class)->createUser($request);
             app(ProfileController::class)->createProfile($request, $user->id);
 
@@ -38,11 +38,11 @@ class AuthController extends Controller
         $user = User::find($id);
 
         if (!$user) {
-            return redirect('/register')->with('error', 'User not found.');
+            return redirect('/pages/auth/register')->with('error', 'User not found.');
         }
 
         if ($hash != sha1($user->getEmailForVerification())) {
-            return redirect('/register')->with('error', 'Invalid verification link.');
+            return redirect('/pages/auth/register')->with('error', 'Invalid verification link.');
         }
 
         if (!$user->hasVerifiedEmail()) {
@@ -59,7 +59,7 @@ class AuthController extends Controller
 
     public function emailVerifyRedirect()
     {
-        return view('register');
+        return view('pages/auth/register');
     }
     public function resendEmailVerification()
     {
@@ -74,7 +74,7 @@ class AuthController extends Controller
         Session::flush();
         Session::regenerate();
 
-        $response = new Response(view('register'));
+        $response = new Response(view('app'));
 
         $response->header('Cache-Control', 'no-cache, no-store, must-revalidate');
         $response->header('Pragma', 'no-cache');
