@@ -14,12 +14,15 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
-
+    /**
+     * Handle user registration.
+     *
+     * @param RegisterRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function register(RegisterRequest $request)
     {
         try {
-
-
             $user = app(UserController::class)->createUser($request);
             app(ProfileController::class)->createProfile($request, $user->id);
 
@@ -33,6 +36,13 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Verify user's email.
+     *
+     * @param int $id
+     * @param string $hash
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function verifyEmail($id, $hash)
     {
         $user = User::find($id);
@@ -57,10 +67,21 @@ class AuthController extends Controller
         return redirect('/dashboard')->with('verified', true);
     }
 
+    /**
+     * Redirect to email verification page.
+     *
+     * @return \Illuminate\View\View
+     */
     public function emailVerifyRedirect()
     {
         return view('pages/auth/register');
     }
+
+    /**
+     * Resend email verification link.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function resendEmailVerification()
     {
         $user = auth()->user();
@@ -68,6 +89,11 @@ class AuthController extends Controller
         return redirect()->back()->with('success', 'Email verification link resent.');
     }
 
+    /**
+     * Logout the user.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function logout()
     {
         auth()->logout();

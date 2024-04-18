@@ -21,4 +21,4 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::get('/resend-email', [AuthController::class, 'resendEmailVerification']);
 
 // Dashboard Controller
-Route::get('/dashboard', [DashboardController::class, 'dashboard']);
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware('auth');
