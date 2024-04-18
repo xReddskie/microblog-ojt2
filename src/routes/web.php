@@ -4,8 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 
+Route::get('/', function () {
+    return view('app');
+});
 Route::get('/register-page', function () {
-    return view('register');
+    return view('pages/auth/register');
 });
 
 
@@ -18,4 +21,4 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::get('/resend-email', [AuthController::class, 'resendEmailVerification']);
 
 // Dashboard Controller
-Route::get('/dashboard', [DashboardController::class, 'dashboard']);
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware('auth');

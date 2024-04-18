@@ -8,6 +8,6 @@ class DashboardController extends Controller
 {
     public function dashboard()
     {
-        return view('dummy-dashboard');
+        return view('/pages/auth/dummy-dashboard');
     }
 }

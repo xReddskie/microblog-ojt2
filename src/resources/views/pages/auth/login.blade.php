@@ -30,7 +30,7 @@
                     <button class="a-login__button">Login</button>
                 </div>
                 <div class="a-login__registered">
-                    <p>Not yet registered? <a class="underline" href="">Create an account.</a></p>
+                    <p>Not yet registered? <a href="/register-page" class="underline">Create an account.</a></p>
                 </div>
             </form>
             <svg class="h-32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -39,7 +39,6 @@
             </svg>
         </div>
     </div>
-
 </body>
 
 </html>
