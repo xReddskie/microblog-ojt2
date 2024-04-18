@@ -6,7 +6,7 @@
 
 
 <body>
-    <!-- this is only for testing -->
+    this is only for testing
     <p>Your email is verified</p>
     @if(auth()->user()->status == null)
     @else

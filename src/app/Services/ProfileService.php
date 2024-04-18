@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Services;
 
-use App\Models\Profile;
-use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Profile;
 
-class ProfileController extends Controller
+class ProfileService
 {
-    public function createProfile($request, $userId)
+    /**
+     * Create Profile
+     */
+    public function create(RegisterRequest $request, $userId): void
     {
         Profile::create([
             'user_id' => $userId,

@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
-    public function dashboard()
+
+    /**
+     * Return dashboard
+     */
+    public function dashboard(): View
     {
-        return view('/pages/auth/dummy-dashboard');
+        return view('/app');
     }
 }
