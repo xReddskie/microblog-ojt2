@@ -13,7 +13,7 @@
                 <h1>LOGIN</h1>
             </div>
             <div class="a-login__padding5"></div>
-            <form action="/login" method="POST">
+            <form action="{{ route('login')}}" method="POST">
                 @csrf
                 <div class="a-login__label">
                     <label for="">Email</label>

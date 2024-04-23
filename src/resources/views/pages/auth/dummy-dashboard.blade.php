@@ -7,7 +7,7 @@
 <body>
     @include('pages.dashboard.post')
 
-    <a href="/logout">
+    <a href="{{ route('logout')}}">
         <button>logout</button>
     </a>
 </body>
