@@ -26,12 +26,12 @@ class AuthController extends Controller
     /**
      * Login User
      */
-    public function login(LoginRequest $request): View
+    public function login(LoginRequest $request): RedirectResponse
     {
         if (auth()->attempt(['email' => $request['email'], 'password' => $request['password']])) {
             $request->session()->regenerate();
         }
-        return view('/app');
+        return redirect()->route('dashboard');
     }
 
     /**
