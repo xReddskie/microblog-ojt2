@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\DashboardController;
+use App\Models\Post;
 
 Route::get('/', function () {
     return view('app');
@@ -24,3 +26,7 @@ Route::get('/resend-email', [AuthController::class, 'resendEmailVerification']);
 
 // Dashboard Controller
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware('auth');
+
+
+//Posts Routes
+Route::post('/post', [PostController::class, 'create']);
