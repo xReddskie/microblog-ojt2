@@ -19,7 +19,7 @@ class PostController extends Controller
     /**
      * Create user posts
      */
-    public function create(PostRequest $request)
+    public function create(PostRequest $request): RedirectResponse
     {
         $userId = auth()->id(); 
         $posts = $this->postCreate->create($request, $userId);
