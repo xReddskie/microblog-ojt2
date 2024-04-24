@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Post;
 use Illuminate\View\View;
 use App\Services\UserService;
+use App\Services\PostService;
 use App\Services\ProfileService;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Auth\Events\Verified;
@@ -17,6 +19,7 @@ class AuthController extends Controller
 {
     public $userCreate;
     public $profileCreate;
+    
     public function __construct()
     {
         $this->userCreate = new UserService;
@@ -31,6 +34,7 @@ class AuthController extends Controller
         if (auth()->attempt(['email' => $request['email'], 'password' => $request['password']])) {
             $request->session()->regenerate();
         }
+
         return redirect()->route('dashboard');
     }
 
