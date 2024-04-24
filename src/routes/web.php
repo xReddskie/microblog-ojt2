@@ -18,15 +18,14 @@ Route::get('/register-page', function () {
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/verify-email/{id}/{hash}', [AuthController::class, 'verifyEmail'])->name('verification.verify');
 Route::get('/verify-waiting', [AuthController::class, 'emailVerifyRedirect']);
-Route::get('/logout', [AuthController::class, 'logout']);
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // Login
-Route::post('/login', [AuthController::class, 'login'])->withoutMiddleware('auth');
+Route::post('/login', [AuthController::class, 'login'])->withoutMiddleware('auth')->name('login');
 // Resend Email
 Route::get('/resend-email', [AuthController::class, 'resendEmailVerification']);
 
 // Dashboard Controller
-Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware('auth');
-
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware('auth')->name('dashboard');
 
 //Posts Routes
 Route::post('/post', [PostController::class, 'create']);
