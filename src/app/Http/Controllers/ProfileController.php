@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Services\PostService;
 
 class ProfileController extends Controller
@@ -11,7 +10,11 @@ class ProfileController extends Controller
     public function __construct() {
         $this->postService = new PostService;
     }
-    public function profilePage()
+
+    /**
+     * Go to profile page
+     */
+    public function profilePage(): View
     {
         $posts = $this->postService->viewOwnPosts();
         return view('pages/profile/profile', compact('posts'));

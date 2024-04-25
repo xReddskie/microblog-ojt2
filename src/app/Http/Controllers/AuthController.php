@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Post;
 use Illuminate\View\View;
 use App\Services\UserService;
-use App\Services\PostService;
 use App\Services\ProfileService;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Auth\Events\Verified;
