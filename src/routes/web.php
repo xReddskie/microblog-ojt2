@@ -3,14 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
-use App\Models\Post;
 
 Route::get('/', function () {
     return view('app');
 });
 Route::get('/register-page', function () {
-    auth()->logout();
     return view('pages/auth/register');
 });
 
@@ -24,8 +23,13 @@ Route::post('/login', [AuthController::class, 'login'])->withoutMiddleware('auth
 // Resend Email
 Route::get('/resend-email', [AuthController::class, 'resendEmailVerification']);
 
-// Dashboard Controller
-Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware('auth')->name('dashboard');
+//Authh
+Route::middleware('auth')->group(function () {
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    // Profile Page
+    Route::get('/profile-page', [ProfileController::class, 'profilePage'])->name('profile-page'); 
+});
 
 //Posts Routes
 Route::post('/post', [PostController::class, 'create']);

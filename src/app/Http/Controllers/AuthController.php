@@ -33,9 +33,12 @@ class AuthController extends Controller
     {
         if (auth()->attempt(['email' => $request['email'], 'password' => $request['password']])) {
             $request->session()->regenerate();
+            return redirect()->route('dashboard');
         }
 
-        return redirect()->route('dashboard');
+        return back()->withErrors([
+            'email' => 'Invalid Credentials',
+        ])->onlyInput('email');
     }
 
     /**
@@ -89,7 +92,7 @@ class AuthController extends Controller
      */
     public function emailVerifyRedirect(): View
     {
-        return view('pages/auth/register');
+        return view('pages/auth/dummy-verify-wait');
     }
 
     /**
