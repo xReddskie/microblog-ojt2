@@ -54,7 +54,7 @@
     }
 
     &__aside-btns {
-        @apply py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-100 focus:outline-none bg-mygray rounded-lg border border-mygray hover:bg-white hover:text-gray-900 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700;
+        @apply py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-100 focus:outline-none bg-mygray rounded-lg border border-mygray focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700;
     }
 
     &__space {
@@ -70,7 +70,7 @@
     }
 
     &__post-btn {
-        @apply py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-100 focus:outline-none bg-mygray rounded-lg border border-mygray hover:bg-white hover:text-mygray focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700;
+        @apply py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-100 focus:outline-none bg-mygray rounded-lg border border-mygray active:bg-mygray active:text-white focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700;
     }
 
     &__post-content {
@@ -91,6 +91,23 @@
 
     &__post-user {
         @apply font-semibold shadow-md mb-1;
+    }
+
+    &__spinner {
+        @apply animate-spin;
+    }
+
+    .animate-spin {
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
     }
 
 }

@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Post;
 use Illuminate\View\View;
 use App\Services\UserService;
-use App\Services\PostService;
 use App\Services\ProfileService;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Auth\Events\Verified;
@@ -33,9 +31,12 @@ class AuthController extends Controller
     {
         if (auth()->attempt(['email' => $request['email'], 'password' => $request['password']])) {
             $request->session()->regenerate();
+            return redirect()->route('dashboard');
         }
 
-        return redirect()->route('dashboard');
+        return back()->withErrors([
+            'email' => 'Invalid Credentials',
+        ])->onlyInput('email');
     }
 
     /**
@@ -89,7 +90,7 @@ class AuthController extends Controller
      */
     public function emailVerifyRedirect(): View
     {
-        return view('pages/auth/register');
+        return view('pages/auth/dummy-verify-wait');
     }
 
     /**

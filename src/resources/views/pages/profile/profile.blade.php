@@ -14,6 +14,7 @@
                         @include('pages.dashboard.post')
                         @include('pages.dashboard.post-content')
                     </main>
+                @include('pages.dashboard.aside')
             <div class="d-dashboard__space"></div>
         </div>
     </div>

@@ -15,10 +15,13 @@
             <div class="a-login__padding5"></div>
             <form action="{{ route('login')}}" method="POST">
                 @csrf
+                    @error('email')
+                        <span class="flex justify-center w-full">{{ $message }}</span>
+                    @enderror
                 <div class="a-login__label">
                     <label for="">Email</label>
                 </div>
-                <input class="a-login__input" type="text" name="email" placeholder="example@gmail.com">
+                <input class="a-login__input" type="text" name="email" value="{{ old('email') }}" placeholder="example@gmail.com">
                 <div class="a-login__padding2"></div>
                 <div class="a-login__label">
                     <label for="">Password</label>

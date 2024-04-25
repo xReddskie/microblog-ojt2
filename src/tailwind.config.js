@@ -20,6 +20,9 @@ export default {
       boxShadow: {
         customshadow: '0px 0px 26px 0px rgba(0, 0, 0, 0.8)',
       },
+      animation: {
+        'spin-fast': 'spin 1s linear infinite',
+      }
     },
   },
   plugins: [

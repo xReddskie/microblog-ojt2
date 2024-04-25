@@ -17,25 +17,25 @@
         </div>
         <div class="menu bg-mygray fixed left-0 sm:flex hidden" style="height: calc(100vh - 4rem); width: 12rem; top: 4rem;">
           <ul class="">
-            <a href="#" class="d-dashboard__hidden-list">
-              <li>Home</li>
-            </a>
-            <a href="#" class="d-dashboard__hidden-list">
-              <li>Profile</li>
-            </a>
-            <a href="#" class="d-dashboard__hidden-list">
-              <li>Friends</li>
-            </a>
-            <a href="#" class="d-dashboard__hidden-list">
-              <li>Settings</li>
-            </a>
-            <a href="{{ route('logout')}}" class="d-dashboard__hidden-list">
-              <li>Logout</li>
-            </a>
+          <li>
+            <a href="#" aria-label="Go to Home page" class="d-dashboard__hidden-list">Home</a>
+          </li>
+          <li>
+            <a href="#" aria-label="Go to Profile page" class="d-dashboard__hidden-list">Profile</a>
+          </li>
+          <li>
+            <a href="#" aria-label="Go to Followers list" class="d-dashboard__hidden-list">Followers</a>
+          </li>
+          <li>
+            <a href="#" aria-label="Go to Settings page" class="d-dashboard__hidden-list">Settings</a>
+          </li>
+          <li>
+            <a href="{{ route('logout')}}" aria-label="Logouts current user" class="d-dashboard__hidden-list">Logout</a>
+          </li>
           </ul>
         </div>
       </div>
-      <div class="d-dashboard__logo-lg"><a href="/">Microblog Ojt2</a></div>
+      <div class="d-dashboard__logo-lg"><a href="{{ route('dashboard') }}">Microblog Ojt2</a></div>
       <div class="d-dashboard__logo-sm">
         <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256">
           <g fill="#dad2c3" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
@@ -54,7 +54,7 @@
           </svg>
         </button>
       </div>
-      <div class="d-dashboard__username"><a href="/profile">Hello, {{auth()->user()->username}}!</a></div>
+      <div class="d-dashboard__username"><a href="{{ route('profile-page') }}">Hello, {{auth()->user()->username}}!</a></div>
       <div class="hidden sm:flex"></div>
     </nav>
   </header>
