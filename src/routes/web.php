@@ -23,11 +23,8 @@ Route::post('/login', [AuthController::class, 'login'])->withoutMiddleware('auth
 // Resend Email
 Route::get('/resend-email', [AuthController::class, 'resendEmailVerification']);
 
-//Authh
 Route::middleware('auth')->group(function () {
-    // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-    // Profile Page
     Route::get('/profile-page', [ProfileController::class, 'profilePage'])->name('profile-page'); 
 });
 
