@@ -26,6 +26,7 @@ class ProfileService
                 ucwords($request->country),
                 $request->zip_code,
             ])),
+            'phone_number' => $request->phone_number,
         ]);
     }
 }

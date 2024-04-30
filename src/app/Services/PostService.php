@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Database\Eloquent\Collection;
 
 class PostService
@@ -40,5 +41,13 @@ class PostService
         $posts = Post::all();
         $sortedPosts = $posts->sortByDesc('created_at');
         return $sortedPosts;
+    }
+
+    /**
+     * Delete post
+     */
+    public function deletePost(Post $post): Void
+    {
+        $post->delete();
     }
 }
