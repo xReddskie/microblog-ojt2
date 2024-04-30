@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PostRequest;
-use App\Services\PostService;
+use App\Models\Post;
 use Illuminate\View\View;
+use App\Services\PostService;
+use App\Http\Requests\PostRequest;
 use Illuminate\Http\RedirectResponse;
 
 class PostController extends Controller
@@ -43,5 +44,14 @@ class PostController extends Controller
     {
         $posts = $this->postService->viewAllPosts();
         return view('/app', ['posts' => $posts]);
+    }
+
+    /**
+     * Delete post
+     */
+    public function delete(Post $post): RedirectResponse
+    {
+        $post->delete();
+        return redirect()->back();
     }
 }
