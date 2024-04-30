@@ -26,9 +26,6 @@ Route::get('/resend-email', [AuthController::class, 'resendEmailVerification']);
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/profile-page', [ProfileController::class, 'profilePage'])->name('profile-page'); 
+    Route::post('/post', [PostController::class, 'create'])->name('post');
+    Route::delete('/post/{post}/delete', [PostController::class, 'deletePost'])->name('delete.post');
 });
-
-//Posts Routes
-Route::post('/post', [PostController::class, 'create']);
-//Delete Posts
-Route::delete('/post/{post}/delete', [PostController::class, 'deletePost'])->name('delete.post');
