@@ -47,11 +47,11 @@ class PostController extends Controller
     }
 
     /**
-     * Delete post
+     * Delete
      */
-    public function delete(Post $post): RedirectResponse
+    public function deletePost(Post $post): RedirectResponse
     {
-        $post->delete();
-        return redirect()->back();
+        $this->postService->deletePost($post);
+        return redirect()->back()->with('success');
     }
 }

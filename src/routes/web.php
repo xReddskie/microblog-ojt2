@@ -31,4 +31,4 @@ Route::middleware('auth')->group(function () {
 //Posts Routes
 Route::post('/post', [PostController::class, 'create']);
 //Delete Posts
-Route::delete('/post/{post}/delete', [PostController::class, 'delete'])->name('delete.post');
+Route::delete('/post/{post}/delete', [PostController::class, 'deletePost'])->name('delete.post');
