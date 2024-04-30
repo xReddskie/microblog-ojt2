@@ -16,7 +16,7 @@
       <form action="{{route('delete.post', ['post' => $post])}}" method="post">
         @csrf
         @method('DELETE')
-          <button><p>Delete</p></button>
+          <button><p class="delete">Delete</p></button>
       </form>
     </div>
     <span style="cursor:pointer;" onclick="openNav({{$post->id}})">
