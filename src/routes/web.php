@@ -28,4 +28,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile-page', [ProfileController::class, 'profilePage'])->name('profile-page'); 
     Route::post('/post', [PostController::class, 'create'])->name('post');
     Route::delete('/post/{post}/delete', [PostController::class, 'deletePost'])->name('delete.post');
+    Route::put('/edit-post/{post}', [PostController::class, 'editPost'])->name('edit.post');
+    Route::get('/edit-post/{post}', [PostController::class, 'viewPost'])->name('view.post');
 });
