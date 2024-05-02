@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\View\View;
+use App\Http\Requests\ForgotPasswordRequest;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\ResetPasswordRequest;
 use App\Services\UserService;
 use App\Services\ProfileService;
-use App\Http\Requests\LoginRequest;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\RegisterRequest;
+use Illuminate\View\View;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Session;
 
@@ -17,13 +19,13 @@ class AuthController extends Controller
 {
     public $userCreate;
     public $profileCreate;
-    
+
     public function __construct()
     {
         $this->userCreate = new UserService;
         $this->profileCreate = new ProfileService;
     }
-    
+
     /**
      * Login User
      */
@@ -37,6 +39,14 @@ class AuthController extends Controller
         return back()->withErrors([
             'email' => 'Invalid Credentials',
         ])->onlyInput('email');
+    }
+
+    /**
+     * Show the login form.
+     */
+    public function showLoginForm(): View
+    {
+        return view('/pages/auth/login');
     }
 
     /**
@@ -101,6 +111,55 @@ class AuthController extends Controller
         $user = auth()->user();
         $user->sendEmailVerificationNotification();
         return redirect()->back()->with('success', 'Email verification link resent.');
+    }
+
+    /**
+     * Display the form for requesting a password reset link.
+     */
+    public function showForgotPasswordForm(): View
+    {
+        return view('/pages/auth/forgot-password');
+    }
+
+    /**
+     * Handle the submission of the form to send a password reset link.
+     */
+    public function submitForgotPasswordForm(ForgotPasswordRequest $request): RedirectResponse
+    {
+        $request->validate(['email' => 'required|email|exists:users,email']);
+
+        try {
+            $this->userCreate->initiatePasswordReset($request->email);
+            return redirect()->back()->with('status', 'We have emailed your password reset link!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Display the password reset form.
+     */
+    public function showResetPasswordForm($token): View
+    {
+        return view('/pages/auth/reset-password', ['token' => $token]);
+    }
+
+    /**
+     * Handle the password reset submission.
+     */
+    public function submitResetPasswordForm(ResetPasswordRequest $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'token' => 'required',
+            'password' => 'required|confirmed|min:8',
+        ]);
+
+        try {
+            $this->userCreate->resetPassword($validated['token'], $validated['password']);
+            return redirect()->back()->with('status', 'Your password has been successfully reset. You will be redirected to the login page in 5 seconds.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     /**
