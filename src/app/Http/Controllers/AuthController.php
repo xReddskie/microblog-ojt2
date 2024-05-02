@@ -3,27 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\View\View;
+use App\Http\Requests\ForgotPasswordRequest;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\ResetPasswordRequest;
+use App\Notifications\PasswordReset;
 use App\Services\UserService;
 use App\Services\ProfileService;
-use App\Http\Requests\LoginRequest;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\RegisterRequest;
+use Illuminate\View\View;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
     public $userCreate;
     public $profileCreate;
-    
+
     public function __construct()
     {
         $this->userCreate = new UserService;
         $this->profileCreate = new ProfileService;
     }
-    
+
     /**
      * Login User
      */
@@ -37,6 +44,14 @@ class AuthController extends Controller
         return back()->withErrors([
             'email' => 'Invalid Credentials',
         ])->onlyInput('email');
+    }
+
+    /**
+     * Show the login form.
+     */
+    public function showLoginForm()
+    {
+        return view('/pages/auth/login');
     }
 
     /**
@@ -102,6 +117,74 @@ class AuthController extends Controller
         $user->sendEmailVerificationNotification();
         return redirect()->back()->with('success', 'Email verification link resent.');
     }
+
+    /**
+     * Display the form for requesting a password reset link.
+     */
+    public function showForgotPasswordForm()
+    {
+        return view('/pages/auth/forgot-password');
+    }
+
+    /**
+     * Handle the submission of the form to send a password reset link.
+     */
+    public function submitForgotPasswordForm(ForgotPasswordRequest $request)
+    {
+        $request->validate(['email' => 'required|email|exists:users,email']);
+
+        $token = Str::random(64);
+        DB::table('password_resets')->insert([
+            'email' => $request->email,
+            'token' => $token,
+            'created_at' => Carbon::now()
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        $user->notify(new PasswordReset($token, $request->email));
+
+        return back()->with('status', 'We have emailed your password reset link!');
+    }
+
+    /**
+     * Display the password reset form.
+     */
+    public function showResetPasswordForm($token)
+    {
+        return view('/pages/auth/reset-password', ['token' => $token]);
+    }
+
+    /**
+     * Handle the password reset submission.
+     */
+    public function submitResetPasswordForm(ResetPasswordRequest $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'password' => 'required|confirmed|min:8',
+        ]);
+
+        $passwordReset = DB::table('password_resets')->where('token', $request->token)->first();
+
+        if (!$passwordReset) {
+            return back()->withErrors(['token' => 'This password reset token is invalid.']);
+        }
+
+        $user = User::where('email', $passwordReset->email)->first();
+
+        if (!$user) {
+            return back()->withErrors(['email' => 'No user found for this email address.']);
+        }
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        DB::table('password_resets')->where('token', $request->token)->delete();
+
+        return back()->with('status', 'Your password has been successfully reset. You will be redirected to the login page in 5 seconds.');
+    }
+
 
     /**
      * Logouts the user.
