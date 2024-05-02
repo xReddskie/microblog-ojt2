@@ -4,7 +4,7 @@
 
 @section('content')
 
-<body class="bg-whisperwhite">
+<body>
     <div class="a-login">
         <div class="a-login__card">
             <div class="a-login__padding5">

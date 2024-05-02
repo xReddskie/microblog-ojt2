@@ -9,7 +9,7 @@
         </div>
     @else
         <div class="verify-wait">
-            @include('pages.auth.dummy-verify-wait')
+            @include('pages.auth.verify-wait')
         </div>
     @endif
 
