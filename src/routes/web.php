@@ -28,6 +28,10 @@ Route::post('/login', [AuthController::class, 'login'])->withoutMiddleware('auth
 // Resend Email
 Route::get('/resend-email', [AuthController::class, 'resendEmailVerification']);
 
+//Update Profile
+Route::get('/profile/edit', [ProfileController::class, 'editProfile'])->name('profile.edit');
+Route::put('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
+
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/profile-page', [ProfileController::class, 'profilePage'])->name('profile-page');

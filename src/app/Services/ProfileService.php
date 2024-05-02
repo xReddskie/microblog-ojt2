@@ -4,6 +4,9 @@ namespace App\Services;
 
 use App\Http\Requests\RegisterRequest;
 use App\Models\Profile;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Exception;
 
 class ProfileService
 {
@@ -29,4 +32,13 @@ class ProfileService
             'phone_number' => $request->phone_number,
         ]);
     }
+
+    /**
+     * Update Profile
+     */
+    public function updateProfile(User $user, array $data): void
+    {
+        $user->profile->update($data);
+    }
+
 }
