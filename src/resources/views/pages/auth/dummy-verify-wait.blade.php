@@ -23,7 +23,7 @@
 
   <div class="mb-12 mt-8 w-2/3 flex flex-col items-center justify-evenly relative">
     <div id="resendEmailText" class="hidden absolute p-2 -top-10 text-red-800">Resend email again on: <span id="countdown">30</span> sec</div>
-    <a href="#" id="resendButton" onclick="startCountdown(event)" class="border-black border-2 p-5 rounded-3xl bg-beige hover:bg-warmbeige">Resend Email Verification</a>
+    <a href="/resend-email" id="resendButton" onclick="startCountdown(event)" class="border-black border-2 p-5 rounded-3xl bg-beige hover:bg-warmbeige">Resend Email Verification</a>
     <a href="{{ route('logout')}}" aria-label="Logout Account" class="mt-3 underline text-red-800">Logout</a>
 </div>
 
