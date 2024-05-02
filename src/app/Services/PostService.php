@@ -8,6 +8,7 @@ use App\Http\Requests\PostRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Database\Eloquent\Collection;
 
+
 class PostService
 {
     /**
@@ -15,7 +16,7 @@ class PostService
      */
     public function create(PostRequest $request, $userId): Post
     {
-         $posts = Post::create([
+        $posts = Post::create([
             'user_id' =>$userId,
             'content' =>$request->content,
         ]);
@@ -49,5 +50,14 @@ class PostService
     public function deletePost(Post $post): Void
     {
         $post->delete();
+    }
+    
+    /**
+     * Edit Post
+     */
+    
+    public function editPost(Post $post, PostRequest $request): bool
+    {
+        return auth()->user()->id === $post['user_id'] && $post->update($request->all());
     }
 }
