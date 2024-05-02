@@ -8,6 +8,7 @@ use App\Http\Requests\PostRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Database\Eloquent\Collection;
 
+
 class PostService
 {
     /**
@@ -54,17 +55,14 @@ class PostService
     /**
      * Edit Post
      */
-    public function editPost(Post $post, PostRequest $request)
+    
+    public function editPost(Post $post, PostRequest $request): bool
     {
         if (auth()->user()->id !== $post['user_id']){
             return redirect('/')->with('error', 'Unauthorized access');;
         }
         
-        $posts = $request->validate([
-            'content' => 'required',
-        ]);
-        
-        $posts = $post->update($posts);
-        return redirect()->route('dashboard');
+        $posts = $post->update($request->all());
+        return $posts;
     }
 }
