@@ -47,11 +47,28 @@ class PostController extends Controller
     }
 
     /**
-     * Delete
+     * Delete Post
      */
     public function deletePost(Post $post): RedirectResponse
     {
         $this->postService->deletePost($post);
         return redirect()->back()->with('success');
+    }
+    
+    /**
+     * Edit Post
+     */
+    public function editPost(Post $post, PostRequest $request): RedirectResponse
+    {
+        $posts = $this->postService->editPost($post, $request);
+        return redirect()->route('dashboard');
+    }
+
+    /**
+     * View to edit Post
+     */
+    public function viewPost(Post $post): View
+    {
+        return view('pages.dashboard.edit-post', ['post' => $post]);
     }
 }

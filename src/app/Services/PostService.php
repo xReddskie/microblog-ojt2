@@ -15,7 +15,7 @@ class PostService
      */
     public function create(PostRequest $request, $userId): Post
     {
-         $posts = Post::create([
+        $posts = Post::create([
             'user_id' =>$userId,
             'content' =>$request->content,
         ]);
@@ -49,5 +49,22 @@ class PostService
     public function deletePost(Post $post): Void
     {
         $post->delete();
+    }
+    
+    /**
+     * Edit Post
+     */
+    public function editPost(Post $post, PostRequest $request)
+    {
+        if (auth()->user()->id !== $post['user_id']){
+            return redirect('/')->with('error', 'Unauthorized access');;
+        }
+        
+        $posts = $request->validate([
+            'content' => 'required',
+        ]);
+        
+        $posts = $post->update($posts);
+        return redirect()->route('dashboard');
     }
 }
