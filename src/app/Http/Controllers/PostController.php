@@ -60,8 +60,8 @@ class PostController extends Controller
      */
     public function editPost(Post $post, PostRequest $request): RedirectResponse
     {
-        $posts = $this->postService->editPost($post, $request);
-        return redirect()->route('dashboard');
+        return $this->postService->editPost($post, $request) ?  redirect()->route('dashboard'):
+         redirect('/')->with('error', 'Unauthorized access');
     }
 
     /**

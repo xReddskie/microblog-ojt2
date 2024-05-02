@@ -59,10 +59,10 @@ class PostService
     public function editPost(Post $post, PostRequest $request): bool
     {
         if (auth()->user()->id !== $post['user_id']){
-            return redirect('/')->with('error', 'Unauthorized access');;
+            return false;
         }
         
-        $posts = $post->update($request->all());
-        return $posts;
+        $post->update($request->all());
+        return true;
     }
 }
