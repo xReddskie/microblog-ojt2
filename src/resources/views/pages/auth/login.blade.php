@@ -4,17 +4,17 @@
 
 @section('content')
 
-    <body>
-        <div class="a-login">
-            <div class="a-login__card">
-                <div class="a-login__padding5">
-                </div>
-                <div class="a-login__h1">
-                    <h1>LOGIN</h1>
-                </div>
-                <div class="a-login__padding5"></div>
-                <form action="{{ route('login') }}" method="POST">
-                    @csrf
+<body class="bg-whisperwhite">
+    <div class="a-login">
+        <div class="a-login__card">
+            <div class="a-login__padding5">
+            </div>
+            <div class="a-login__h1">
+                <h1>LOGIN</h1>
+            </div>
+            <div class="a-login__padding5"></div>
+            <form action="{{ route('login')}}" method="POST">
+                @csrf
                     @error('email')
                         <span class="flex justify-center w-full">{{ $message }}</span>
                     @enderror

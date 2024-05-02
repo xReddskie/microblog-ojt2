@@ -27,6 +27,8 @@
     <a href="{{ route('logout')}}" aria-label="Logout Account" class="mt-3 underline text-red-800">Logout</a>
 </div>
 
+<!-- Your HTML content here -->
+
 <script>
     function startCountdown(event) {
         var countdownElement = document.getElementById('countdown');
@@ -58,30 +60,10 @@
             }
         }, 1000);
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        startCountdown();
+    });
 </script>
-
-
-
-
-<style>
-
-  .animate-bounce{
-      animation: bounce 1s infinite;
-      display: inline-block;
-  }
-
-  @keyframes bounce {
-    0%, 100% {
-      transform: translateY(-20%)scaleY(130%);
-      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-    }
-    50% {
-      transform: translateY(0)scaleY(100%);
-      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-    }
-  }
-</style>
-
-
 
 @endsection
