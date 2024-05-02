@@ -5,7 +5,7 @@
 @section('content')
 
 <body>
-    <div class="register">
+    <div class="register bg-beige">
         <div class="register_mainbox">
             <div class="register_box1">
                 <figure class="register_figureStyle">
@@ -171,7 +171,7 @@
                     </div>
 
                     <div class="flex justify-end mt-6">
-                        <button type="submit" formaction="/register-page" class="register_cancelButton">Cancel</button>
+                        <button type="submit" formaction="/register-page" class="register_cancelButton">Login</button>
                         <button type="submit" class="register_saveButton">Save</button>
                     </div>
                 </form>
