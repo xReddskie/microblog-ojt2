@@ -7,7 +7,6 @@ use App\Http\Requests\ForgotPasswordRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\ResetPasswordRequest;
-use App\Notifications\PasswordReset;
 use App\Services\UserService;
 use App\Services\ProfileService;
 use Illuminate\Auth\Events\Verified;
@@ -15,9 +14,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
@@ -133,18 +130,12 @@ class AuthController extends Controller
     {
         $request->validate(['email' => 'required|email|exists:users,email']);
 
-        $token = Str::random(64);
-        DB::table('password_resets')->insert([
-            'email' => $request->email,
-            'token' => $token,
-            'created_at' => Carbon::now()
-        ]);
-
-        $user = User::where('email', $request->email)->first();
-
-        $user->notify(new PasswordReset($token, $request->email));
-
-        return redirect()->back()->with('status', 'We have emailed your password reset link!');
+        try {
+            $this->userCreate->initiatePasswordReset($request->email);
+            return redirect()->back()->with('status', 'We have emailed your password reset link!');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -160,31 +151,18 @@ class AuthController extends Controller
      */
     public function submitResetPasswordForm(ResetPasswordRequest $request): RedirectResponse
     {
-        $request->validate([
+        $validated = $request->validate([
             'token' => 'required',
             'password' => 'required|confirmed|min:8',
         ]);
 
-        $passwordReset = DB::table('password_resets')->where('token', $request->token)->first();
-
-        if (!$passwordReset) {
-            return redirect()->back()->withErrors(['token' => 'This password reset token is invalid.']);
+        try {
+            $this->userCreate->resetPassword($validated['token'], $validated['password']);
+            return redirect()->back()->with('status', 'Your password has been successfully reset. You will be redirected to the login page in 5 seconds.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
-
-        $user = User::where('email', $passwordReset->email)->first();
-
-        if (!$user) {
-            return redirect()->back()->withErrors(['email' => 'No user found for this email address.']);
-        }
-
-        $user->password = Hash::make($request->password);
-        $user->save();
-
-        DB::table('password_resets')->where('token', $request->token)->delete();
-
-        return redirect()->back()->with('status', 'Your password has been successfully reset. You will be redirected to the login page in 5 seconds.');
     }
-
 
     /**
      * Logouts the user.
