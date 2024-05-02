@@ -88,9 +88,9 @@ class AuthController extends Controller
     /**
      * Redirect to email verification page.
      */
-    public function emailVerifyRedirect(): View
+    public function emailVerifyRedirect(): RedirectResponse
     {
-        return view('pages/auth/dummy-verify-wait');
+        return redirect('/dashboard');
     }
 
     /**

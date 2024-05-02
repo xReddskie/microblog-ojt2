@@ -15,6 +15,7 @@ export default {
         warmbeige: '#DAD2C3',
         whisperwhite: '#f5f5f5',
         beige: '#FAEDDD',
+        darkbeige: '#dea24b',
         mygray: "#333333",
       },
       boxShadow: {
