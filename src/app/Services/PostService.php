@@ -58,11 +58,6 @@ class PostService
     
     public function editPost(Post $post, PostRequest $request): bool
     {
-        if (auth()->user()->id !== $post['user_id']){
-            return false;
-        }
-        
-        $post->update($request->all());
-        return true;
+        return auth()->user()->id === $post['user_id'] && $post->update($request->all());
     }
 }
