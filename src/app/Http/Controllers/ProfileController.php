@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
@@ -52,16 +53,20 @@ class ProfileController extends Controller
     public function updateProfile(ProfileUpdateRequest $request): RedirectResponse
     {
         $user = auth()->user();
-        if (!$user instanceof User) {
-            return back()->withErrors(['error' => 'Authentication required.']);
+        if (!$user) {
+            return back()->withErrors(['error' => 'Authenticated user is not a valid user.']);
+        }
+
+        // Check if the provided password matches the stored password
+        if (!Hash::check($request->password, $user->password)) {
+            return back()->withErrors(['password' => 'Incorrect password.']);
         }
 
         try {
             $this->profileService->updateProfile($user, $request->validated());
-            // Ensure no immediate redirect here; just store the status in session
-            return redirect()->back()->with('status', 'Your profile information has been successfully updated! You will be redirected to the profile page in 5 seconds.');
+            return redirect()->route('profile-page')->with('status', 'Profile updated successfully.');
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            return back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
