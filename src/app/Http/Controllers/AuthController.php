@@ -49,7 +49,7 @@ class AuthController extends Controller
     /**
      * Show the login form.
      */
-    public function showLoginForm()
+    public function showLoginForm(): View
     {
         return view('/pages/auth/login');
     }
@@ -121,7 +121,7 @@ class AuthController extends Controller
     /**
      * Display the form for requesting a password reset link.
      */
-    public function showForgotPasswordForm()
+    public function showForgotPasswordForm(): View
     {
         return view('/pages/auth/forgot-password');
     }
@@ -129,7 +129,7 @@ class AuthController extends Controller
     /**
      * Handle the submission of the form to send a password reset link.
      */
-    public function submitForgotPasswordForm(ForgotPasswordRequest $request)
+    public function submitForgotPasswordForm(ForgotPasswordRequest $request): RedirectResponse
     {
         $request->validate(['email' => 'required|email|exists:users,email']);
 
@@ -144,13 +144,13 @@ class AuthController extends Controller
 
         $user->notify(new PasswordReset($token, $request->email));
 
-        return back()->with('status', 'We have emailed your password reset link!');
+        return redirect()->back()->with('status', 'We have emailed your password reset link!');
     }
 
     /**
      * Display the password reset form.
      */
-    public function showResetPasswordForm($token)
+    public function showResetPasswordForm($token): View
     {
         return view('/pages/auth/reset-password', ['token' => $token]);
     }
@@ -158,7 +158,7 @@ class AuthController extends Controller
     /**
      * Handle the password reset submission.
      */
-    public function submitResetPasswordForm(ResetPasswordRequest $request)
+    public function submitResetPasswordForm(ResetPasswordRequest $request): RedirectResponse
     {
         $request->validate([
             'token' => 'required',
@@ -168,13 +168,13 @@ class AuthController extends Controller
         $passwordReset = DB::table('password_resets')->where('token', $request->token)->first();
 
         if (!$passwordReset) {
-            return back()->withErrors(['token' => 'This password reset token is invalid.']);
+            return redirect()->back()->withErrors(['token' => 'This password reset token is invalid.']);
         }
 
         $user = User::where('email', $passwordReset->email)->first();
 
         if (!$user) {
-            return back()->withErrors(['email' => 'No user found for this email address.']);
+            return redirect()->back()->withErrors(['email' => 'No user found for this email address.']);
         }
 
         $user->password = Hash::make($request->password);
@@ -182,7 +182,7 @@ class AuthController extends Controller
 
         DB::table('password_resets')->where('token', $request->token)->delete();
 
-        return back()->with('status', 'Your password has been successfully reset. You will be redirected to the login page in 5 seconds.');
+        return redirect()->back()->with('status', 'Your password has been successfully reset. You will be redirected to the login page in 5 seconds.');
     }
 
 
