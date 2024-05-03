@@ -61,7 +61,7 @@ class PostController extends Controller
     public function editPost(Post $post, PostRequest $request): RedirectResponse
     {
         return $this->postService->editPost($post, $request) ?  redirect()->route('dashboard'):
-         redirect('/')->with('error', 'Unauthorized access');
+        redirect('/')->with('error', 'Unauthorized access');
     }
 
     /**
@@ -70,5 +70,23 @@ class PostController extends Controller
     public function viewPost(Post $post): View
     {
         return view('pages.dashboard.edit-post', ['post' => $post]);
+    }
+    
+    /**
+     * Like Post
+     */
+    public function like(Post $post): RedirectResponse
+    {
+        $this->postService->like($post);     
+        return redirect()->back();
+    }
+    
+    /**
+     * Unlike Post
+     */
+    public function unlike(Post $post): RedirectResponse
+    {
+        $this->postService->unlike($post);     
+        return redirect()->back();
     }
 }

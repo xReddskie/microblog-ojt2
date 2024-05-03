@@ -37,4 +37,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/edit-post/{post}', [PostController::class, 'viewPost'])->name('view.post');
     Route::get('/profile/edit', [ProfileController::class, 'editProfile'])->name('profile.edit');
     Route::put('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/post/{post}/like', [PostController::class, 'like'])->name('like.post');
+    Route::post('/post/{post}/unlike', [PostController::class, 'unlike'])->name('unlike.post');
 });

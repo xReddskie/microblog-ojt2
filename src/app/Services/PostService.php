@@ -55,9 +55,26 @@ class PostService
     /**
      * Edit Post
      */
-    
     public function editPost(Post $post, PostRequest $request): bool
     {
         return auth()->user()->id === $post['user_id'] && $post->update($request->all());
+    }
+    
+    /**
+     * Like Post
+     */
+    public function like(Post $post): void
+    {
+        $liker = auth()->user();      
+        $liker->likes()->attach($post);
+    }
+    
+    /**
+     * Unlike Post
+     */
+    public function unlike(Post $post): void
+    {
+        $liker = auth()->user();
+        $liker->likes()->detach($post);
     }
 }
