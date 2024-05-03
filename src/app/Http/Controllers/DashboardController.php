@@ -21,4 +21,10 @@ class DashboardController extends Controller
         $posts = $this->postService->viewAllPosts();
         return view('/app', compact('posts'));
     }
+    
+    public function app(): View
+    {
+        $posts = $this->postService->viewAllPosts();
+        return view('/app', compact('posts'));
+    }
 }

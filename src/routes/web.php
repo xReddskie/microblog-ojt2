@@ -6,9 +6,6 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 
-Route::get('/', function () {
-    return view('app');
-});
 Route::get('/register-page', function () {
     return view('pages/auth/register');
 });
@@ -30,6 +27,7 @@ Route::get('/resend-email', [AuthController::class, 'resendEmailVerification']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'app'])->name('app');
     Route::get('/profile-page', [ProfileController::class, 'profilePage'])->name('profile-page');
     Route::post('/post', [PostController::class, 'create'])->name('post');
     Route::delete('/post/{post}/delete', [PostController::class, 'deletePost'])->name('delete.post');

@@ -65,8 +65,7 @@ class PostService
      */
     public function like(Post $post): void
     {
-        $liker = auth()->user();      
-        $liker->likes()->attach($post);
+        auth()->user()->likes()->attach($post);
     }
     
     /**
@@ -74,7 +73,8 @@ class PostService
      */
     public function unlike(Post $post): void
     {
-        $liker = auth()->user();
-        $liker->likes()->detach($post);
+        // $liker = auth()->user();
+        // $liker->likes()->detach($post);
+        auth()->user()->likes()->detach($post);
     }
 }
