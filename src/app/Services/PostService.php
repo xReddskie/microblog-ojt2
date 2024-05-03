@@ -73,8 +73,6 @@ class PostService
      */
     public function unlike(Post $post): void
     {
-        // $liker = auth()->user();
-        // $liker->likes()->detach($post);
         auth()->user()->likes()->detach($post);
     }
 }
