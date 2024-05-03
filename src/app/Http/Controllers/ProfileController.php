@@ -46,8 +46,6 @@ class ProfileController extends Controller
 
     /**
      * Summary of updateProfile
-     * @param \App\Http\Requests\ProfileUpdateRequest $request
-     * @return \Illuminate\Http\RedirectResponse
      */
 
     public function updateProfile(ProfileUpdateRequest $request): RedirectResponse

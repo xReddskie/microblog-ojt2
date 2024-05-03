@@ -45,7 +45,6 @@
             <label for="last_name">Last Name:</label>
             <input type="text" id="last_name" name="last_name" value="{{ $user->profile->last_name }}" required>
 
-
             <label for="birth_date">Birth Date:</label>
             <input type="date" id="birth_date" name="birth_date" value="{{ $user->profile->birth_date }}" required>
 
