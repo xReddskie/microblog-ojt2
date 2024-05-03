@@ -51,20 +51,19 @@ class ProfileController extends Controller
     public function updateProfile(ProfileUpdateRequest $request): RedirectResponse
     {
         $user = auth()->user();
-        if (!$user) {
-            return back()->withErrors(['error' => 'Authenticated user is not a valid user.']);
+        if (!$user instanceof User) {
+            return back()->withErrors(['error' => 'Authentication required.']);
         }
 
-        // Check if the provided password matches the stored password
         if (!Hash::check($request->password, $user->password)) {
             return back()->withErrors(['password' => 'Incorrect password.']);
         }
 
         try {
             $this->profileService->updateProfile($user, $request->validated());
-            return redirect()->route('profile-page')->with('status', 'Profile updated successfully.');
+            return redirect()->back()->with('status', 'Your profile information has been successfully updated! You will be redirected to the profile page in 5 seconds.');
         } catch (\Exception $e) {
-            return back()->withErrors(['error' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
