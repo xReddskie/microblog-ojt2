@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -66,5 +67,21 @@ class User extends Authenticatable implements MustVerifyEmail
     public function usersPosts(): HasMany
     {
         return $this->hasMany(Post::class, 'user_id');
+    }
+    
+    /**
+     * User has many likes
+     */
+    public function likes(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class, 'likes')->withTimestamps();
+    }
+    
+    /**
+     * User has liked Post
+     */
+    public function likesPost(Post $post): bool
+    {
+        return $this->likes()->where('post_id', $post->id)->exists();
     }
 }
