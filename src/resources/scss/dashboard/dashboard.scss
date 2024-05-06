@@ -78,7 +78,7 @@
     }
 
     &__post-container {
-        @apply flex flex-col p-3 border-2 border-mygray rounded-lg mt-5;
+        @apply flex flex-col pt-3 pl-3 pr-3 border-2 border-mygray rounded-lg mt-5;
     }
 
     &__image {
@@ -95,6 +95,10 @@
 
     &__spinner {
         @apply animate-spin;
+    }
+
+    &__border-gray {
+        @apply border-2 border-mygray rounded-lg;
     }
 
     .animate-spin {

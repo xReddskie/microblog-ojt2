@@ -1,10 +1,5 @@
-@extends('pages.layouts.app')
-
-@section('title', 'Home')
-
 @section('content')
 
-<body>
   <aside class="flex flex-col justify-evenly gap-3 col-span-3 max-h-96 bg-gray-50 p-2 m-1 border-2 border-mygray rounded-lg md:col-span-2 hidden sm:flex sticky top-20">
     <div class="border-2 border-mygray rounded-lg p-2 pt-1 pb-1 bg-beige ">
       <div class="font-semibold">Search Post</div>
@@ -31,4 +26,3 @@
       </div>
     </div>
   </aside>
-</body>
