@@ -1,7 +1,3 @@
-@extends('pages.layouts.app')
-
-@section('title', 'Home')
-
 @section('content')
 
 <body>
