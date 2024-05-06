@@ -156,14 +156,14 @@
                     <div class="register_flexRow">
                         <div class="w-full">
                             <label for="password" class="register_inputBoxLabel">Password</label>
-                            <input type="text" id="password" name="password" class="register_inputBox" />
+                            <input type="password" id="password" name="password" class="register_inputBox" />
                             @error('password')
                             <div style="color:red;">{{$message}}</div>
                             @enderror
                         </div>
                         <div class="w-full">
                             <label for="password_confirmation" class="register_inputBoxLabel">Confirm Password</label>
-                            <input type="text" id="password_confirmation" name="password_confirmation" class="register_inputBox" required/>
+                            <input type="password" id="password_confirmation" name="password_confirmation" class="register_inputBox" required/>
                             @error('password_confirmation')
                             <div style="color:red;">{{$message}}</div>
                             @enderror
@@ -171,8 +171,10 @@
                     </div>
 
                     <div class="flex justify-end mt-6">
-                        <button type="submit" formaction="/register-page" class="register_cancelButton">Cancel</button>
                         <button type="submit" class="register_saveButton">Save</button>
+                    </div>
+                    <div class="mt-4 flex justify-center">
+                        <p>Already have an account? <u><a href="{{ route('login') }}">Login</a></u></p>
                     </div>
                 </form>
                 @endauth
