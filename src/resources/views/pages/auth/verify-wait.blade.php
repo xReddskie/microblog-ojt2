@@ -27,8 +27,6 @@
     <a href="{{ route('logout')}}" aria-label="Logout Account" class="mt-3 underline text-red-800">Logout</a>
 </div>
 
-<!-- Your HTML content here -->
-
 <script>
     function startCountdown(event) {
         var countdownElement = document.getElementById('countdown');
