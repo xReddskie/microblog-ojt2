@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostCommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
@@ -37,4 +38,6 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
     Route::post('/post/{post}/like', [PostController::class, 'like'])->name('like.post');
     Route::post('/post/{post}/unlike', [PostController::class, 'unlike'])->name('unlike.post');
+    Route::post('/posts/{post}/comments', [PostCommentController::class, 'store'])->name('posts.comments.store');
+    Route::delete('/comment/{comment}/delete', [PostCommentController::class, 'delete'])->name('delete.comment');
 });

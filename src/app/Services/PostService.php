@@ -3,9 +3,7 @@
 namespace App\Services; 
 
 use App\Models\Post;
-use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Database\Eloquent\Collection;
 
 
