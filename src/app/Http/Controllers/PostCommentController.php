@@ -22,20 +22,15 @@ class PostCommentController extends Controller
      */
     public function store(CommentRequest $request, Post $post): RedirectResponse
     {
-        $comment = new Comment([
-            'content' => $request->input('content'),
-            'user_id' => auth()->id(),
-        ]);
-
-        $post->comments()->save($comment);
-
+        $this->commentService->create($request, auth()->id(), $post);
+    
         return redirect()->back()->with('success', 'Comment added successfully');
     }
 
     /**
      * Delete Comment
      */
-    public function delete(Comment $comment)
+    public function delete(Comment $comment): RedirectResponse
     {
         $this->commentService->deleteComment($comment);
         return redirect()->back()->with('success', 'Comment deleted successfully.');

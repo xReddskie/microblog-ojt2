@@ -61,7 +61,7 @@
                       <span class="font-thin">(Author)</span>
                   @endif
                   </li>
-                  @if ($comment->user_id == auth()->id())
+                  @if ($comment->user_id == auth()->id() || $post->user_id == auth()->id())
                   <form action="{{ route('delete.comment', ['comment' => $comment->id]) }}" method="POST" class="absolute right-0 top-0">
                     @csrf
                     @method('DELETE')
