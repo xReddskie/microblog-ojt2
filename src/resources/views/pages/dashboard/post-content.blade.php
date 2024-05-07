@@ -5,7 +5,7 @@
 <div id="container" class="d-dashboard__post-container relative">
   <div id="filter{{$post->id}}" class="filter"></div>
   <div class="flex justify-between font-semibold mb-1 border-b border-gray-400">
-    <span>{{$post->user->username}}</span>
+    <span>{{$post->user->username}} <span class="font-thin">{{ $post->created_at->diffForHumans() }}</span></span>
     @if ($post->user_id === auth()->id())
     <div id="mySidenav{{$post->id}}" class="sidenav bg-mygray flex justify-center items-center">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav({{$post->id}})">&times;</a>
@@ -58,7 +58,7 @@
                 <div class="relative">
                   <li class="font-semibold">&commat;{{ $comment->user->username}} 
                   @if($post->user_id === $comment->user_id)
-                      <span class="font-thin">(Author)</span>
+                      <span class="font-thin">(Author)</span> {{ $comment->created_at->diffForHumans() }}
                   @endif
                   </li>
                   @if ($comment->user_id == auth()->id() || $post->user_id == auth()->id())
