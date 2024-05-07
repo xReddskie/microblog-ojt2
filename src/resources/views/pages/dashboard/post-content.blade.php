@@ -58,7 +58,7 @@
                 <div class="relative">
                   <li class="font-semibold">&commat;{{ $comment->user->username}} 
                   @if($post->user_id === $comment->user_id)
-                      <span class="font-thin">(Creator)</span>
+                      <span class="font-thin">(Author)</span>
                   @endif
                   </li>
                   @if ($comment->user_id == auth()->id())
