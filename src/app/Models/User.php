@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Notifications\VerifyEmail;
@@ -83,5 +84,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function likesPost(Post $post): bool
     {
         return $this->likes()->where('post_id', $post->id)->exists();
+    }
+
+    /**
+     * User has many comments
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
 }

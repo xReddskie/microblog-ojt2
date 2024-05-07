@@ -40,12 +40,40 @@
   </div>
 
   <div id="comment{{$post->id}}" class="d-dashboard__border-gray mb-2 flex p-2 items-center w-full hidden transition-all duration-300">
-    <div class="flex flex-col h-min-32 w-full">
-      <form action="">
-          @csrf
-            <label for="comment" class="w-full">Comment as {{auth()->user()->username}}</label>
-            <input type="textarea" class="d-dashboard__border-gray w-full mt-2 p-2 rounded-lg" placeholder="Enter your comment here"/>
-      </form>
+    <div class="flex flex-col h-max-64 w-full">
+      <div>
+        <form action="{{ route('posts.comments.store', ['post' => $post->id]) }}" method="POST">
+            @csrf
+              <label for="comment" class="w-full">Comment as <span class="font-semibold">{{auth()->user()->username}}<span></label>
+              <div class="flex flex-end items-center gap-2">
+                <textarea class="d-dashboard__border-gray w-full mt-2 p-2 rounded-lg" name="content" placeholder="Enter your comment here"></textarea>
+                <button class="py-5 px-10 me-2 mt-1 text-sm font-medium text-gray-100 focus:outline-none bg-mygray rounded-lg border border-mygray focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="submit">Comment</button>
+              </div>
+        </form>
+      </div>
+      <div>
+          <ul class="rounded-lg max-h-40 overflow-y-scroll scrollbar-hidden">
+            @foreach ($post->comments->reverse() as $comment)
+              <div class="flex flex-col gap-2 p-1 bg-white border-t border-b border-gray-400">
+                <div class="relative">
+                  <li class="font-semibold">&commat;{{ $comment->user->username}} 
+                  @if($post->user_id === $comment->user_id)
+                      <span class="font-thin">(Creator)</span>
+                  @endif
+                  </li>
+                  @if ($comment->user_id == auth()->id())
+                  <form action="{{ route('delete.comment', ['comment' => $comment->id]) }}" method="POST" class="absolute right-0 top-0">
+                    @csrf
+                    @method('DELETE')
+                    <button class="d-dashboard__aside-btns">Delete</button>
+                  </form> 
+                  @endif
+                </div>
+                <li class="ml-10">{{ $comment->content }}</li>
+              </div>
+            @endforeach
+          </ul>
+      </div>
     </div>
   </div>
 
