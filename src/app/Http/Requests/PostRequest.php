@@ -20,7 +20,8 @@ class PostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'content' => 'required|string|max:140',
+            'content' => 'required|string',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,jfif,webp|max:2048'
         ];
     }
 }

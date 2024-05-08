@@ -6,25 +6,26 @@ use App\Models\Post;
 use Illuminate\View\View;
 use App\Services\PostService;
 use App\Http\Requests\PostRequest;
+use App\Models\Photo;
 use Illuminate\Http\RedirectResponse;
 
 class PostController extends Controller
 {
     public $postService;
-    
+
     public function __construct()
     {
         $this->postService = new PostService;
     }
-    
+
     /**
      * Create user posts
      */
     public function create(PostRequest $request): RedirectResponse
     {
-        $userId = auth()->id(); 
-        $posts = $this->postService->create($request, $userId);
-        
+        $userId = auth()->id();
+        $post = $this->postService->create($request, $userId);
+        $this->postService->addPhotos($request, $userId, $post);
         return redirect()->back();
     }
     
@@ -36,7 +37,7 @@ class PostController extends Controller
         $posts = $this->postService->viewOwnPosts();
         return view('/pages/dashboard/profile', ['posts' => $posts]);
     }
-    
+
     /**
      * Retrive all posts
      */
@@ -54,14 +55,14 @@ class PostController extends Controller
         $this->postService->deletePost($post);
         return redirect()->back()->with('success');
     }
-    
+
     /**
      * Edit Post
      */
     public function editPost(Post $post, PostRequest $request): RedirectResponse
     {
-        return $this->postService->editPost($post, $request) ?  redirect()->route('dashboard'):
-        redirect('/')->with('error', 'Unauthorized access');
+        return $this->postService->editPost($post, $request) ?  redirect()->route('dashboard') :
+            redirect('/')->with('error', 'Unauthorized access');
     }
 
     /**
@@ -71,22 +72,22 @@ class PostController extends Controller
     {
         return view('pages.dashboard.edit-post', ['post' => $post]);
     }
-    
+
     /**
      * Like Post
      */
     public function like(Post $post): RedirectResponse
     {
-        $this->postService->like($post);     
+        $this->postService->like($post);
         return redirect()->back();
     }
-    
+
     /**
      * Unlike Post
      */
     public function unlike(Post $post): RedirectResponse
     {
-        $this->postService->unlike($post);     
+        $this->postService->unlike($post);
         return redirect()->back();
     }
 }
