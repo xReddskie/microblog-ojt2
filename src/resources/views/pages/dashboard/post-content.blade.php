@@ -30,10 +30,14 @@
       @if ($post->photos->count() > 0) 
           <div class="d-dashboard__image">
               @foreach($post->photos as $photo)
-                  <img src="{{ asset('storage/' . $photo->img_file) }}" alt="Post Image" class="post-image">
+                  @php
+                      $cleanedPath = str_replace('public/', '', $photo->img_file);
+                  @endphp
+                  <img src="{{ asset('storage/' . $cleanedPath) }}" alt="Post Image" class="w-full h-full rounded-lg">
               @endforeach
           </div>
       @endif
+
 
       <div class="flex justify-evenly mt-2 relative">
       

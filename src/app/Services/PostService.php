@@ -3,12 +3,32 @@
 namespace App\Services; 
 
 use App\Models\Post;
+use App\Models\Photo;
 use App\Http\Requests\PostRequest;
 use Illuminate\Database\Eloquent\Collection;
 
 
 class PostService
 {
+    /**
+     * Create Photo inside Post
+     */
+    public function addPhoto($request, $userId, $post)
+    {
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $filename = time() . '.' . $image->getClientOriginalExtension();
+                $path = $image->storeAs('public/post_images', $filename); // Capture the path
+
+                Photo::create([
+                    'user_id' => $userId,
+                    'post_id' => $post->id,
+                    'img_file' => $path // Use the stored path
+                ]);
+            }
+        }
+    }
+
     /**
      * Create post function
      */

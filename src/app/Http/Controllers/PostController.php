@@ -25,20 +25,7 @@ class PostController extends Controller
     {
         $userId = auth()->id();
         $post = $this->postService->create($request, $userId);
-
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $filename = time() . '.' . $image->getClientOriginalExtension();
-                $path = $image->storeAs('public/post_images', $filename); // Capture the path
-
-                Photo::create([
-                    'user_id' => $userId,
-                    'post_id' => $post->id,
-                    'img_file' => $path // Use the stored path
-                ]);
-            }
-        }
-
+        $this->postService->addPhoto($request, $userId, $post);
         return redirect()->back();
     }
     
