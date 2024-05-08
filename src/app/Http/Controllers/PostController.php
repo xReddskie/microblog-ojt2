@@ -25,7 +25,7 @@ class PostController extends Controller
     {
         $userId = auth()->id();
         $post = $this->postService->create($request, $userId);
-        $this->postService->addPhoto($request, $userId, $post);
+        $this->postService->addPhotos($request, $userId, $post);
         return redirect()->back();
     }
     

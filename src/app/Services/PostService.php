@@ -13,17 +13,17 @@ class PostService
     /**
      * Create Photo inside Post
      */
-    public function addPhoto($request, $userId, $post)
+    public function addPhotos(PostRequest $request, int $userId, Post $post): Void
     {
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $filename = time() . '.' . $image->getClientOriginalExtension();
-                $path = $image->storeAs('public/post_images', $filename); // Capture the path
+                $path = $image->storeAs('public/post_images', $filename);
 
                 Photo::create([
                     'user_id' => $userId,
                     'post_id' => $post->id,
-                    'img_file' => $path // Use the stored path
+                    'img_file' => $path 
                 ]);
             }
         }
@@ -32,7 +32,7 @@ class PostService
     /**
      * Create post function
      */
-    public function create(PostRequest $request, $userId): Post
+    public function create(PostRequest $request, int $userId): Post
     {
         $posts = Post::create([
             'user_id' =>$userId,
