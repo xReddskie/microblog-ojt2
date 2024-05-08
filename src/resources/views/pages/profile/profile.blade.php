@@ -9,6 +9,8 @@
             <div class="d-dashboard__space"></div>
                 @include('pages.profile.profile-info')
                     <main class="d-dashboard__post-content">
+                        @include('pages.profile.profile-header')
+                        <div class="py-1"></div>
                         @include('pages.dashboard.post')
                         @include('pages.dashboard.post-content')
                     </main>

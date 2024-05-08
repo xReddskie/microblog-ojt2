@@ -1,0 +1,61 @@
+.p-profile {
+    @apply pb-8 bg-background rounded-lg;
+
+    &__container {
+        @apply border-2 bg-whisperwhite rounded-lg;
+    }
+
+    &__cover {
+        @apply flex justify-between items-center px-3;
+    }
+
+    &__name {
+        @apply text-5xl font-bold;
+    }
+
+    &__sidename {
+        @apply col-span-2 text-xl font-bold;
+    }
+
+    &__name-container {
+        @apply grid grid-flow-col gap-1 py-3;
+    }
+
+    &__bio {
+        @apply text-lg py-3 flex justify-center italic;
+    }
+
+    &__aside {
+        @apply d-dashboard__sidebar sticky top-negative bg-whisperwhite;
+    }
+
+    &__small {
+        @apply w-20 h-20 border-2 border-white rounded-full overflow-hidden relative;
+    }
+
+    &__icons {
+        @apply grid grid-flow-col gap-2;
+    }
+
+    &__logout {
+        @apply col-span-2 text-lg transition-transform hover:scale-150 hover:text-red-900;
+    }
+
+    .animate-spin {
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .top-negative {
+        top: -155px;
+    }
+}
