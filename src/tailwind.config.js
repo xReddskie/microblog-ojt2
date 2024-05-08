@@ -14,6 +14,7 @@ export default {
         dustyblue: '#6c7a89',
         warmbeige: '#DAD2C3',
         whisperwhite: '#f5f5f5',
+        background: "#D8D8D8",
         beige: '#FAEDDD',
         mygray: "#333333",
       },
@@ -22,6 +23,15 @@ export default {
       },
       animation: {
         'spin-fast': 'spin 1s linear infinite',
+      },
+      fontSize: {
+        sm: '0.8rem',
+        base: '1rem',
+        xl: '1.25rem',
+        '2xl': '1.563rem',
+        '3xl': '1.953rem',
+        '4xl': '2.441rem',
+        '5xl': '3.052rem',
       }
     },
   },

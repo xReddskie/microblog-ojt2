@@ -30,6 +30,7 @@ class ProfileService
                 $request->zip_code,
             ])),
             'phone_number' => $request->phone_number,
+            'bio' => $request->bio, 
         ]);
     }
 

@@ -20,6 +20,7 @@ class ProfileUpdateRequest extends FormRequest
             'birth_date' => 'required|date',
             'address' => 'required|string|max:255',
             'phone_number' => 'required|string|max:255',
+            'bio' => 'nullable|string',
         ];
     }
 }
