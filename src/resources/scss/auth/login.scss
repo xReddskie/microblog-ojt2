@@ -1,12 +1,12 @@
 .a-login {
-    @apply flex h-screen justify-center items-center;
+    @apply flex h-screen justify-center items-center bg-background;
 
     &__card {
-        @apply flex flex-col h-auto size-auto w-auto rounded-lg overflow-hidden shadow-customshadow bg-warmbeige justify-center items-center;
+        @apply flex flex-col h-auto size-auto w-auto rounded-lg overflow-hidden shadow-customshadow bg-whisperwhite justify-center items-center;
     }
 
     &__input {
-        @apply shadow w-64 border rounded-lg py-2 px-3 bg-beige shadow-lg;
+        @apply shadow w-64 border rounded-lg py-2 px-3 bg-whisperwhite shadow-lg;
     }
 
     &__h1 {

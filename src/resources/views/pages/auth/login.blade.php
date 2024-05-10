@@ -3,7 +3,6 @@
 @section('title', 'Login')
 
 @section('content')
-
     <body>
         <div class="a-login">
             <div class="a-login__card">
@@ -12,13 +11,17 @@
                 <div class="a-login__h1">
                     <h1>LOGIN</h1>
                 </div>
-                <div class="a-login__padding5"></div>
-                <form action="{{ route('login') }}" method="POST">
+                <div class="a-login__padding5 "></div>
+                @if ($errors->has('email') && $errors->has('password'))
+                    <span class="flex justify-center text-red-500 text-lg font-medium pb-3">Invalid Email and Password</span>
+                @elseif ($errors->has('email'))
+                    <span class="flex justify-center text-red-500 text-lg font-medium pb-3">{{ $errors->first('email') }}</span>
+                @elseif ($errors->has('password'))
+                    <span class="flex justify-center text-red-500 text-lg font-medium pb-3">{{ $errors->first('password') }}</span>
+                @endif
+                <form class=" justify-center items-center mt-4"action="{{ route('login') }}" method="POST">
                     @csrf
-                    @error('email')
-                        <span class="flex justify-center w-full">{{ $message }}</span>
-                    @enderror
-                    <div class="a-login__label">
+                    <div class="a-login__label ">
                         <label for="">Email</label>
                     </div>
                     <input class="a-login__input" type="text" name="email" value="{{ old('email') }}"
@@ -49,5 +52,4 @@
             </div>
         </div>
     </body>
-
-    </html>
+</html>

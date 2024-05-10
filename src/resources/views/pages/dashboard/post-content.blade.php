@@ -4,7 +4,7 @@
   @foreach($posts as $post)
   <div id="container" class="d-dashboard__post-container relative">
       <div id="filter{{$post->id}}" class="filter"></div>
-      <div class="flex justify-between font-semibold mb-1 border-b border-gray-400">
+      <div class="flex justify-between font-semibold py-3 text-xl">
           <span>{{$post->user->username}} <span class="font-thin">{{ $post->created_at->diffForHumans() }}</span></span>
           @if ($post->user_id === auth()->id())
               <div id="mySidenav{{$post->id}}" class="sidenav bg-mygray flex justify-center items-center">
@@ -24,7 +24,7 @@
           @endif
       </div>
 
-      <div class="mt-2 relative">{{$post->content}}</div> 
+      <div class="mt-2 relative text-lg">{{$post->content}}</div> 
      
       {{-- Image Display --}}
       @if ($post->photos->count() > 0) 
@@ -38,8 +38,8 @@
           </div>
       @endif
 
-
-      <div class="flex justify-evenly mt-2 relative">
+<div class="py-3">
+      <div class="flex justify-evenly mt-2 relative border-t border-b border-gray-400 pt-3">
       
     @include('pages.dashboard.like-button')
           <!-- comment -->
@@ -92,7 +92,7 @@
       </div>
     </div>
       </div>
-  
+  </div>
 </div>
   @endforeach
 <script>
