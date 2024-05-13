@@ -11,5 +11,5 @@
             <img class="object-cover w-full h-full" src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ' alt='Woman looking front'>
         </div>
     </div>
-    <p class="p-profile__bio">"{{ auth()->user()->profile->bio }}</p>
+    <p class="p-profile__bio">"{{ auth()->user()->profile->bio }}"</p>
 </div>
