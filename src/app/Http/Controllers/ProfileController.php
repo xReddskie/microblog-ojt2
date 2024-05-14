@@ -42,12 +42,10 @@ class ProfileController extends Controller
         return view('pages.profile.edit-profile', compact('user'));
     }
 
-
-
     /**
      * Summary of updateProfile
      */
-
+    
     public function updateProfile(ProfileUpdateRequest $request): RedirectResponse
     {
         $user = auth()->user();
