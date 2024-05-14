@@ -4,9 +4,9 @@
       <ul class="d-dashboard__aside-ul" style="line-height: 1.2;">
         <li class="text-xl font-bold">About
           @if (auth()->user()->id == $user->id)
-            me
+              me
           @else
-          {{$user->username}}
+            {{$user->username}}
           @endif
         </li>
         <div class="d-dashboard__aside-container">
@@ -46,10 +46,10 @@
           </div>
         </div>
         @if (auth()->user()->id == $user->id)
-          <li class="d-dashboard__aside-aboutbtn">
-          <a href="/profile/edit" class="p-2">Edit Profile</a>
-          </li>
-        @endif
+      <li class="d-dashboard__aside-aboutbtn">
+      <a href="/profile/edit" class="p-2">Edit Profile</a>
+      </li>
+    @endif
     </div>
     <div class="d-dashboard__user">
       <div class="font-semibold">Suggestions</div>
