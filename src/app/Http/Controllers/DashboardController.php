@@ -17,7 +17,7 @@ class DashboardController extends Controller
     /**
      * Return dashboard
      */
-    public function dashboard($id): View
+    public function dashboard(int $id): View
     {
         $user = User::with('profile')->findOrFail($id);
         $posts = $this->postService->viewAllPosts();
