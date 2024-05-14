@@ -19,7 +19,6 @@
             </script>
         @endif
 
-
         {{-- Error Messages --}}
         @if ($errors->any())
             <div style="color: red; background-color: #ffcccc; padding: 10px; margin-bottom: 15px;">
