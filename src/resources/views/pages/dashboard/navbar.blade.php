@@ -31,7 +31,7 @@
           </ul>
         </div>
       </div>
-      <div class="d-dashboard__logo-lg"><a href="{{ route('dashboard') }}">Microblog Ojt2</a></div>
+      <div class="d-dashboard__logo-lg"><a href="{{ route('dashboard', ['id' => auth()->id()]) }}">Microblog Ojt2</a></div>
       <div class="d-dashboard__logo-sm">
         <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256">
           <g fill="#dad2c3" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
@@ -50,7 +50,7 @@
           </svg>
         </button>
       </div>
-      <div class="d-dashboard__username"><a href="{{ route('profile-page') }}">Hello, {{auth()->user()->username}}!</a></div>
+      <div class="d-dashboard__username"><a href="{{ route('user.profile', ['id' => auth()->id()]) }}">Hello, {{auth()->user()->username}}!</a></div>
       <div class="hidden sm:flex"></div>
     </nav>
   </header>
