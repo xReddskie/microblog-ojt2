@@ -20,10 +20,12 @@
                 </div>
                 <div class="flex flex-col justify-center pl-2 items-center">
                     <div class="text-sm text-xl font-bold">
-                        Peter D Madrid
+                        {{ auth()->user()->profile->first_name }}
+                        {{ auth()->user()->profile->middle_name ? auth()->user()->profile->middle_name[0] . '.' : '' }}
+                        {{ auth()->user()->profile->last_name }}
                     </div>
                     <div class="text-sm font-normal">
-                        petermadrid@gmail.com
+                        {{ auth()->user()->email }}
                     </div>
                 </div>
             </div>
