@@ -5,7 +5,7 @@
   <div id="container" class="d-dashboard__post-container relative">
       <div id="filter{{$post->id}}" class="filter"></div>
       <div class="flex justify-between font-semibold py-3 text-xl">
-          <span><a href="{{ route('user.profile', ['id' => $post->user->id]) }}">{{$post->user->username}} </a><span class="font-thin">{{ $post->created_at->diffForHumans() }}</span></span>
+          <span>{{$post->user->username}} <span class="font-thin">{{ $post->created_at->diffForHumans() }}</span></span>
           @if ($post->user_id === auth()->id())
               <div id="mySidenav{{$post->id}}" class="sidenav z-20 bg-mygray flex flex-col justify-center items-center">
                   <a href="javascript:void(0)" class="closebtn" onclick="closeNav({{$post->id}})">&times;</a>
