@@ -7,14 +7,14 @@
       <div class="flex justify-between font-semibold py-3 text-xl">
           <span>{{$post->user->username}} <span class="font-thin">{{ $post->created_at->diffForHumans() }}</span></span>
           @if ($post->user_id === auth()->id())
-              <div id="mySidenav{{$post->id}}" class="sidenav bg-mygray flex justify-center items-center">
+              <div id="mySidenav{{$post->id}}" class="sidenav z-20 bg-mygray flex flex-col justify-center items-center">
                   <a href="javascript:void(0)" class="closebtn" onclick="closeNav({{$post->id}})">&times;</a>
-                  <form action="{{route('delete.post', ['post' => $post])}}" method="post">
-                      @csrf
-                      @method('DELETE') 
-                      <button><p class="delete">Delete</p></button>
-                  </form>
-                  <a href="{{route('view.post', ['post' => $post->id])}}">Edit</a>
+                    <form action="{{route('delete.post', ['post' => $post])}}" method="post">
+                        @csrf
+                        @method('DELETE') 
+                        <button><p class="delete">Delete</p></button>
+                    </form>
+                    <a class="hover:text-white" href="{{route('view.post', ['post' => $post->id])}}">Edit</a>
               </div>
               <span style="cursor:pointer;" onclick="openNav({{$post->id}})">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -24,7 +24,7 @@
           @endif
       </div>
 
-      <div class="mt-2 relative text-lg">{{$post->content}}</div> 
+      <div class="mt-2 relative w-2/3">{{$post->content}}</div> 
      
       {{-- Image Display --}}
       @if ($post->photos->count() > 0) 
@@ -72,10 +72,11 @@
             @foreach ($post->comments->reverse() as $comment)
               <div class="flex flex-col gap-2 p-1 bg-white border-t border-b border-gray-400">
                 <div class="relative">
-                  <li class="font-semibold">&commat;{{ $comment->user->username}} 
+                  <li class="font-semibold">&commat;{{ $comment->user->username}}
                   @if($post->user_id === $comment->user_id)
-                      <span class="font-thin">(Author)</span> {{ $comment->created_at->diffForHumans() }}
+                      <span class="font-thin">(Author) </span>
                   @endif
+                    <span class="font-thin"> {{ $comment->created_at->diffForHumans() }}</span>
                   </li>
                   @if ($comment->user_id == auth()->id() || $post->user_id == auth()->id())
                   <form action="{{ route('delete.comment', ['comment' => $comment->id]) }}" method="POST" class="absolute right-0 top-0">
