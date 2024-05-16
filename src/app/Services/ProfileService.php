@@ -39,7 +39,17 @@ class ProfileService
      */
     public function updateProfile(User $user, array $data): void
     {
-        $user->profile->update($data);
+        $path = null;
+        if (isset($data['images'])) {
+        foreach ($data['images'] as $image) {
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $path = $image->storeAs('public/post_images', $filename);
+            }
+        }
+        $updatedData = $data;
+        if ($path !== null) {
+            $updatedData['images'] = $path;
+        }
+        $user->profile->update($updatedData);
     }
-
 }
