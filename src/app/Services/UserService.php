@@ -88,4 +88,13 @@ class UserService
 
         return compact('user', 'posts');
     }
+
+    public function getQuery($request, int $id)
+    {
+        $query = $request->input('query');
+        $results = User::where('username', 'like', "%$query%")->get();
+        $user = User::with('profile')->findOrFail($id);
+        
+        return compact('results', 'user', 'request');
+    }
 }
