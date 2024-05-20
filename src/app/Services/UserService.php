@@ -77,6 +77,10 @@ class UserService
         return $user;
     }
 
+    /**
+     * Get User Profile
+     */
+
     public function getUserProfile(int $id): array
     {
         $user = User::with('profile')->findOrFail($id);
