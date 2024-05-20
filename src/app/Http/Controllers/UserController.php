@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Http\Requests\SearchRequest;
 use App\Services\UserService;
 use Illuminate\View\View;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -24,11 +23,13 @@ class UserController extends Controller
         return view('pages.profile.profile', $data);
     }
 
-    public function search(Request $request, int $id)
+    /**
+     * Show search results
+     */
+
+    public function search(SearchRequest $request, int $id): View
     {
-        $query = $request->input('query');
-        $results = User::where('username', 'like', "%$query%")->get();
-        $user = User::with('profile')->findOrFail($id);
-        return view('pages.dashboard.search-result', compact('results', 'user', 'request'));
+        $data = $this->userService->getQuery($request, $id);
+        return view('pages.dashboard.search-result', $data);
     }
 }
