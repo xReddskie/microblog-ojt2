@@ -2,13 +2,14 @@
 
 namespace App\Services;
 
+use App\Models\Post;
 use App\Models\User;
-use App\Notifications\PasswordReset;
-use App\Http\Requests\RegisterRequest;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\PasswordReset;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\RegisterRequest;
 
 class UserService
 {
@@ -74,5 +75,13 @@ class UserService
         });
 
         return $user;
+    }
+
+    public function getUserProfile(int $id): array
+    {
+        $user = User::with('profile')->findOrFail($id);
+        $posts = Post::where('user_id', $user->id)->get();
+
+        return compact('user', 'posts');
     }
 }
