@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\PostCommentController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\PostCommentController;
 
 Route::get('/register-page', function () {
     return view('pages/auth/register');
@@ -28,9 +28,10 @@ Route::post('/login', [AuthController::class, 'login'])->withoutMiddleware('auth
 Route::get('/resend-email', [AuthController::class, 'resendEmailVerification']);
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard/{id}', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/', [DashboardController::class, 'app'])->name('app');
     Route::get('/profile-page', [ProfileController::class, 'profilePage'])->name('profile-page');
+    Route::get('/user/{id}', [UserController::class, 'show'])->name('user.profile');
     Route::post('/post', [PostController::class, 'create'])->name('post');
     Route::delete('/post/{post}/delete', [PostController::class, 'deletePost'])->name('delete.post');
     Route::put('/edit-post/{post}', [PostController::class, 'editPost'])->name('edit.post');

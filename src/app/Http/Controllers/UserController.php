@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Post;
+use App\Models\User;
+use App\Services\UserService;
+use Illuminate\View\View;
+
+class UserController extends Controller
+{
+    protected $userService;
+    public function __construct(UserService $userService){
+        $this->userService = $userService;
+    }
+
+    /**
+     * Show other user's profile
+     */
+
+    public function show(int $id): View
+    {
+        $data = $this->userService->getUserProfile($id);
+        return view('pages.profile.profile', $data);
+    }
+}

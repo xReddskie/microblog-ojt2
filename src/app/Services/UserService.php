@@ -2,13 +2,16 @@
 
 namespace App\Services;
 
+use App\Models\Post;
 use App\Models\User;
-use App\Notifications\PasswordReset;
-use App\Http\Requests\RegisterRequest;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\PasswordReset;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\RegisterRequest;
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserService
 {
@@ -74,5 +77,22 @@ class UserService
         });
 
         return $user;
+    }
+
+    /**
+     * Get User Profile
+     */
+
+    public function getUserProfile(int $id): array
+    {
+        try {
+
+            $user = User::with('profile')->findOrFail($id);
+            $posts = Post::where('user_id', $user->id)->get();
+
+            return compact('user', 'posts');
+        } catch (\Exception $e) {
+            return ['error' => 'An error occurred: ' . $e->getMessage()];
+        }
     }
 }
