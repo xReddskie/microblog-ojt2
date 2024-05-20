@@ -83,20 +83,16 @@ class UserService
      * Get User Profile
      */
 
-     public function getUserProfile(int $id): array
-     {
-         try {
+    public function getUserProfile(int $id): array
+    {
+        try {
 
-             $user = User::with('profile')->findOrFail($id);
-             $posts = Post::where('user_id', $user->id)->get();
-     
-             return compact('user', 'posts');
-         } catch (ModelNotFoundException $e) {
-             return ['error' => 'User not found.'];
-         } catch (QueryException $e) {
-             return ['error' => 'Database error: ' . $e->getMessage()];
-         } catch (\Exception $e) {
-             return ['error' => 'An unexpected error occurred: ' . $e->getMessage()];
-         }
+            $user = User::with('profile')->findOrFail($id);
+            $posts = Post::where('user_id', $user->id)->get();
+
+            return compact('user', 'posts');
+        } catch (\Exception $e) {
+            return ['error' => 'An error occurred: ' . $e->getMessage()];
+        }
     }
 }
