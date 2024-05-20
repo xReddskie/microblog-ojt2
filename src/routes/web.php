@@ -28,6 +28,7 @@ Route::post('/login', [AuthController::class, 'login'])->withoutMiddleware('auth
 Route::get('/resend-email', [AuthController::class, 'resendEmailVerification']);
 
 Route::middleware('auth')->group(function () {
+    Route::get('/users/search/{id}', [UserController::class, 'search'])->name('users.search');
     Route::get('/dashboard/{id}', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/', [DashboardController::class, 'app'])->name('app');
     Route::get('/profile-page', [ProfileController::class, 'profilePage'])->name('profile-page');
