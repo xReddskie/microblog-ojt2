@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use App\Notifications\PasswordReset;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserService
 {
@@ -81,11 +83,20 @@ class UserService
      * Get User Profile
      */
 
-    public function getUserProfile(int $id): array
-    {
-        $user = User::with('profile')->findOrFail($id);
-        $posts = Post::where('user_id', $user->id)->get();
+     public function getUserProfile(int $id): array
+     {
+         try {
 
-        return compact('user', 'posts');
+             $user = User::with('profile')->findOrFail($id);
+             $posts = Post::where('user_id', $user->id)->get();
+     
+             return compact('user', 'posts');
+         } catch (ModelNotFoundException $e) {
+             return ['error' => 'User not found.'];
+         } catch (QueryException $e) {
+             return ['error' => 'Database error: ' . $e->getMessage()];
+         } catch (\Exception $e) {
+             return ['error' => 'An unexpected error occurred: ' . $e->getMessage()];
+         }
     }
 }
