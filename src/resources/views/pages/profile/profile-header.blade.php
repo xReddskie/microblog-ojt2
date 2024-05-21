@@ -7,7 +7,7 @@
         </div>
         <div class="p-profile__cover">
             <div class="p-profile__name">
-                <p>{{ auth()->user()->profile->first_name }} {{ auth()->user()->profile->last_name }}</p>
+                <p>{{ $user->profile->first_name ?? 'First Name' }} {{ $user->profile->last_name ?? 'Last Name' }}</p>
             </div>
             <div class="-mt-16 w-40 h-40 border-4 border-white rounded-full overflow-hidden relative">
                 <img class="object-cover w-full h-full" src='{{ auth()->user()->profile->getImageURL() }}'
@@ -16,4 +16,5 @@
         </div>
         <p class="p-profile__bio">"{{ auth()->user()->profile->bio }}"</p>
     </div>
+    <p class="p-profile__bio">"{{ auth()->user()->profile->bio }}"</p>
 </div>

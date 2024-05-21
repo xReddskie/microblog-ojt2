@@ -33,7 +33,7 @@ class AuthController extends Controller
     {
         if (auth()->attempt(['email' => $request['email'], 'password' => $request['password']])) {
             $request->session()->regenerate();
-            return redirect()->route('dashboard');
+            return redirect()->route('dashboard', ['id' => auth()->user()->id]);
         }
 
         return back()->withErrors([

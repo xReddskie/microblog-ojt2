@@ -15,6 +15,6 @@ class UserController extends Controller
     {
         $user = User::with('profile')->findOrFail($id);
         $posts = Post::where('user_id', $user->id)->get();
-        return view('pages.other-profile.other-profile', compact('user', 'posts'));
+        return view('pages.profile.profile', compact('user', 'posts'));
     }
 }
