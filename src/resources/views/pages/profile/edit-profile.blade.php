@@ -68,11 +68,10 @@
                             <div class="a-login__padding4 w-96">
                                 <div class="w-full">
                                 </div>
-                                <label for="images">Profile Picture:</label>
+                                <label for="image">Profile Picture:</label>
                             </div>
                         </div>
-                        <input type="file" id="image-upload" name="images[]" multiple accept="images/*"
-                            value="{{ $user->profile->images }}">
+                        <input type="file" id="image" name="profilepic" value="{{ $user->profile->image }}">
                         <div class="a-login__padding4 w-full">
                             <hr>
                         </div>
@@ -83,8 +82,7 @@
                                 <label for="cover">Cover Picture:</label>
                             </div>
                         </div>
-                        <input type="file" id="cover-upload" name="cover[]" multiple accept="cover/*"
-                            value="{{ $user->profile->cover }}">
+                        <input type="file" id="cover-upload" name="coverpic" value="{{ $user->profile->cover }}">
                         <div class="a-login__padding4 w-full">
                             <hr>
                         </div>

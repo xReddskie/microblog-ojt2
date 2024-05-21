@@ -39,29 +39,32 @@ class ProfileService
      */
     public function updateProfile(User $user, array $data): void
     {
-        $imagePath = null;
-        $coverPath = null;
-
-        if (isset($data['images'])) {
-            foreach ($data['images'] as $image) {
-                $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
-                $imagePath = $image->storeAs('public/post_images', $imageName);
-            }
+        $imagePath = $user->profile->profilepic;
+        $coverPath = $user->profile->cover;
+   
+        if (isset($data['profilepic'])) {
+            $image = $data['profilepic'];
+            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $imagePath = $image->storeAs('public/post_images', $imageName);
             if ($imagePath !== null) {
-                $data['images'] = $imagePath;
+                $data['profilepic'] = $imagePath;
             }
         }
 
-        if (isset($data['cover'])) {
-            foreach ($data['cover'] as $cover) {
+        if (isset($data['coverpic'])) {
+            $cover = $data['coverpic'];
                 $coverName = time() . '_' . uniqid() . '.' . $cover->getClientOriginalExtension();
                 $coverPath = $cover->storeAs('public/post_images', $coverName);
-            }
-            if ($coverPath !== null) {
-                $data['cover'] = $coverPath;
+          if ($imagePath !== null) {
+                $data['coverpic'] = $imagePath;
             }
         }
 
-        $user->profile->update($data);
+        unset($data['profilepic'], $data['coverpic']);
+
+        $user->profile->update(array_merge($data, [
+        'profilepic' => $imagePath,
+        'coverpic' => $coverPath,
+        ]));
     }
 }
