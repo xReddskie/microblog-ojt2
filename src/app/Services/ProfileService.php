@@ -39,7 +39,32 @@ class ProfileService
      */
     public function updateProfile(User $user, array $data): void
     {
-        $user->profile->update($data);
-    }
+        $imagePath = $user->profile->profilepic;
+        $coverPath = $user->profile->cover;
+   
+        if (isset($data['profilepic'])) {
+            $image = $data['profilepic'];
+            $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $imagePath = $image->storeAs('public/post_images', $imageName);
+            if ($imagePath !== null) {
+                $data['profilepic'] = $imagePath;
+            }
+        }
 
+        if (isset($data['coverpic'])) {
+            $cover = $data['coverpic'];
+                $coverName = time() . '_' . uniqid() . '.' . $cover->getClientOriginalExtension();
+                $coverPath = $cover->storeAs('public/post_images', $coverName);
+          if ($imagePath !== null) {
+                $data['coverpic'] = $imagePath;
+            }
+        }
+
+        unset($data['profilepic'], $data['coverpic']);
+
+        $user->profile->update(array_merge($data, [
+        'profilepic' => $imagePath,
+        'coverpic' => $coverPath,
+        ]));
+    }
 }

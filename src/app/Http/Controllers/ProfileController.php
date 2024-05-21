@@ -24,18 +24,17 @@ class ProfileController extends Controller
      * Summary of profilePage
      * @return \Illuminate\View\View
      */
-
     public function profilePage(): View
     {
+        $user = auth()->user();
         $posts = $this->postService->viewOwnPosts();
-        return view('pages/profile/profile', compact('posts'));
+        return view('pages/profile/profile', compact('posts', 'user'));
     }
 
     /**
      * Summary of editProfile
      * @return \Illuminate\View\View
      */
-
     public function editProfile(): View
     {
         $user = auth()->user();
@@ -45,7 +44,6 @@ class ProfileController extends Controller
     /**
      * Summary of updateProfile
      */
-    
     public function updateProfile(ProfileUpdateRequest $request): RedirectResponse
     {
         $user = auth()->user();
@@ -64,5 +62,4 @@ class ProfileController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
-
 }
