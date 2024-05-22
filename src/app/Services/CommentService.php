@@ -27,4 +27,13 @@ class CommentService {
     {
         $comment->delete();
     }
+    
+    /**
+     * Edit Comment
+     */
+    public function editComment(Comment $comment, CommentRequest $request): bool
+    {
+        $user = auth()->user();
+        return $user->id === $comment['user_id'] && $comment->update($request->all());
+    }
 }
