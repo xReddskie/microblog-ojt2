@@ -42,5 +42,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/post/{post}/unlike', [PostController::class, 'unlike'])->name('unlike.post');
     Route::get('/posts/{post}', [PostController::class, 'show'])->name('show.post');
     Route::post('/posts/{post}/comments', [PostCommentController::class, 'store'])->name('posts.comments.store');
+    Route::put('/comments/{comment}/edit', [PostCommentController::class, 'editComment'])->name('posts.comments.edit');
     Route::delete('/comment/{comment}/delete', [PostCommentController::class, 'delete'])->name('delete.comment');
 });

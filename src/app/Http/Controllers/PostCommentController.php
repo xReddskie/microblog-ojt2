@@ -4,17 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Comment;
+use Illuminate\View\View;
 use App\Services\CommentService;
+use App\Services\PostService;
 use App\Http\Requests\CommentRequest;
 use Illuminate\Http\RedirectResponse;
 
 class PostCommentController extends Controller
 {
     public $commentService;
+    public $postService;
 
     public function __construct()
     {
         $this->commentService = new CommentService;
+        $this->postService = new PostService;
     }
 
     /**
@@ -34,5 +38,16 @@ class PostCommentController extends Controller
     {
         $this->commentService->deleteComment($comment);
         return redirect()->back()->with('success', 'Comment deleted successfully.');
+    }
+    
+    /**
+     * Edit Comment
+     */
+    public function editComment(Comment $comment, CommentRequest $request): View
+    {
+        $user = auth()->user();
+        $posts = $this->postService->viewAllPosts();
+        $this->commentService->editComment($comment, $request);
+        return view('/app', compact('user','posts', 'comment'));
     }
 }
