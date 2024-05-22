@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Profile extends Model
 {
+    public const DEFAULT_PROFILE = 'https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg';
+    public const DEFAULT_COVER = 'https://flowbite.com/docs/images/examples/image-3@2x.jpg';
+
     use HasFactory;
 
     protected $fillable = [
@@ -40,7 +43,7 @@ class Profile extends Model
             $cleanedPath = str_replace('public/', '', $this->profilepic);
             return url('storage/'. $cleanedPath);
         }
-        return "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ{{$this->name}}";
+        return self::DEFAULT_PROFILE;
     }
     
     /**
@@ -52,6 +55,6 @@ class Profile extends Model
             $cleanedPath = str_replace('public/', '', $this->coverpic);
             return url('storage/'. $cleanedPath);
         }
-        return "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ{{$this->name}}";
+        return self::DEFAULT_COVER;
     }
 }
