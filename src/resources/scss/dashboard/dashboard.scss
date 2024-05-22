@@ -102,7 +102,7 @@
     }
 
     &__write-post {
-        @apply block w-full p-4 text-gray-900 border-2 border-mygray rounded-lg bg-gray-50 text-base focus:ring-mygray focus:border-mygray;
+        @apply block w-full max-h-48 p-4 text-gray-900 border-2 border-mygray rounded-lg bg-gray-50 text-base resize-none focus:ring-mygray focus:border-mygray;
     }
 
     &__post-btn {
