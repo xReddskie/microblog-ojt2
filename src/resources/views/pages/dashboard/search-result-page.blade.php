@@ -6,7 +6,7 @@
         @if($results->isNotEmpty())
             @foreach($results as $result)
                 <a href="{{ route('user.profile', ['id' => $result->id]) }}">
-                    <div class="flex gap-2 items-center">
+                    <div class="flex gap-2 items-center hover:bg-gray-300 p-2">
                         <img class="object-cover w-14 h-14 border-2 border-white rounded-full"
                             src='{{ $result->profile->getImageURL() }}' alt='Profile Picture'>
                         <div class="flex flex-col">
