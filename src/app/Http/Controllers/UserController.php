@@ -16,7 +16,6 @@ class UserController extends Controller
     /**
      * Show other user's profile
      */
-
     public function show(int $id): View
     {
         $data = $this->userService->getUserProfile($id);
@@ -26,7 +25,6 @@ class UserController extends Controller
     /**
      * Show search results
      */
-
     public function search(SearchRequest $request, int $id): View
     {
         $data = $this->userService->getQuery($request, $id);
