@@ -34,9 +34,9 @@
                         </span>
                     @endif
                 </div>
-
-                <div class="mt-2 relative w-2/3">{{ $post->content }}</div>
-
+                <a href="{{ url('postDetails', $post->id) }}">
+                    <div class="mb-2 relative w-2/3 text-xl">{{ $post->content }}</div>
+                </a>
                 {{-- Image Display --}}
                 @if ($post->photos->count() > 0)
                     <div class="d-dashboard__image">
@@ -44,25 +44,37 @@
                             @php
                                 $cleanedPath = str_replace('public/', '', $photo->img_file);
                             @endphp
-                            <img src="{{ asset('storage/' . $cleanedPath) }}" alt="Post Image" class="w-full h-full rounded-lg">
+                            <a href="{{ url('postDetails', $post->id) }}">
+                                <img src="{{ asset('storage/' . $cleanedPath) }}" alt="Post Image"
+                                    class="cursor-pointer w-full h-full rounded-lg"></a>
                         @endforeach
                     </div>
                 @endif
-
-                <div class="py-3">
-                    <div class="flex justify-evenly mt-2 relative border-t border-b border-gray-400 pt-3">
-
+                <div class=" pt-1 flex justify-start items-start gap-3 text-xs font-light">
+                    {{ $post->likes()->distinct('user_id')->count() }} likes
+                    {{ $post->comments()->count() }} comments
+                    {{ $post->comments()->count() }} shares
+                </div>
+                <div class="py-1">
+                    <div class="flex justify-evenly m-0 relative border-t border-b border-gray-400 pt-3">
                         @include('pages.dashboard.like-button')
                         <!-- comment -->
                         <span href="" class="d-dashboard__like-comm cursor-pointer"
                             onclick="openComment({{ $post->id }})">
-                            <span class="flex justify-center items-center gap-2">
-                                {{ $post->comments()->count() }}
+                            <span class="flex justify-center items-center gap-2 text-sm">
                                 @include('svg.comment')
                                 Comment
                             </span>
                         </span>
+                        <span href="" class="d-dashboard__like-comm cursor-pointer"
+                            onclick="openComment({{ $post->id }})">
+                            <span class="flex justify-center items-center gap-2 text-sm">
+                                @include('svg.share')
+                                Share
+                            </span>
+                        </span>
                     </div>
+                    </a>
                     <div class="bg-whisperwhite">
                         <ul class="rounded-lg max-h-40 overflow-y-scroll scrollbar-hidden">
                             @foreach ($post->comments->reverse() as $comment)
@@ -120,10 +132,12 @@
                                                         @method('DELETE')
                                                         <button class="text-sm font-semibold ml-1">Delete</button>
                                                     </form>
+                                                    @if ($post->user_id === $comment->user_id)
                                                     <span
                                                         class="text-sm font-semibold ml-1 cursor-pointer comment-edit-link"
                                                         onclick="editComment({{ $comment->id }})">
                                                         Edit
+                                                        @endif
                                                     </span>
                                                 @endif
                                             </div>
