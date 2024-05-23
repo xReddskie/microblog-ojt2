@@ -1,5 +1,5 @@
 .p-profile {
-    @apply pb-8 bg-background rounded-lg;
+    @apply pb-1 bg-background rounded-lg;
 
     &__container {
         @apply border-2 bg-whisperwhite rounded-lg;
@@ -22,7 +22,7 @@
     }
 
     &__bio {
-        @apply text-lg py-3 flex justify-center italic;
+        @apply text-lg py-3 italic;
     }
 
     &__aside {

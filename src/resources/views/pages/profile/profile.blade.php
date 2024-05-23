@@ -2,22 +2,25 @@
 
 @section('content')
 
-    <body>
-        <div class="d-dashboard">
-            @include('pages.dashboard.navbar')
-            <div class="d-dashboard__main">
-                <div class="d-dashboard__space"></div>
-                @include('pages.profile.profile-info')
-                <main class="d-dashboard__post-content">
-                    @include('pages.profile.profile-header')
-                    <div class="py-1"></div>
-                    @if (auth()->user()->id == $user->id)
-                        @include('pages.dashboard.post')
-                    @endif
+<body>
+    <div class="d-dashboard">
+        @include('pages.dashboard.navbar')
+        <div class="d-dashboard__main">
+            <div class="d-dashboard__space"></div>
+            @include('pages.profile.profile-info')
+            <main class="d-dashboard__post-content">
+                @include('pages.profile.profile-header')
+                @if (auth()->user()->id == $user->id)
+                    @include('pages.dashboard.post')
+                @endif
+                @if (auth()->user()->followees->contains($user->id) || auth()->user()->id == $user->id)
                     @include('pages.dashboard.post-content')
-                </main>
-                @include('pages.dashboard.aside')
-                <div class="d-dashboard__space"></div>
-            </div>
+                @else  
+                    @include('pages.dashboard.post-hidden')
+                @endif
+            </main>
+            @include('pages.dashboard.aside')
+            <div class="d-dashboard__space"></div>
         </div>
-    </body>
+    </div>
+</body>

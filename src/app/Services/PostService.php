@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Post;
 use App\Models\Photo;
 use App\Http\Requests\PostRequest;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Database\Eloquent\Collection;
 
 
@@ -55,9 +56,10 @@ class PostService
     /**
      * View all posts
      */
-    public function viewAllPosts(): Collection
+    public function viewAllPosts(User $user): Collection
     {
-        $posts = Post::all();
+        $followeesIds = $user->followees->pluck('id')->push($user->id)->toArray();
+        $posts = Post::whereIn('user_id', $followeesIds)->get();
         $sortedPosts = $posts->sortByDesc('created_at');
         return $sortedPosts;
     }
