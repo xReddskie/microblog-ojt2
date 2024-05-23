@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Requests\SearchRequest;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Str;
@@ -94,5 +95,17 @@ class UserService
         } catch (\Exception $e) {
             return ['error' => 'An error occurred: ' . $e->getMessage()];
         }
+    }
+
+    /**
+     * Get query
+     */
+    public function getQuery(SearchRequest $request, int $id): array
+    {
+        $query = $request->input('query');
+        $results = User::where('username', 'like', "%$query%")->get();
+        $user = User::with('profile')->findOrFail($id);
+        
+        return compact('results', 'user', 'request');
     }
 }

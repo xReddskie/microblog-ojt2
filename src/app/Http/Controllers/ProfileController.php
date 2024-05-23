@@ -33,7 +33,6 @@ class ProfileController extends Controller
 
     /**
      * Summary of editProfile
-     * @return \Illuminate\View\View
      */
     public function editProfile(): View
     {
