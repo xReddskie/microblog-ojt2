@@ -48,4 +48,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/posts/{post}/comments', [PostCommentController::class, 'store'])->name('posts.comments.store');
     Route::put('/comments/{comment}/edit', [PostCommentController::class, 'editComment'])->name('posts.comments.edit');
     Route::delete('/comment/{comment}/delete', [PostCommentController::class, 'delete'])->name('delete.comment');
+    Route::get('/postDetails/{id}', [PostController::class, 'postDetails'])->name('post.detail');
 });

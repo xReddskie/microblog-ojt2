@@ -95,4 +95,13 @@ class PostService
     {
         auth()->user()->likes()->detach($post);
     }
+    
+    /**
+     * Show post detail
+     */
+    public function postDetails(int $id): Post
+    {
+        $post = Post::find($id);
+        return $post;
+    }
 }

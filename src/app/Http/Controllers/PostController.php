@@ -92,4 +92,14 @@ class PostController extends Controller
         $this->postService->unlike($post);
         return redirect()->back();
     }
+    
+    /**
+     * Show post detail
+     */
+    public function postDetails(int $id): View
+    {
+        $user = auth()->user();
+        $post = $this->postService->postDetails($id);
+        return view('pages.dashboard.post-details', compact('user','post'));
+    }
 }
