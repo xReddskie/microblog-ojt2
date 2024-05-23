@@ -76,6 +76,3 @@
             startCountdown();
         });
     </script>
-
-    @endsection
-    
