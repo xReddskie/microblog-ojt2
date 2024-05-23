@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Requests\SearchRequest;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Str;
@@ -99,7 +100,7 @@ class UserService
     /**
      * Get query
      */
-    public function getQuery($request, int $id)
+    public function getQuery(SearchRequest $request, int $id): array
     {
         $query = $request->input('query');
         $results = User::where('username', 'like', "%$query%")->get();
