@@ -92,22 +92,34 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Comment::class);
     }
 
+    /**
+     *  Many-to-many relationship to retrieve the followers of the user.
+     */
     public function followers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'follows', 'followee_id', 'follower_id');
     }
 
+    /**
+     *  Many-to-many relationship to retrieve the followees of the user.
+     */
     public function followees(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followee_id');
     }
 
-    public function getFollowersCountAttribute()
+    /**
+     *  Get the number of followers
+     */
+    public function getFollowersCountAttribute(): int
     {
         return $this->followers()->count();
     }
 
-    public function getFolloweesCountAttribute()
+    /**
+     *  Get the number of followees
+     */
+    public function getFolloweesCountAttribute(): int
     {
         return $this->followees()->count();
     }
