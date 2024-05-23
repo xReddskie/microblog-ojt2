@@ -3,20 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\FollowService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 class FollowController extends Controller
 {
-    public function follow(User $user)
+    public $followService;
+    public function __construct()
     {
-        Auth::user()->followees()->attach($user->id);
+        $this->followService = new FollowService;
+    }
+
+    /**
+     * Follow user
+     */
+    public function follow(User $user): RedirectResponse
+    {
+        $this->followService->follow($user);
 
         return back();
     }
 
-    public function unfollow(User $user)
+    /**
+     * Unfollow user
+     */
+    public function unfollow(User $user): RedirectResponse
     {
-        Auth::user()->followees()->detach($user->id);
+        $this->followService->unfollow($user);
 
         return back();
     }

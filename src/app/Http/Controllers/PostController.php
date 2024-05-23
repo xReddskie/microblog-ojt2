@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Photo;
 use Illuminate\View\View;
 use App\Services\PostService;
 use App\Http\Requests\PostRequest;
-use App\Models\Photo;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 
 class PostController extends Controller
@@ -43,7 +44,8 @@ class PostController extends Controller
      */
     public function viewAllPosts(): View
     {
-        $posts = $this->postService->viewAllPosts();
+        $user = Auth::user();
+        $posts = $this->postService->viewAllPosts($user);
         return view('/app', ['posts' => $posts]);
     }
 
@@ -61,7 +63,7 @@ class PostController extends Controller
      */
     public function editPost(Post $post, PostRequest $request): RedirectResponse
     {
-        return $this->postService->editPost($post, $request) ?  redirect()->route('dashboard') :
+        return $this->postService->editPost($post, $request) ?  redirect()->route('dashboard', ['id' => auth()->user()->id]) :
             redirect('/')->with('error', 'Unauthorized access');
     }
 

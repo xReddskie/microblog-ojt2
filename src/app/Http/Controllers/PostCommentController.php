@@ -43,11 +43,11 @@ class PostCommentController extends Controller
     /**
      * Edit Comment
      */
-    public function editComment(Comment $comment, CommentRequest $request): View
+    public function editComment(Comment $comment, CommentRequest $request): RedirectResponse
     {
         $user = auth()->user();
-        $posts = $this->postService->viewAllPosts();
+        $posts = $this->postService->viewAllPosts($user);
         $this->commentService->editComment($comment, $request);
-        return view('/app', compact('user','posts', 'comment'));
+        return back();
     }
 }
