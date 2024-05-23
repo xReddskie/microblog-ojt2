@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FollowController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
@@ -32,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/{id}', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/', [DashboardController::class, 'app'])->name('app');
     Route::get('/profile-page', [ProfileController::class, 'profilePage'])->name('profile-page');
+    Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
+    Route::post('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
     Route::get('/user/{id}', [UserController::class, 'show'])->name('user.profile');
     Route::post('/post', [PostController::class, 'create'])->name('post');
     Route::delete('/post/{post}/delete', [PostController::class, 'deletePost'])->name('delete.post');

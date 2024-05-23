@@ -1,7 +1,7 @@
 @section('content')
 
-    <body>
-        @foreach ($posts as $post)
+<body>
+    @foreach ($posts as $post)
             <div id="container" class="d-dashboard__post-container relative">
                 <div id="filter{{ $post->id }}" class="filter"></div>
                 <div class="flex justify-between font-semibold py-3 text-xl">
@@ -12,17 +12,14 @@
                         </div>
                         <div class="flex flex-col text-3xl">
                             <span>
-                                <a
-                                    href="{{ route('user.profile', ['id' => $post->user->id]) }}">{{ $post->user->username }}</a>
+                                <a href="{{ route('user.profile', ['id' => $post->user->id]) }}">{{ $post->user->username }}</a>
                             </span>
                             <span class="font-thin text-lg">{{ $post->created_at->diffForHumans() }}</span>
                         </div>
                     </div>
                     @if ($post->user_id === auth()->id())
-                        <div id="mySidenav{{ $post->id }}"
-                            class="sidenav z-20 bg-mygray flex flex-col justify-center items-center">
-                            <a href="javascript:void(0)" class="closebtn"
-                                onclick="closeNav({{ $post->id }})">&times;</a>
+                        <div id="mySidenav{{ $post->id }}" class="sidenav z-20 bg-mygray flex flex-col justify-center items-center">
+                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav({{ $post->id }})">&times;</a>
                             <form action="{{ route('delete.post', ['post' => $post]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
@@ -47,8 +44,7 @@
                             @php
                                 $cleanedPath = str_replace('public/', '', $photo->img_file);
                             @endphp
-                            <img src="{{ asset('storage/' . $cleanedPath) }}" alt="Post Image"
-                                class="w-full h-full rounded-lg">
+                            <img src="{{ asset('storage/' . $cleanedPath) }}" alt="Post Image" class="w-full h-full rounded-lg">
                         @endforeach
                     </div>
                 @endif
@@ -171,17 +167,17 @@
                     </div>
                 </div>
             </div>
-        @endforeach
-        <script>
-            function openNav(postId) {
-                document.getElementById("mySidenav" + postId).style.width = "100px";
-                document.getElementById("filter" + postId).style.display = "block";
-            }
+    @endforeach
+    <script>
+        function openNav(postId) {
+            document.getElementById("mySidenav" + postId).style.width = "100px";
+            document.getElementById("filter" + postId).style.display = "block";
+        }
 
-            function closeNav(postId) {
-                document.getElementById("mySidenav" + postId).style.width = "0";
-                document.getElementById("filter" + postId).style.display = "none";
-            }
+        function closeNav(postId) {
+            document.getElementById("mySidenav" + postId).style.width = "0";
+            document.getElementById("filter" + postId).style.display = "none";
+        }
 
             function openComment(postId) {
                 const comment = document.getElementById("comment" + postId);

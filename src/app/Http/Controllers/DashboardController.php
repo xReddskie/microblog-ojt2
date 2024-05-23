@@ -9,7 +9,7 @@ use App\Services\PostService;
 class DashboardController extends Controller
 {
     public $postService;
-    
+
     public function __construct()
     {
         $this->postService = new PostService;
@@ -20,13 +20,7 @@ class DashboardController extends Controller
     public function dashboard(int $id): View
     {
         $user = User::with('profile')->findOrFail($id);
-        $posts = $this->postService->viewAllPosts();
-        return view('/app', compact('user','posts'));
-    }
-    
-    public function app(): View
-    {
-        $posts = $this->postService->viewAllPosts();
-        return view('/app', compact('posts'));
+        $posts = $this->postService->viewAllPosts($user);
+        return view('/app', compact('user', 'posts'));
     }
 }

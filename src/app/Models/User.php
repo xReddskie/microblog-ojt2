@@ -39,8 +39,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
      */
     protected function casts(): array
     {
@@ -61,7 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->notify(new VerifyEmail);
     }
-    
+
     /**
      * User has many posts
      */
@@ -69,7 +67,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Post::class, 'user_id');
     }
-    
+
     /**
      * User has many likes
      */
@@ -77,7 +75,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Post::class, 'likes')->withTimestamps();
     }
-    
+
     /**
      * User has liked Post
      */
@@ -92,5 +90,37 @@ class User extends Authenticatable implements MustVerifyEmail
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    /**
+     *  Many-to-many relationship to retrieve the followers of the user.
+     */
+    public function followers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followee_id', 'follower_id');
+    }
+
+    /**
+     *  Many-to-many relationship to retrieve the followees of the user.
+     */
+    public function followees(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followee_id');
+    }
+
+    /**
+     *  Get the number of followers
+     */
+    public function getFollowersCountAttribute(): int
+    {
+        return $this->followers()->count();
+    }
+
+    /**
+     *  Get the number of followees
+     */
+    public function getFolloweesCountAttribute(): int
+    {
+        return $this->followees()->count();
     }
 }
