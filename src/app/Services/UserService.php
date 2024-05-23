@@ -96,6 +96,9 @@ class UserService
         }
     }
 
+    /**
+     * Get query
+     */
     public function getQuery($request, int $id)
     {
         $query = $request->input('query');
