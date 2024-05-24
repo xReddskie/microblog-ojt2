@@ -49,4 +49,6 @@ Route::middleware('auth')->group(function () {
     Route::put('/comments/{comment}/edit', [PostCommentController::class, 'editComment'])->name('posts.comments.edit');
     Route::delete('/comment/{comment}/delete', [PostCommentController::class, 'delete'])->name('delete.comment');
     Route::get('/postDetails/{id}', [PostController::class, 'postDetails'])->name('post.detail');
+    Route::get('/postDetails/{id}', [PostController::class, 'sharePostPage'])->name('post.share');
+    Route::post('/share/{id}', [PostController::class, 'sharePost'])->name('share.post');
 });

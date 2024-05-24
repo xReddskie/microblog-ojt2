@@ -90,6 +90,7 @@ class UserService
 
             $user = User::with('profile')->findOrFail($id);
             $posts = Post::where('user_id', $user->id)->get();
+            $posts = $posts->sortByDesc('created_at');
 
             return compact('user', 'posts');
         } catch (\Exception $e) {

@@ -1,9 +1,8 @@
 @section('content')
 
-<body>
-    @foreach ($posts as $post)
+    <body>
+        @foreach ($posts as $post)
             <div id="container" class="d-dashboard__post-container relative">
-                <div id="filter{{ $post->id }}" class="filter"></div>
                 <div class="flex justify-between font-semibold py-3 text-xl">
                     <div class="flex items-center gap-3 mb-2 rounded-lg">
                         <div class="w-20 h-20 border-2 border-white rounded-full overflow-hidden relative">
@@ -12,14 +11,17 @@
                         </div>
                         <div class="flex flex-col text-3xl">
                             <span>
-                                <a href="{{ route('user.profile', ['id' => $post->user->id]) }}">{{ $post->user->username }}</a>
+                                <a
+                                    href="{{ route('user.profile', ['id' => $post->user->id]) }}">{{ $post->user->username }}</a>
                             </span>
                             <span class="font-thin text-lg">{{ $post->created_at->diffForHumans() }}</span>
                         </div>
                     </div>
                     @if ($post->user_id === auth()->id())
-                        <div id="mySidenav{{ $post->id }}" class="sidenav z-20 bg-mygray flex flex-col justify-center items-center">
-                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav({{ $post->id }})">&times;</a>
+                        <div id="mySidenav{{ $post->id }}"
+                            class="sidenav z-20 bg-mygray flex flex-col justify-center items-center">
+                            <a href="javascript:void(0)" class="closebtn"
+                                onclick="closeNav({{ $post->id }})">&times;</a>
                             <form action="{{ route('delete.post', ['post' => $post]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
@@ -34,9 +36,43 @@
                         </span>
                     @endif
                 </div>
+                {{-- Original Post --}}
                 <a href="{{ url('postDetails', $post->id) }}">
                     <div class="mb-2 relative w-2/3 text-xl">{{ $post->content }}</div>
                 </a>
+                {{-- Display content of shared post --}}
+                @if ($post->sharedPost)
+                    <a href="{{ url('postDetails', $post->sharedPost->id) }}">
+
+
+                        <div class="mb-2 relative w-auto text-xl border-2 p-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 border-2 border-white rounded-full overflow-hidden relative">
+                                    <img class="object-cover w-full h-full"
+                                        src='{{ $post->sharedPost->user->profile->getImageURL() }}' alt='Profile Picture'>
+                                </div>
+                                <div>
+                                    <span>{{ $post->sharedPost->user->username }}</span>
+                                    <span
+                                        class="font-thin text-xs">{{ $post->sharedPost->created_at->diffForHumans() }}</span>
+                                </div>
+
+                            </div>
+                            <p>{{ $post->sharedPost->content }}</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <div class="w-50 h-50 border-2 border-white relative">
+                                    @foreach ($post->sharedPost->photos as $photo)
+                                        @php
+                                            $cleanedPath = str_replace('public/', '', $photo->img_file);
+                                        @endphp
+                                        <img class="object-cover w-full h-full"
+                                            src='{{ asset('storage/' . $cleanedPath) }}' alt='Shared Post Image'>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                @endif
                 {{-- Image Display --}}
                 @if ($post->photos->count() > 0)
                     <div class="d-dashboard__image">
@@ -46,7 +82,8 @@
                             @endphp
                             <a href="{{ url('postDetails', $post->id) }}">
                                 <img src="{{ asset('storage/' . $cleanedPath) }}" alt="Post Image"
-                                    class="cursor-pointer w-full h-full rounded-lg"></a>
+                                    class="cursor-pointer w-full h-full rounded-lg">
+                            </a>
                         @endforeach
                     </div>
                 @endif
@@ -66,13 +103,12 @@
                                 Comment
                             </span>
                         </span>
-                        <span href="" class="d-dashboard__like-comm cursor-pointer"
-                            onclick="openComment({{ $post->id }})">
+                        <a href="{{ url('postDetails', $post->id) }}" class="d-dashboard__like-comm cursor-pointer">
                             <span class="flex justify-center items-center gap-2 text-sm">
                                 @include('svg.share')
                                 Share
                             </span>
-                        </span>
+                        </a>
                     </div>
                     </a>
                     <div class="bg-whisperwhite">
@@ -133,11 +169,11 @@
                                                         <button class="text-sm font-semibold ml-1">Delete</button>
                                                     </form>
                                                     @if ($post->user_id === $comment->user_id)
-                                                    <span
-                                                        class="text-sm font-semibold ml-1 cursor-pointer comment-edit-link"
-                                                        onclick="editComment({{ $comment->id }})">
-                                                        Edit
-                                                        @endif
+                                                        <span
+                                                            class="text-sm font-semibold ml-1 cursor-pointer comment-edit-link"
+                                                            onclick="editComment({{ $comment->id }})">
+                                                            Edit
+                                                    @endif
                                                     </span>
                                                 @endif
                                             </div>
@@ -181,17 +217,17 @@
                     </div>
                 </div>
             </div>
-    @endforeach
-    <script>
-        function openNav(postId) {
-            document.getElementById("mySidenav" + postId).style.width = "100px";
-            document.getElementById("filter" + postId).style.display = "block";
-        }
+        @endforeach
+        <script>
+            function openNav(postId) {
+                document.getElementById("mySidenav" + postId).style.width = "100px";
+                document.getElementById("filter" + postId).style.display = "block";
+            }
 
-        function closeNav(postId) {
-            document.getElementById("mySidenav" + postId).style.width = "0";
-            document.getElementById("filter" + postId).style.display = "none";
-        }
+            function closeNav(postId) {
+                document.getElementById("mySidenav" + postId).style.width = "0";
+                document.getElementById("filter" + postId).style.display = "none";
+            }
 
             function openComment(postId) {
                 const comment = document.getElementById("comment" + postId);
