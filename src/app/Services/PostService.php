@@ -44,16 +44,6 @@ class PostService
     }
     
     /**
-     * View user posts
-     */
-    public function viewOwnPosts(): Collection
-    {
-        $posts = Post::where('user_id', auth()->id())->get();
-        $sortedPosts = $posts->sortByDesc('created_at');
-        return $sortedPosts;
-    }
-    
-    /**
      * View all posts
      */
     public function viewAllPosts(User $user): Collection
@@ -103,5 +93,35 @@ class PostService
     {
         $post = Post::find($id);
         return $post;
+    }
+    
+    /**
+     * Show post detail
+     */
+    public function sharePostPage(int $id): Post
+    {
+        $post = Post::find($id);
+        return $post;
+    }
+    
+    /**
+     * Share post function
+     */
+    public function sharePost(PostRequest $request, int $userId, int $id): Post
+    {
+        $post = Post::find($id);
+
+        $sharePost = Post::create([
+            'user_id' => $userId,
+            'content' => $request->content,
+            'childPost_id' => $post->childPost_id ?? $post->id 
+        ]);
+
+        if ($post->childPost_id) {
+            $sharePost->childPost_id = $post->childPost_id;
+            $sharePost->save(); // Save the changes
+        }
+
+        return $sharePost;
     }
 }

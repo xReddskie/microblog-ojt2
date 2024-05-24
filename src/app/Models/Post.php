@@ -14,7 +14,7 @@ class Post extends Model
     use HasFactory;
     use SoftDeletes;
     
-    protected $fillable = ['content', 'user_id'];
+    protected $fillable = ['content', 'user_id', 'childPost_id'];
     
     /**
      * Post belongs to user
@@ -43,5 +43,13 @@ class Post extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * Post belongs to post
+     */
+    public function sharedPost(): BelongsTo
+    {
+        return $this->belongsTo(Post::class, 'childPost_id');
     }
 }

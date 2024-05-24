@@ -30,14 +30,6 @@ class PostController extends Controller
         return redirect()->back();
     }
     
-    /**
-     * Retrive user posts
-     */
-    public function viewOwnPosts(): View
-    {
-        $posts = $this->postService->viewOwnPosts();
-        return view('/pages/dashboard/profile', ['posts' => $posts]);
-    }
 
     /**
      * Retrive all posts
@@ -101,5 +93,27 @@ class PostController extends Controller
         $user = auth()->user();
         $post = $this->postService->postDetails($id);
         return view('pages.dashboard.post-details', compact('user','post'));
+    }
+    
+    /**
+     * Show post detail
+     */
+    public function sharePostPage(int $id): View
+    {
+        $user = auth()->user();
+        $post = $this->postService->sharePostPage($id);
+        $shares = $this->postService->postDetails($id);
+        return view('pages.dashboard.share-page', compact('user','post', 'shares'));
+    }
+    
+    /**
+     * Share user posts
+     */
+    public function sharePost(PostRequest $request, int $id): RedirectResponse
+    {
+        $userId = auth()->id();
+        $post = $this->postService->sharePost($request, $userId, $id);
+        $this->postService->addPhotos($request, $userId, $post);
+        return redirect()->route('dashboard', ['id' => auth()->user()->id]);
     }
 }
