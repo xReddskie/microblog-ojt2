@@ -41,10 +41,18 @@
                     <div class="mb-2 relative w-2/3 text-xl">{{ $post->content }}</div>
                 </a>
                 {{-- Display content of shared post --}}
-                @if ($post->sharedPost)
+                @if (
+                    $post->childPost_id &&
+                        (!$post->sharedPost ||
+                            $post->sharedPost->deleted_at ||
+                            !(auth()->user()->followees->contains($post->sharedPost->user->id) ||
+                                auth()->user()->id == $post->sharedPost->user->id
+                            )))
+                    <div class="mb-2 relative w-auto text-normal font-normal border-2 p-3">
+                        <p>Content not Available</p>
+                    </div>
+                @elseif ($post->childPost_id)
                     <a href="{{ url('postDetails', $post->sharedPost->id) }}">
-
-
                         <div class="mb-2 relative w-auto text-xl border-2 p-3">
                             <div class="flex items-center gap-3">
                                 <div class="w-10 h-10 border-2 border-white rounded-full overflow-hidden relative">
@@ -56,7 +64,6 @@
                                     <span
                                         class="font-thin text-xs">{{ $post->sharedPost->created_at->diffForHumans() }}</span>
                                 </div>
-
                             </div>
                             <p>{{ $post->sharedPost->content }}</p>
                             <div class="flex items-center gap-3 mt-2">
