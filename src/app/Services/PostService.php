@@ -114,13 +114,10 @@ class PostService
         $sharePost = Post::create([
             'user_id' => $userId,
             'content' => $request->content,
-            'childPost_id' => $post->childPost_id ?? $post->id 
+            'childPost_id' => $post->childPost_id ?? $post->id
         ]);
 
-        if ($post->childPost_id) {
-            $sharePost->childPost_id = $post->childPost_id;
-            $sharePost->save(); // Save the changes
-        }
+        $sharePost->save();
 
         return $sharePost;
     }
