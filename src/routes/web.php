@@ -51,4 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/postDetails/{id}', [PostController::class, 'postDetails'])->name('post.detail');
     Route::get('/postDetails/{id}', [PostController::class, 'sharePostPage'])->name('post.share');
     Route::post('/share/{id}', [PostController::class, 'sharePost'])->name('share.post');
+    Route::get('/posts/{id}/{x}', [ProfileController::class, 'profileNav'])->name('posts');
+    Route::get('/followers/{id}/{x}', [ProfileController::class, 'profileNav'])->name('followers');
+    Route::get('/photos/{id}/{x}', [ProfileController::class, 'profileNav'])->name('photos');
+    Route::get('/about/{id}/{x}', [ProfileController::class, 'profileNav'])->name('about');
 });
