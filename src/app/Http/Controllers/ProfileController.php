@@ -9,15 +9,18 @@ use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use App\Services\PostService;
 use App\Services\ProfileService;
+use DateTime;
 
 class ProfileController extends Controller
 {
     protected $postService;
     protected $profileService;
-    public function __construct(ProfileService $profileService, PostService $postService)
+    protected $userController;
+    public function __construct(ProfileService $profileService, PostService $postService, UserController $userController)
     {
         $this->profileService = $profileService;
         $this->postService = $postService;
+        $this->userController = $userController;
     }
 
     /**
@@ -60,5 +63,20 @@ class ProfileController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
+    }
+
+    /**
+     * Show posts in the user profile
+     */
+    public function profileNav($id, $x)
+    {
+        $user = User::findOrFail($id);
+        $view = $this->userController->show($id);
+        $photos = $user->photos;
+        $birthdate = new DateTime($user->profile->birth_date);
+        $today = new DateTime();
+        $age = $today->diff($birthdate)->y;
+
+        return $view->with(compact('x', 'photos', 'age'));
     }
 }

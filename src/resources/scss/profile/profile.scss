@@ -57,6 +57,10 @@
         @apply flex flex-col gap-2 bg-gray-50 m-1 p-4 border-2 bg-whisperwhite rounded-lg;
     }
 
+    &__list {
+        @apply px-4 py-4 w-full h-full flex justify-center focus:bg-mygray focus:text-white hover:bg-mygray hover:text-white cursor-pointer transition-colors duration-300;
+    }
+
     .animate-spin {
         animation: spin 1s linear infinite;
     }

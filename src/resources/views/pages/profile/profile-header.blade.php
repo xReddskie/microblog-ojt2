@@ -17,6 +17,7 @@
         </div>
         <div class="flex justify-start m-4 relative">
             @if (auth()->user()->id == $user->id)
+                <div class="p-2"></div>
             @else
                 @if (auth()->user()->followees->contains($user->id))
                     <form action="{{ route('unfollow', $user) }}" method="POST" class="m-0 p-0">
@@ -33,6 +34,14 @@
             <p class="p-profile__bio absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 "{{ $user->profile->bio }}"</p>
         </div>
-
+        <div class="mt-10">
+            <hr>
+            <div class="flex justify-evenly font-light">
+                <a href="{{ route('posts', ['id' => $user->id, 'x' => 1]) }}" class="p-profile__list">Posts</a>
+                <a href="{{ route('followers', ['id' => $user->id, 'x' => 2]) }}" class="p-profile__list">Followers</a>
+                <a href="{{ route('photos', ['id' => $user->id, 'x' => 3]) }}" class="p-profile__list">Photos</a>
+                <a href="{{ route('about', ['id' => $user->id, 'x' => 4]) }}" class="p-profile__list">About</a>
+            </div>
+        </div>
     </div>
 </div>
