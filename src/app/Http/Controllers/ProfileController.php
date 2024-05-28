@@ -68,7 +68,7 @@ class ProfileController extends Controller
     /**
      * Show posts in the user profile
      */
-    public function profileNav($id, $x)
+    public function profileNav(int $id,int $x): View
     {
         $user = User::findOrFail($id);
         $view = $this->userController->show($id);
