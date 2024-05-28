@@ -19,7 +19,7 @@ class UserController extends Controller
      */
     public function show(int $id): View
     {
-        $data = $this->userService->getUserProfile($id);
+        $data = $this->userService->getUserProfile($id, 5);
         return view('pages.profile.profile', $data);
     }
 

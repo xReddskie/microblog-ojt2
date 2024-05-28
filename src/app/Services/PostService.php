@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Services; 
+namespace App\Services;
 
 use App\Models\Post;
 use App\Models\Photo;
 use App\Http\Requests\PostRequest;
 use Illuminate\Foundation\Auth\User;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 
 class PostService
@@ -14,7 +14,7 @@ class PostService
     /**
      * Create Photo inside Post
      */
-    public function addPhotos(PostRequest $request, int $userId, Post $post): Void
+    public function addPhotos(PostRequest $request, int $userId, Post $post): void
     {
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -24,7 +24,7 @@ class PostService
                 Photo::create([
                     'user_id' => $userId,
                     'post_id' => $post->id,
-                    'img_file' => $path 
+                    'img_file' => $path
                 ]);
             }
         }
@@ -36,32 +36,34 @@ class PostService
     public function create(PostRequest $request, int $userId): Post
     {
         $posts = Post::create([
-            'user_id' =>$userId,
-            'content' =>$request->content,
+            'user_id' => $userId,
+            'content' => $request->content,
         ]);
 
         return $posts;
     }
-    
+
     /**
      * View all posts
      */
-    public function viewAllPosts(User $user): Collection
+    public function viewAllPosts(User $user, int $perPage): LengthAwarePaginator
     {
         $followeesIds = $user->followees->pluck('id')->push($user->id)->toArray();
-        $posts = Post::whereIn('user_id', $followeesIds)->get();
-        $sortedPosts = $posts->sortByDesc('created_at');
+        $sortedPosts = Post::whereIn('user_id', $followeesIds)
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage);
+
         return $sortedPosts;
     }
 
     /**
      * Delete post
      */
-    public function deletePost(Post $post): Void
+    public function deletePost(Post $post): void
     {
         $post->delete();
     }
-    
+
     /**
      * Edit Post
      */
@@ -69,7 +71,7 @@ class PostService
     {
         return auth()->user()->id === $post['user_id'] && $post->update($request->all());
     }
-    
+
     /**
      * Like Post
      */
@@ -77,7 +79,7 @@ class PostService
     {
         auth()->user()->likes()->attach($post);
     }
-    
+
     /**
      * Unlike Post
      */
@@ -85,7 +87,7 @@ class PostService
     {
         auth()->user()->likes()->detach($post);
     }
-    
+
     /**
      * Show post detail
      */
@@ -94,7 +96,7 @@ class PostService
         $post = Post::find($id);
         return $post;
     }
-    
+
     /**
      * Show post detail
      */
@@ -103,7 +105,7 @@ class PostService
         $post = Post::find($id);
         return $post;
     }
-    
+
     /**
      * Share post function
      */

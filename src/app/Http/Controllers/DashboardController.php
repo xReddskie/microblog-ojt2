@@ -20,7 +20,7 @@ class DashboardController extends Controller
     public function dashboard(int $id): View
     {
         $user = User::with('profile')->findOrFail($id);
-        $posts = $this->postService->viewAllPosts($user);
+        $posts = $this->postService->viewAllPosts($user, 5);
         return view('/app', compact('user', 'posts'));
     }
 }
