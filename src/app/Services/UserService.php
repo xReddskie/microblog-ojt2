@@ -83,16 +83,16 @@ class UserService
     /**
      * Get User Profile
      */
-
-    public function getUserProfile(int $id): array
+    public function getUserProfile(int $id, int $perPage): array
     {
         try {
 
             $user = User::with('profile')->findOrFail($id);
-            $posts = Post::where('user_id', $user->id)->get();
-            $posts = $posts->sortByDesc('created_at');
+            $posts = Post::where('user_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->paginate($perPage);
 
-            return compact('user', 'posts');
+            return ['user' => $user, 'posts' => $posts];
         } catch (\Exception $e) {
             return ['error' => 'An error occurred: ' . $e->getMessage()];
         }
@@ -106,7 +106,7 @@ class UserService
         $query = $request->input('query');
         $results = User::where('username', 'like', "%$query%")->get();
         $user = User::with('profile')->findOrFail($id);
-        
+
         return compact('results', 'user', 'request');
     }
 }
