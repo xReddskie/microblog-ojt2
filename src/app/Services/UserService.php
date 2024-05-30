@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\FollowController;
 use App\Http\Requests\SearchRequest;
 use App\Models\Post;
 use App\Models\User;
@@ -11,11 +12,15 @@ use Illuminate\Support\Facades\DB;
 use App\Notifications\PasswordReset;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\RegisterRequest;
-use Illuminate\Database\QueryException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserService
 {
+    public $followController;
+    public function __construct()
+    {
+        $this->followController = new FollowController;
+    }
+
     /**
      * Create User
      */
@@ -91,8 +96,9 @@ class UserService
             $posts = Post::where('user_id', $user->id)
                 ->orderBy('created_at', 'desc')
                 ->paginate($perPage);
+            $suggestedUsers = $this->followController->showSuggestions();
 
-            return ['user' => $user, 'posts' => $posts];
+            return ['user' => $user, 'posts' => $posts, 'suggestedUsers' => $suggestedUsers];
         } catch (\Exception $e) {
             return ['error' => 'An error occurred: ' . $e->getMessage()];
         }
@@ -106,7 +112,8 @@ class UserService
         $query = $request->input('query');
         $results = User::where('username', 'like', "%$query%")->get();
         $user = User::with('profile')->findOrFail($id);
+        $suggestedUsers = $this->followController->showSuggestions();
 
-        return compact('results', 'user', 'request');
+        return compact('results', 'user', 'request', 'suggestedUsers');
     }
 }
