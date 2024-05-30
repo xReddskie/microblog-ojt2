@@ -25,7 +25,7 @@ class FollowController extends Controller
     {
         $this->followService->follow($user);
 
-        return back();
+        return back()->with('success', 'Successfully followed the user!');
     }
 
     /**
@@ -35,7 +35,7 @@ class FollowController extends Controller
     {
         $this->followService->unfollow($user);
 
-        return back();
+        return back()->with('unfollow', 'Successfully unfollowed the user!');
     }
 
     /**

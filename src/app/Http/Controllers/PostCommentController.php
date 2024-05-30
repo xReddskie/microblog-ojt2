@@ -28,7 +28,7 @@ class PostCommentController extends Controller
     {
         $this->commentService->create($request, auth()->id(), $post);
     
-        return redirect()->back()->with('success', 'Comment added successfully');
+        return redirect()->back()->with('comment', 'Comment added successfully!');
     }
 
     /**
@@ -37,7 +37,7 @@ class PostCommentController extends Controller
     public function delete(Comment $comment): RedirectResponse
     {
         $this->commentService->deleteComment($comment);
-        return redirect()->back()->with('success', 'Comment deleted successfully.');
+        return redirect()->back()->with('deleted', 'Comment deleted successfully.');
     }
     
     /**
@@ -48,6 +48,6 @@ class PostCommentController extends Controller
         $user = auth()->user();
         $posts = $this->postService->viewAllPosts($user);
         $this->commentService->editComment($comment, $request);
-        return back();
+        return back()->with('comment', 'Comment edited successfully!');
     }
 }
