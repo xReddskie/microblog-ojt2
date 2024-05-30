@@ -13,10 +13,12 @@ use Illuminate\Http\RedirectResponse;
 class PostController extends Controller
 {
     public $postService;
+    public $followController;
 
     public function __construct()
     {
         $this->postService = new PostService;
+        $this->followController = new FollowController;
     }
 
     /**
@@ -27,7 +29,7 @@ class PostController extends Controller
         $userId = auth()->id();
         $post = $this->postService->create($request, $userId);
         $this->postService->addPhotos($request, $userId, $post);
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Post shared successfully!');
     }
     
 
@@ -47,7 +49,7 @@ class PostController extends Controller
     public function deletePost(Post $post): RedirectResponse
     {
         $this->postService->deletePost($post);
-        return redirect()->back()->with('success');
+        return redirect()->route('dashboard', ['id' => auth()->user()->id])->with('deleted', 'Post deleted successfully!');
     }
 
     /**
@@ -92,7 +94,8 @@ class PostController extends Controller
     {
         $user = auth()->user();
         $post = $this->postService->postDetails($id);
-        return view('pages.dashboard.post-details', compact('user','post'));
+        $suggestedUsers = $this->followController->showSuggestions();
+        return view('pages.dashboard.post-details', compact('user','post', 'suggestedUsers'));
     }
     
     /**
@@ -103,7 +106,8 @@ class PostController extends Controller
         $user = auth()->user();
         $post = $this->postService->sharePostPage($id);
         $shares = $this->postService->postDetails($id);
-        return view('pages.dashboard.share-page', compact('user','post', 'shares'));
+        $suggestedUsers = $this->followController->showSuggestions();
+        return view('pages.dashboard.share-page', compact('user','post', 'shares', 'suggestedUsers'));
     }
     
     /**
@@ -114,6 +118,7 @@ class PostController extends Controller
         $userId = auth()->id();
         $post = $this->postService->sharePost($request, $userId, $id);
         $this->postService->addPhotos($request, $userId, $post);
-        return redirect()->route('dashboard', ['id' => auth()->user()->id]);
+        return redirect()->route('dashboard', ['id' => auth()->user()->id])->with('success', 'Post shared successfully!');
+        
     }
 }

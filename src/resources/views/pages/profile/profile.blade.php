@@ -1,7 +1,3 @@
-@section('title', 'Profile')
-
-@section('content')
-
 <body>
     <div class="d-dashboard">
         @include('pages.dashboard.navbar')
