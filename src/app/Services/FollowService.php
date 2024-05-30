@@ -12,7 +12,11 @@ class FollowService
      */
     public function follow(User $user): Void
     {
-        Auth::user()->followees()->attach($user->id);
+        $currentUser = auth()->user();
+
+        if(!$currentUser->followees()->where('followee_id', $user->id)->exists()) {
+            $currentUser->followees()->attach($user->id);
+        }
     }
 
     /**

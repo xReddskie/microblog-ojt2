@@ -39,18 +39,54 @@
         </div>
         <div class="d-dashboard__user">
             <div class="font-semibold">Suggestions</div>
-            <!-- User suggest number 1 -->
-            <hr class="d-dashboard__user-hr">
-            <div class="pt-1">User 1</div>
-            <div class="pt-2">
-                <button type="button" class="d-dashboard__aside-btns">Follow</button>
-            </div>
-            <!-- User suggest number 2 -->
-            <hr class="d-dashboard__user-hr">
-            <div class="pt-1">User 1</div>
-            <div class="pt-2">
-                <button type="button" class="d-dashboard__aside-btns">Follow</button>
-            </div>
+            @if ($suggestedUsers->count() >= 1)
+                @foreach ($suggestedUsers as $suggestion)
+                    <!-- User suggest number 1 -->
+                    <hr class="d-dashboard__user-hr">
+                    <div class="flex items-center py-1">
+                        <img class="object-cover w-10 h-10 mr-1 border-2 border-white rounded-full"
+                            src='{{ $suggestion->profile->getImageURL() }}' alt='Profile Picture'>
+                        <div class="flex flex-col justify-center">
+                            <div class="pt-1">{{$suggestion->username}}</div>
+                            <div class="font-light text-sm">(mutual {{$suggestion->mutualFollowers()->count()}})</div>
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <button class="d-dashboard__aside-btns follow-button"
+                            data-user-id="{{ $suggestion->id }}">Follow</button>
+                    </div>
+                @endforeach
+            @else
+                <div class="flex justify-center p-2 items-center font-light">
+                    No suggestions available
+                </div>
+            @endif
         </div>
     </div>
+    <script>
+        $(document).ready(function () {
+            $('.follow-button').on('click', function () {
+                var button = $(this);
+                var userId = button.data('user-id');
+
+                $.ajax({
+                    url: '/follow-ajax/' + userId,
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            button.text('Following').attr('disabled', true);
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function (response) {
+                        alert('Error following user.');
+                    }
+                });
+            });
+        });
+    </script>
 </aside>

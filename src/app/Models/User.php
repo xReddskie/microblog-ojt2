@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -131,5 +132,36 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getFolloweesCountAttribute(): int
     {
         return $this->followees()->count();
+    }
+
+    /**
+     * Get the following of the user's followees
+     */
+    public function mutualFollowers(): Collection
+    {
+        $followeeIds = $this->followees()->pluck('users.id');
+
+        return User::Wherehas('followers', function ($query) use ($followeeIds){
+            $query->whereIn('follows.follower_id', $followeeIds);
+        })->where('users.id', '!=', $this->id)
+        ->whereNotIn('users.id', $followeeIds)->get();
+    }
+
+    /**
+     * Get suggested users and users who are still not followed by the user
+     */
+    public function suggestedUsers(): Collection
+    {
+        $followeeIds = $this->followees()->pluck('users.id');
+    
+        $mutualFollowers = $this->mutualFollowers();
+    
+        $otherSuggestions = User::whereDoesntHave('followers', function ($query) {
+            $query->where('follows.follower_id', $this->id);
+        })->whereNotIn('users.id', $followeeIds)
+          ->where('users.id', '!=', $this->id)
+          ->get();
+    
+        return $mutualFollowers->merge($otherSuggestions);
     }
 }

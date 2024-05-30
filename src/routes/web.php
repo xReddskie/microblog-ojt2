@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'app'])->name('app');
     Route::get('/profile-page', [ProfileController::class, 'profilePage'])->name('profile-page');
     Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
+    Route::post('/follow-ajax/{user}', [FollowController::class, 'followAjax'])->name('follow.ajax');
     Route::post('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
     Route::get('/user/{id}', [UserController::class, 'show'])->name('user.profile');
     Route::post('/post', [PostController::class, 'create'])->name('post');

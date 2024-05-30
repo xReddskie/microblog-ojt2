@@ -9,10 +9,11 @@ use App\Services\PostService;
 class DashboardController extends Controller
 {
     public $postService;
-
+    public $followController;
     public function __construct()
     {
         $this->postService = new PostService;
+        $this->followController = new FollowController;
     }
     /**
      * Return dashboard
@@ -21,6 +22,7 @@ class DashboardController extends Controller
     {
         $user = User::with('profile')->findOrFail($id);
         $posts = $this->postService->viewAllPosts($user, 5);
-        return view('/app', compact('user', 'posts'));
+        $suggestedUsers = $this->followController->showSuggestions();
+        return view('app', compact('user', 'posts', 'suggestedUsers'));
     }
 }
