@@ -8,6 +8,7 @@ use App\Services\FollowService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Database\Eloquent\Collection;
 
 class FollowController extends Controller
 {
@@ -50,7 +51,7 @@ class FollowController extends Controller
     /**
      * Retrieves suggested users from user model and pass it to dashboard method
      */
-    public function showSuggestions()
+    public function showSuggestions(): Collection
     {
         $user = Auth::user();
         $suggestedUsers = $user->suggestedUsers();

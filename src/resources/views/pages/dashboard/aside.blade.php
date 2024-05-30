@@ -66,8 +66,8 @@
     <script>
         $(document).ready(function () {
             $('.follow-button').on('click', function () {
-                var button = $(this);
-                var userId = button.data('user-id');
+                const button = $(this);
+                const userId = button.data('user-id');
 
                 $.ajax({
                     url: '/follow-ajax/' + userId,
@@ -78,8 +78,6 @@
                     success: function (response) {
                         if (response.success) {
                             button.text('Following').attr('disabled', true);
-                        } else {
-                            alert(response.message);
                         }
                     },
                     error: function (response) {
