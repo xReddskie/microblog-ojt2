@@ -24,8 +24,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * Summary of profilePage
-     * @return \Illuminate\View\View
+     * Return to Profile page
      */
     public function profilePage(int $id): View
     {
