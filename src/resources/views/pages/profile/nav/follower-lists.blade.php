@@ -1,5 +1,3 @@
-@section('content')
-
 <div class="d-dashboard__post-container mb-10 pb-3">
     <div>
         @if (auth()->user()->followees->contains($user->id) || auth()->user()->id == $user->id)

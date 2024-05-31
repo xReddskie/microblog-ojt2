@@ -1,5 +1,3 @@
-@section('content')
-
     <body>
         <header>
             <nav class="d-dashboard__navigation">

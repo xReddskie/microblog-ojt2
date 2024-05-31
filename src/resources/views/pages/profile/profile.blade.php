@@ -1,3 +1,9 @@
+@extends('pages.layouts.app')
+
+@section('title', 'Dashboard')
+
+@section('content')
+
 <body>
     <div class="d-dashboard">
         @include('pages.dashboard.navbar')
@@ -13,3 +19,5 @@
         </div>
     </div>
 </body>
+
+@endsection('content')

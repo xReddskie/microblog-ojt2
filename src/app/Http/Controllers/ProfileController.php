@@ -27,11 +27,9 @@ class ProfileController extends Controller
      * Summary of profilePage
      * @return \Illuminate\View\View
      */
-    public function profilePage(): View
+    public function profilePage(int $id): View
     {
-        $user = auth()->user();
-        $posts = $this->postService->viewOwnPosts();
-        return view('pages/profile/profile', compact('posts', 'user'));
+        return $this->userController->show($id);
     }
 
     /**

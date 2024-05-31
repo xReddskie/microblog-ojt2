@@ -62,17 +62,27 @@
                     <p class="p-profile__bio absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
                         "{{ $user->profile->bio }}"</p>
                 </div>
-
+                <div class="mt-10">
+                    <hr>
+                    <div class="flex justify-evenly font-light">
+                        <a href="{{ route('posts', ['id' => $user->id, 'x' => 1]) }}" class="p-profile__list">Posts</a>
+                        <a href="{{ route('followers', ['id' => $user->id, 'x' => 2]) }}"
+                            class="p-profile__list">Followers</a>
+                        <a href="{{ route('photos', ['id' => $user->id, 'x' => 3]) }}"
+                            class="p-profile__list">Photos</a>
+                        <a href="{{ route('about', ['id' => $user->id, 'x' => 4]) }}" class="p-profile__list">About</a>
+                    </div>
+                </div>
             </div>
         </div>
 </body>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const alert = document.getElementById('myAlert');
         if (alert) {
             alert.classList.remove('hide');
 
-            setTimeout(function() {
+            setTimeout(function () {
                 alert.classList.add('hide');
             }, 5000);
         }

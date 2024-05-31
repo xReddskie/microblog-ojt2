@@ -15,7 +15,7 @@
                     </div>
                     <script>
                         setTimeout(function() {
-                            window.location.href = "{{ route('profile-page') }}";
+                            window.location.href = "{{ route('user.profile', ['id' => auth()->id()]) }}";
                         }, 5000);
                     </script>
                 @endif

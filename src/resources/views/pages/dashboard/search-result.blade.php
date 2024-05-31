@@ -1,3 +1,5 @@
+@extends('pages.layouts.app')
+
 @section('title', 'Search')
 
 @section('content')
@@ -16,3 +18,5 @@
         </div>
     </div>
 </body>
+
+@endsection

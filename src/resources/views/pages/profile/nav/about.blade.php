@@ -1,5 +1,3 @@
-@section('content')
-
 <div class="d-dashboard__post-container mb-10">
     <p class="pb-1">About</p>
     <hr class="border-gray-400 mb-1">
