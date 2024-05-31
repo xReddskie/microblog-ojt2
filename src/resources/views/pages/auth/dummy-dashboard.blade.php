@@ -1,3 +1,5 @@
+@extends('pages.layouts.app')
+
 @section('title', 'Dashboard')
 
 @section('content')
@@ -17,3 +19,5 @@
             </div>
         </div>
     </body>
+
+@endsection('content')

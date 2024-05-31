@@ -1,15 +1,4 @@
-@extends('pages.layouts.app')
-
-@section('title', 'Home')
-
-@section('content')
-
 <body>
-    <style>
-        .top-negative {
-            top: -205px;
-        }
-    </style>
     <aside class="p-profile__aside">
         <ul class="d-dashboard__side-nav">
             <div class="flex flex-col items-center w-full">
