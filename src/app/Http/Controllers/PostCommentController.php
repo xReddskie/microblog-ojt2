@@ -45,8 +45,6 @@ class PostCommentController extends Controller
      */
     public function editComment(Comment $comment, CommentRequest $request): RedirectResponse
     {
-        $user = auth()->user();
-        $posts = $this->postService->viewAllPosts($user);
         $this->commentService->editComment($comment, $request);
         return back()->with('comment', 'Comment edited successfully!');
     }

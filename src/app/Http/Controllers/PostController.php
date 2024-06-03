@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Photo;
+use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 use App\Services\PostService;
 use App\Http\Requests\PostRequest;
@@ -30,17 +31,6 @@ class PostController extends Controller
         $post = $this->postService->create($request, $userId);
         $this->postService->addPhotos($request, $userId, $post);
         return redirect()->back()->with('success', 'Post shared successfully!');
-    }
-    
-
-    /**
-     * Retrive all posts
-     */
-    public function viewAllPosts(): View
-    {
-        $user = Auth::user();
-        $posts = $this->postService->viewAllPosts($user);
-        return view('/app', ['posts' => $posts]);
     }
 
     /**
@@ -72,19 +62,28 @@ class PostController extends Controller
     /**
      * Like Post
      */
-    public function like(Post $post): RedirectResponse
+    public function like(Post $post): JsonResponse
     {
         $this->postService->like($post);
-        return redirect()->back();
+        return response()->json(['success' => true]);
     }
 
     /**
      * Unlike Post
      */
-    public function unlike(Post $post): RedirectResponse
+    public function unlike(Post $post): JsonResponse
     {
         $this->postService->unlike($post);
-        return redirect()->back();
+            return response()->json(['success' => true]);
+    }
+
+    /**
+     * Fetch likes count
+     */
+    public function getLikesCount(Post $post): JsonResponse
+    {
+        $likesCount = $post->likes()->distinct('user_id')->count();
+        return response()->json(['count' => $likesCount]);
     }
     
     /**

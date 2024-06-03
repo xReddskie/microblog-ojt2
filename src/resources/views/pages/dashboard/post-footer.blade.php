@@ -1,10 +1,10 @@
- <div class=" pt-1 flex justify-start items-start gap-3 text-xs font-light">
-                {{ $post->likes()->distinct('user_id')->count() }} likes
+ <div class=" pt-1 flex justify-start items-start gap-1 text-xs font-light">
+                <span class="likes-count" id="likes-count-{{ $post->id }}">{{ $post->likes()->distinct('user_id')->count() }} likes</span>
                 {{ $post->comments()->count() }} comments
                 {{ $post->comments()->count() }} shares
             </div>
             <div class="py-1">
-                <div class="flex justify-evenly m-0 relative border-t border-b border-gray-400 pt-3">
+                <div class="flex justify-evenly m-0 relative border-t border-b border-gray-400 py-2">
                     @include('pages.dashboard.like-button')
                     <!-- comment -->
                     <span href="" class="d-dashboard__like-comm cursor-pointer"
