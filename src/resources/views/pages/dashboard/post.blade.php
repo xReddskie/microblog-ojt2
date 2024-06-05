@@ -1,10 +1,3 @@
-<style>
-    .alert.hide {
-        opacity: 0;
-        transition: opacity 0.5s ease-out;
-    }
-</style>
-
 <body>
     <div class="relative">
         @if (session()->has('success'))
