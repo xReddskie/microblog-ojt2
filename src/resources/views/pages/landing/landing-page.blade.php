@@ -9,7 +9,7 @@
                 <nav class="l-landing__nav">
                     <div class="l-landing__logo">
                         @include('/svg/logo-nav')  
-                        <a href="/login">Microblog</a>
+                        <a href="/">Microblog</a>
                     </div>
                     <div class="grid-cols-3"></div>
                     <div class="l-landing__login">
@@ -44,7 +44,7 @@
                     <div class="l-landing__features-img">
                         <img class="object-cover w-32 h-32 md:w-full md:h-full" src='/img/share.png'>
                     </div>
-                    <a class="l-landing__features-card-title" href="/register-page">Share Your Moments</a>
+                    <p class="l-landing__features-card-title">Share Your Moments</p>
                 </div>
                 <div class="l-landing__features-card-subtitle-container">
                     <p class="l-landing__features-card-subtitle">Upload images and content.</p>
@@ -55,7 +55,7 @@
                     <div class="l-landing__features-img">
                         <img class="object-cover w-32 h-32 md:w-full md:h-full" src='/img/post.png'>
                     </div>
-                    <a class="l-landing__features-card-title" href="/register-page">Amplify Voices</a>
+                    <p class="l-landing__features-card-title"">Amplify Voices</p>
                 </div>
                 <div class="l-landing__features-card-subtitle-container">
                     <p class="l-landing__features-card-subtitle">Share others' posts.</p>
@@ -66,7 +66,7 @@
                     <div class="l-landing__features-img">
                         <img class="object-cover w-32 h-32 md:w-full md:h-full" src='/img/join.png'>
                     </div>
-                    <a class="l-landing__features-card-title" href="/register-page">Join the Conversation</a>
+                    <p class="l-landing__features-card-title">Join the Conversation</p>
                 </div>
                 <div class="l-landing__features-card-subtitle-container">
                     <p class="l-landing__features-card-subtitle">Leave comments and engage in discussions.</p>
@@ -79,7 +79,7 @@
                     <div class="l-landing__features-img">
                         <img class="object-cover w-32 h-32 md:w-full md:h-full" src='/img/stay.png'>
                     </div>
-                    <a class="l-landing__features-card-title" href="/register-page">Stay Connected</a>
+                    <p class="l-landing__features-card-title">Stay Connected</p>
                 </div>
                 <div class="l-landing__features-card-subtitle-container">
                     <p class="l-landing__features-card-subtitle">Follow people and topics to stay updated.</p>
@@ -90,7 +90,7 @@
                     <div class="l-landing__features-img">
                         <img class="object-cover w-32 h-32 md:w-full md:h-full" src='/img/follow.png'>
                     </div>
-                    <a class="l-landing__features-card-title" href="/register-page">Tailor Your Feed</a>
+                    <p class="l-landing__features-card-title">Tailor Your Feed</p>
                 </div>
                 <div class="l-landing__features-card-subtitle-container">
                     <p class="l-landing__features-card-subtitle">Unfollow to keep your feed relevant.</p>
@@ -139,7 +139,7 @@
                     </div>
                 </div>
                 <div class="l-landing__developers-name-container">
-                    <a class="l-landing__developers-name" href="/register-page">Erika Fuerte</a>
+                    <p class="l-landing__developers-name">Erika Fuerte</p>
                 </div>
                 <div class="l-landing__developers-position-container">
                     <p class="l-landing__developers-position">Software Engineer Intern - Full Stack</p>
@@ -152,7 +152,7 @@
                     </div>
                 </div>
                 <div class="l-landing__developers-name-container">
-                    <a class="l-landing__developers-name" href="/register-page">Peter Madrid</a>
+                    <p class="l-landing__developers-name">Peter Madrid</p>
                 </div>
                 <div class="l-landing__developers-position-container">
                     <p class="l-landing__developers-position">Software Engineer Intern - Full Stack</p>
