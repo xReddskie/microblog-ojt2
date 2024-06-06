@@ -3,53 +3,34 @@
 @section('title', 'Login')
 
 @section('content')
-    <body>
-        <div class="a-login">
-            <div class="a-login__card">
-                <div class="a-login__padding5">
-                </div>
-                <div class="a-login__h1">
-                    <h1>LOGIN</h1>
-                </div>
-                <div class="a-login__padding5 "></div>
-                @if ($errors->has('email') && $errors->has('password'))
-                    <span class="flex justify-center text-red-500 text-lg font-medium pb-3">Invalid Email and Password</span>
-                @elseif ($errors->has('email'))
-                    <span class="flex justify-center text-red-500 text-lg font-medium pb-3">{{ $errors->first('email') }}</span>
-                @elseif ($errors->has('password'))
-                    <span class="flex justify-center text-red-500 text-lg font-medium pb-3">{{ $errors->first('password') }}</span>
-                @endif
-                <form class=" justify-center items-center mt-4"action="{{ route('login') }}" method="POST">
-                    @csrf
-                    <div class="a-login__label ">
-                        <label for="">Email</label>
-                    </div>
-                    <input class="a-login__input" type="text" name="email" value="{{ old('email') }}"
-                        placeholder="example@gmail.com">
-                    <div class="a-login__padding2"></div>
-                    <div class="a-login__label">
-                        <label for="">Password</label>
-                    </div>
-                    <input class="a-login__input" type="password" name="password" placeholder="******************">
-                    <div class="a-login__forgotpassword">
-                        <a href="/forgot-password">Forgot Password?</a>
-                    </div>
-                    <div class="a-login__padding4">
-                        <button class="a-login__button">Login</button>
-                    </div>
-                    <div class="a-login__registered">
-                        <p>Not yet registered? <a href="/register-page" class="underline">Create an account.</a></p>
-                    </div>
-                </form>
-                <svg class="h-32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                    <path fill="#333333" fill-opacity="1"
-                        d="M0,0L60,26.7C120,53,240,107,360,138.7C480,171,600,181,720,160C840,139,960,85,1080,85.3C1200,85,1320,139,1380,165.3L1440,192L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
-                    </path>
-                    <path fill="#484848" fill-opacity="1"
-                        d="M0,128L48,160C96,192,192,256,288,282.7C384,309,480,299,576,272C672,245,768,203,864,170.7C960,139,1056,117,1152,144C1248,171,1344,245,1392,282.7L1440,320L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-                    </path>
-                </svg>
-            </div>
-        </div>
-    </body>
-</html>
+
+<div class="flex w-full min-h-screen relative overflow-y-auto">
+    <!-- svg -->
+    @include('svg.logo2')
+
+    <!-- login -->
+    @include('pages.auth.login-reg.login-part')
+
+    <!-- illusion -->
+
+    <!-- signup -->
+    @include('pages.auth.login-reg.signup-part')
+
+    <!-- slider -->
+    @include('pages.auth.login-reg.slider')
+
+</div>
+
+<script src="{{ asset('js/loginReg.js')}}">
+</script>
+
+<style>
+    .background-container {
+        position: relative;
+        background-image: url('{{ asset('images/coffee.webp') }}');
+        background-size: cover;
+        background-position: center;
+    }
+</style>
+
+@endsection

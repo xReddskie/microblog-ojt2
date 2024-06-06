@@ -46,6 +46,13 @@ class AuthController extends Controller
      */
     public function showLoginForm(): View
     {
+        session(['swapped' => false]);
+        return view('/pages/auth/login');
+    }
+
+    public function registerForm(): View
+    {
+        session(['swapped' => true]);
         return view('/pages/auth/login');
     }
 
