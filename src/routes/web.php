@@ -11,7 +11,10 @@ use App\Http\Controllers\PostCommentController;
 
 Route::get('/register-page', function () {
     return view('pages/auth/register');
-});
+})->name('register-page');
+Route::get('/', function () {
+    return view('pages/landing/landing-page');
+})->name('landing-page');
 
 // Auth Controller
 Route::post('/register', [AuthController::class, 'register']);
@@ -31,7 +34,7 @@ Route::get('/resend-email', [AuthController::class, 'resendEmailVerification']);
 Route::middleware('auth')->group(function () {
     Route::get('/users/search/{id}', [UserController::class, 'search'])->name('users.search');
     Route::get('/dashboard/{id}', [DashboardController::class, 'dashboard'])->name('dashboard');
-    Route::get('/', [DashboardController::class, 'app'])->name('app');
+    Route::get('/dashboard', [DashboardController::class, 'app'])->name('app');
     Route::get('/profile-page', [ProfileController::class, 'profilePage'])->name('profile-page');
     Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
     Route::post('/follow-ajax/{user}', [FollowController::class, 'followAjax'])->name('follow.ajax');

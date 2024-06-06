@@ -169,6 +169,6 @@ class AuthController extends Controller
     {
         auth()->logout();
         Session::invalidate();
-        return redirect('/');
+        return redirect('/login');
     }
 }
