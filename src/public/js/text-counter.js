@@ -3,20 +3,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const counter = document.getElementById("text-counter");
     const maxChars = 140;
 
+    function showCounter(currentLength, maxChars) 
+    {
+        currentLength > 0 ? counter.classList.remove("hidden") : counter.classList.add("hidden");
+        currentLength > maxChars ? counter.classList.add("text-rose-600") : counter.classList.remove("text-rose-600");
+    }
+
     textarea.addEventListener("input", () => {
         const currentLength = textarea.value.length;
-
-        if (currentLength > 0) {
-            counter.classList.remove("hidden");
-        } else {
-            counter.classList.add("hidden");
-        }
-
+        showCounter(currentLength, maxChars);
         counter.textContent = `${currentLength}/${maxChars}`;
-        if (currentLength > maxChars) {
-            counter.classList.add("text-rose-600");
-        } else {
-            counter.classList.remove("text-rose-600");
-        }
+
     });
 });
