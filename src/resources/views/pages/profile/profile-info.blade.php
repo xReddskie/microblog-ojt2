@@ -18,52 +18,69 @@
                 </div>
             </div>
             <hr class="border border-gray-600 mt-2 mb-2 shadow:md w-full">
-            <div class="p-profile__icons d-dashboard__side-list">
-                <div class="col-span-2">
-                    <li>
+
+            <li>
+                <div class="p-profile__icons d-dashboard__side-list">
+                    <div class="col-span-2">
                         @include('svg.home')
+                    </div>
+                    <div class="col-span-2 text-lg ">
+                        <a href="{{ route('dashboard', ['id' => auth()->id()]) }}" aria-label="Go to Home page">
+                            Home
+                        </a>
+                    </div>
                 </div>
-                <div class="col-span-2 text-lg hover:scale-150"><a href="#" aria-label="Go to Home page">Home</a>
-                </div>
-                </li>
-            </div>
-            <div class="p-profile__icons d-dashboard__side-list">
-                <div class="col-span-2">
-                    <li>
+            </li>
+
+            <li>
+                <div class="p-profile__icons d-dashboard__side-list">
+                    <div class="col-span-2">
                         @include('svg.profile')
+                    </div>
+                    <div class="col-span-2 text-lg ">
+                        <a href="{{ route('user.profile', ['id' => auth()->id()]) }}" aria-label="Go to Profile page">
+                            Profile
+                        </a>
+                    </div>
                 </div>
-                <div class="col-span-2 text-lg hover:scale-150"><a href="#" aria-label="Go to Profile page">Profile</a>
-                </div>
-                </li>
-            </div>
-            <div class="p-profile__icons d-dashboard__side-list">
-                <div class="col-span-2">
-                    <li>
+            </li>
+
+            <li>
+                <div class="p-profile__icons d-dashboard__side-list">
+                    <div class="col-span-2">
                         @include('svg.friends')
+                    </div>
+                    <div class="col-span-2 text-lg">
+                        <a href="{{ route('followers', ['id' => $user->id, 'x' => 2]) }}" aria-label="Go to Friends page">
+                            Followers
+                        </a>
+                    </div>
                 </div>
-                <div class="col-span-2 text-lg"><a href="#" aria-label="Go to Friends page">Friends</a>
-                </div>
-                </li>
-            </div>
-            <div class="p-profile__icons d-dashboard__side-list">
-                <div class="col-span-2">
-                    <li>
+            </li>
+
+            <li>
+                <div class="p-profile__icons d-dashboard__side-list">
+                    <div class="col-span-2">
                         @include('svg.settings')
+                    </div>
+                    <div class="col-span-2 text-lg "><a href="#"
+                            aria-label="Go to Settings page">Settings</a>
+                    </div>
                 </div>
-                <div class="col-span-2 text-lg hover:scale-150"><a href="#"
-                        aria-label="Go to Settings page">Settings</a></div>
-                </li>
-            </div>
+            </li>
+
             <hr class="border border-gray-600 mt-2 mb-2 shadow:md w-full">
-            <div class="p-profile__icons d-dashboard__side-list">
-                <div class="col-span-2">
-                    <li>
+
+            <li>
+                <div class="p-profile__icons d-dashboard__side-list">
+                    <div class="col-span-2">
                         @include('svg.logout')
+                    </div>
+                    <div class="p-profile__logout"><a href="{{ route('logout') }}"
+                            aria-label="Logout Account">Logout</a>
+                    </div>
                 </div>
-                <div class="p-profile__logout"><a href="{{ route('logout') }}" aria-label="Logout Account">Logout</a>
-                </div>
-                </li>
-            </div>
+            </li>
         </ul>
     </aside>
 </body>
