@@ -17,7 +17,7 @@
                             <a href="{{ route('login')}}">Login</a>
                         </div>
                         <div class="font-normal">
-                            <a href="{{ route('register-page')}}">Register</a>
+                            <a href="{{ route('register-form')}}">Register</a>
                         </div>
                     </div>  
                 </nav>

@@ -27,6 +27,7 @@ Route::post('/reset-password', [AuthController::class, 'submitResetPasswordForm'
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // Login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::get('/register-form', [AuthController::class, 'registerForm'])->name('register-form');
 Route::post('/login', [AuthController::class, 'login'])->withoutMiddleware('auth')->name('login');
 // Resend Email
 Route::get('/resend-email', [AuthController::class, 'resendEmailVerification']);
