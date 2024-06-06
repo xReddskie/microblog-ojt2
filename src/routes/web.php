@@ -11,10 +11,10 @@ use App\Http\Controllers\PostCommentController;
 
 Route::get('/register-page', function () {
     return view('pages/auth/register');
-});
+})->name('register-page');
 Route::get('/', function () {
     return view('pages/landing/landing-page');
-});
+})->name('landing-page');
 
 // Auth Controller
 Route::post('/register', [AuthController::class, 'register']);

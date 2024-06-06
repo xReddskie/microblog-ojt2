@@ -4,20 +4,20 @@
 
 @section('content')
     <body>
-        <div style="background-image: url('/img/bg.jpg')" class="l-landing__bg-img">
+        <div style="background-image: url('/img/bg.webp')" class="l-landing__bg-img">
             <div class="l-landing__container">
                 <nav class="l-landing__nav">
                     <div class="l-landing__logo">
                         @include('/svg/logo-nav')  
-                        <a href="/">Microblog</a>
+                        <a href="{{ route('landing-page')}}">Microblog</a>
                     </div>
                     <div class="grid-cols-3"></div>
                     <div class="l-landing__login">
                         <div class="font-normal">
-                            <a href="/login">Login</a>
+                            <a href="{{ route('login')}}">Login</a>
                         </div>
                         <div class="font-normal">
-                            <a href="/register-page">Register</a>
+                            <a href="{{ route('register-page')}}">Register</a>
                         </div>
                     </div>  
                 </nav>
@@ -42,7 +42,7 @@
             <div class="l-landing__features-card">
                <div class="l-landing__features-card-img">
                     <div class="l-landing__features-img">
-                        <img class="object-cover w-32 h-32 md:w-full md:h-full" src='/img/share.png'>
+                        <img class="object-cover w-32 h-32 md:w-full md:h-full" src='/img/share.webp'>
                     </div>
                     <p class="l-landing__features-card-title">Share Your Moments</p>
                 </div>
@@ -53,9 +53,9 @@
             <div class="l-landing__features-card">
                <div class="l-landing__features-card-img">
                     <div class="l-landing__features-img">
-                        <img class="object-cover w-32 h-32 md:w-full md:h-full" src='/img/post.png'>
+                        <img class="object-cover w-32 h-32 md:w-full md:h-full" src='/img/post.webp'>
                     </div>
-                    <p class="l-landing__features-card-title"">Amplify Voices</p>
+                    <p class="l-landing__features-card-title">Amplify Voices</p>
                 </div>
                 <div class="l-landing__features-card-subtitle-container">
                     <p class="l-landing__features-card-subtitle">Share others' posts.</p>
@@ -64,7 +64,7 @@
             <div class="l-landing__features-card">
                <div class="l-landing__features-card-img">
                     <div class="l-landing__features-img">
-                        <img class="object-cover w-32 h-32 md:w-full md:h-full" src='/img/join.png'>
+                        <img class="object-cover w-32 h-32 md:w-full md:h-full" src='/img/join.webp'>
                     </div>
                     <p class="l-landing__features-card-title">Join the Conversation</p>
                 </div>
@@ -77,7 +77,7 @@
             <div class="l-landing__features-card">
                <div class="l-landing__features-card-img">
                     <div class="l-landing__features-img">
-                        <img class="object-cover w-32 h-32 md:w-full md:h-full" src='/img/stay.png'>
+                        <img class="object-cover w-32 h-32 md:w-full md:h-full" src='/img/stay.webp'>
                     </div>
                     <p class="l-landing__features-card-title">Stay Connected</p>
                 </div>
@@ -88,7 +88,7 @@
             <div class="l-landing__features-card">
                <div class="l-landing__features-card-img">
                     <div class="l-landing__features-img">
-                        <img class="object-cover w-32 h-32 md:w-full md:h-full" src='/img/follow.png'>
+                        <img class="object-cover w-32 h-32 md:w-full md:h-full" src='/img/follow.webp'>
                     </div>
                     <p class="l-landing__features-card-title">Tailor Your Feed</p>
                 </div>
@@ -100,9 +100,9 @@
         <div class="l-landing__joinus">
             <div class="container mx-auto">
                 <div class="l-landing__joinus-container">
-                    <p class="l-landing__joinus-title">Be part of a supportive and engaging community. Whether you are here to share or to discover, our platform welcomes you.</p></p>
+                    <p class="l-landing__joinus-title">Be part of a supportive and engaging community. Whether you are here to share or to discover, our platform welcomes you.</p>
                     <div class="l-landing__joinus-img-container">
-                        <img class="l-landing__joinus-img" src='/img/joinus.png'>
+                        <img class="l-landing__joinus-img" src='/img/joinus.webp'>
                     </div>
                 </div>
             </div> 
@@ -135,7 +135,7 @@
             <div class="l-landing__developers-card">
                <div class="l-landing__developers-img-container">
                     <div class="l-landing__developers-img-card">
-                        <img class="l-landing__developers-img" src='/img/erika.jpg'>
+                        <img class="l-landing__developers-img" src='/img/erika.webp'>
                     </div>
                 </div>
                 <div class="l-landing__developers-name-container">
@@ -148,7 +148,7 @@
             <div class="l-landing__developers-card">
                <div class="l-landing__developers-img-container">
                     <div class="l-landing__developers-img-card">
-                        <img class="l-landing__developers-img" src='/img/peter.jpg'>
+                        <img class="l-landing__developers-img" src='/img/peter.webp'>
                     </div>
                 </div>
                 <div class="l-landing__developers-name-container">
@@ -162,7 +162,7 @@
         <nav class="l-landing__footer">
             <div class="l-landing__footer-logo">    
                  @include('/svg/logo-nav')  
-                <a href="/login">Microblog</a>
+                <a href="{{ route('landing-page')}}">Microblog</a>
             </div>
             <div class="grid-cols-3"></div>
             <div class="l-landing__footer-all">

@@ -12,11 +12,11 @@
     }
 
     &__logo {
-        @apply font-lora items-center font-lora font-semibold text-3xl flex justify-start gap-3 text-[#333333];
+        @apply font-lora items-center font-lora font-semibold text-3xl flex justify-start gap-3 text-mygray;
     }
 
     &__login {
-        @apply justify-end items-center text-xl flex text-[#333333] gap-3;
+        @apply justify-end items-center text-xl flex text-mygray gap-3;
     }
 
     &__caption {
@@ -28,7 +28,7 @@
     }
 
     &__libre {
-        @apply flex text-center md:text-xl text-lg font-librefranklin text-[#333333];
+        @apply flex text-center md:text-xl text-lg font-librefranklin text-mygray;
     }
 
     &__features-container {
@@ -36,7 +36,7 @@
     }
 
     &__features-title {
-        @apply animate-bounce text-center text-3xl md:text-5xl font-librefranklin text-[#333333];
+        @apply animate-bounce text-center text-3xl md:text-5xl font-librefranklin text-mygray;
     }
 
     &__features-row {
@@ -60,11 +60,11 @@
     }
 
     &__features-card-title {
-        @apply flex justify-center text-center items-center text-xl md:text-2xl font-medium text-[#333333];
+        @apply flex justify-center text-center items-center text-xl md:text-2xl font-medium text-mygray;
     }
 
     &__features-card-subtitle {
-        @apply text-lg text-center md:text-2xl text-[#333333];
+        @apply text-lg text-center md:text-2xl text-mygray;
     }
 
     &__features-card-subtitle-container {
@@ -76,7 +76,7 @@
     }
 
     &__joinus-container {
-        @apply flex flex-col md:flex-row items-center md:space-x-6 justify-center items-center text-2xl md:text-4xl font-bold text-[#333333];
+        @apply flex flex-col md:flex-row items-center md:space-x-6 justify-center items-center text-2xl md:text-4xl font-bold text-mygray;
     }
 
     &__joinus-title {
@@ -120,7 +120,7 @@
     }
 
     &__developers-title {
-        @apply text-5xl font-librefranklin text-[#333333];
+        @apply text-5xl font-librefranklin text-mygray;
     }
 
     &__developers-container {
@@ -148,7 +148,7 @@
     }
 
     &__developers-name {
-        @apply flex justify-center text-center items-center pt-2 text-xl md:text-2xl font-medium text-[#333333];
+        @apply flex justify-center text-center items-center pt-2 text-xl md:text-2xl font-medium text-mygray;
     }
 
     &__developers-position-container {
@@ -156,7 +156,7 @@
     }
 
     &__developers-position {
-        @apply text-lg text-center md:text-xl text-[#333333];
+        @apply text-lg text-center md:text-xl text-mygray;
     }
 
     &__footer {
@@ -164,10 +164,10 @@
     }
 
     &__footer-logo {
-        @apply font-lora items-center font-lora font-semibold text-3xl flex justify-center gap-3 text-[#333333];
+        @apply font-lora items-center font-lora font-semibold text-3xl flex justify-center gap-3 text-mygray;
     }
 
     &__footer-all {
-        @apply justify-center items-center font-medium text-base flex text-[#333333] gap-3;
+        @apply justify-center items-center font-medium text-base flex text-mygray gap-3;
     }
 }
