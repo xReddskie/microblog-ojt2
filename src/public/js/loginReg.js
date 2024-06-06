@@ -38,11 +38,7 @@ document.getElementById("button").addEventListener("click", function () {
         messages.classList.remove("fade");
     }, 2000);
 
-    if (!swapped) {
-        loginToRegister();
-    } else {
-        registerToLogin();
-    }
+    !swapped ? loginToRegister() : registerToLogin();
 
     swapped = !swapped;
     localStorage.setItem("swapped", swapped.toString());
