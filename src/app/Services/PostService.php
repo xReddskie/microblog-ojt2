@@ -8,6 +8,7 @@ use App\Http\Requests\PostRequest;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Pagination\LengthAwarePaginator;
 
+
 class PostService
 {
     /**
@@ -47,15 +48,12 @@ class PostService
      */
     public function viewAllPosts(User $user, int $perPage): LengthAwarePaginator
     {
-        $followeesIds = $user->followees->pluck('id')->push($user->id);
-
-        return Post::whereIn('user_id', $followeesIds)
-            ->with(['user:id,username,email', 'likes' => function ($query) use ($user) {
-                $query->where('user_id', $user->id);
-            }])
-            ->withCount('likes')
-            ->latest()
+        $followeesIds = $user->followees->pluck('id')->push($user->id)->toArray();
+        $sortedPosts = Post::whereIn('user_id', $followeesIds)
+            ->orderBy('created_at', 'desc')
             ->paginate($perPage);
+
+        return $sortedPosts;
     }
 
     /**
