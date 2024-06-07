@@ -57,6 +57,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Profile::class, 'user_id');
     }
 
+    /**
+     * Send Email Verification
+     */
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmail);
@@ -81,17 +84,9 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * User has many likes
      */
-    public function likes(): BelongsToMany
+    public function likes(): hasMany
     {
-        return $this->belongsToMany(Post::class, 'likes')->withTimestamps();
-    }
-
-    /**
-     * User has liked Post
-     */
-    public function likesPost(Post $post): bool
-    {
-        return $this->likes()->where('post_id', $post->id)->exists();
+        return $this->hasMany(Like::class);
     }
 
     /**

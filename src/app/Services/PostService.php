@@ -8,7 +8,6 @@ use App\Http\Requests\PostRequest;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-
 class PostService
 {
     /**
@@ -48,12 +47,15 @@ class PostService
      */
     public function viewAllPosts(User $user, int $perPage): LengthAwarePaginator
     {
-        $followeesIds = $user->followees->pluck('id')->push($user->id)->toArray();
-        $sortedPosts = Post::whereIn('user_id', $followeesIds)
-            ->orderBy('created_at', 'desc')
-            ->paginate($perPage);
+        $followeesIds = $user->followees->pluck('id')->push($user->id);
 
-        return $sortedPosts;
+        return Post::whereIn('user_id', $followeesIds)
+            ->with(['user:id,username,email', 'likes' => function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            }])
+            ->withCount('likes')
+            ->latest()
+            ->paginate($perPage);
     }
 
     /**
@@ -77,7 +79,13 @@ class PostService
      */
     public function like(Post $post): void
     {
-        auth()->user()->likes()->attach($post);
+        $user = auth()->user();
+
+        if(!$user->likes()->where('post_id', $post->id)->exists()) {
+            $user->likes()->create([
+                'post_id' => $post->id,
+            ]);
+        }
     }
 
     /**
@@ -85,7 +93,9 @@ class PostService
      */
     public function unlike(Post $post): void
     {
-        auth()->user()->likes()->detach($post);
+        $user = auth()->user();
+
+        $user->likes()->where('post_id', $post->id)->delete();
     }
 
     /**
