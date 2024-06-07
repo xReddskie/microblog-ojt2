@@ -63,4 +63,9 @@ class Post extends Model
     {
         return $this->belongsTo(Post::class, 'childPost_id');
     }
+
+    public function numberOfShares(): hasMany
+    {
+        return $this->hasMany(Post::class, 'childPost_id');
+    }
 }
