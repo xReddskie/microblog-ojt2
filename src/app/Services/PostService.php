@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
 use App\Models\Post;
 use App\Models\Photo;
 use App\Http\Requests\PostRequest;
@@ -53,7 +54,36 @@ class PostService
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);
 
+            foreach ($sortedPosts as $post) {
+                foreach ($post->comments as $comment) {
+                    $comment->formatted_time = $this->formatTime($comment->created_at);
+                }
+            }
+
         return $sortedPosts;
+    }
+
+    /**
+     * Remove longer text of time
+     */
+    public static function formatTime($dateTime): String
+    {
+        $timeString = Carbon::parse($dateTime)->diffForHumans();
+        $search = [
+            'hours',
+            'days',
+            'seconds',
+            'minutes',
+            'weeks',
+            'week',
+            'months',
+            'years',
+        ];
+        $replace = ['h', 'd', 's', 'm', 'w', 'wk', 'mn', 'y'];
+        $formattedTimeString = str_replace($search, $replace, $timeString);
+        $stringspace = str_replace(' ', '', str_replace('ago', '', $formattedTimeString));
+
+        return $stringspace;
     }
 
     /**

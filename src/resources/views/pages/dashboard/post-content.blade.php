@@ -1,5 +1,4 @@
 <body>
-    <!-- Post List -->
     @foreach ($posts as $post)
 
         <div id="container-{{ $post->id }}" class="d-dashboard__post-container relative">
@@ -64,11 +63,11 @@
                         <div class="flex items-center gap-3 mt-2">
                             <div class="w-50 h-50 border-2 border-white relative">
                                 @foreach ($post->sharedPost->photos as $photo)
-                                    @php
-                                        $cleanedPath = str_replace('public/', '', $photo->img_file);
-                                    @endphp
-                                    <img class="object-cover w-full h-full" src='{{ asset('storage/' . $cleanedPath) }}'
-                                        alt='Shared Post Image'>
+                                                @php
+                                                    $cleanedPath = str_replace('public/', '', $photo->img_file);
+                                                @endphp
+                                                <img class="object-cover w-full h-full" src='{{ asset('storage/' . $cleanedPath) }}'
+                                                    alt='Shared Post Image'>
                                 @endforeach
                             </div>
                         </div>
@@ -93,7 +92,6 @@
         </div>
     @endforeach
 
-    <!-- Modal Structure -->
     <div id="postModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
@@ -101,7 +99,6 @@
         </div>
     </div>
 
-    <!-- Modal Structure -->
     <div id="postModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>

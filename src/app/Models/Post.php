@@ -7,18 +7,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Post extends Model
 {
     use HasFactory;
     use SoftDeletes;
     
-    protected $fillable = [
-        'content', 
-        'user_id', 
-        'childPost_id'
-    ];
+    protected $fillable = ['content', 'user_id', 'child_post_id'];
     
     /**
      * Post belongs to user

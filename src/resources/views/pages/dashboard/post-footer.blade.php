@@ -19,7 +19,6 @@
     <div class="flex justify-evenly m-0 relative border-t border-b border-gray-400 py-2">
         @include('pages.dashboard.like-button')
 
-        <!-- comment -->
         <span href="" class="d-dashboard__like-comm cursor-pointer" onclick="openComment({{ $post->id }})">
             <span class="flex justify-center items-center gap-2 text-sm">
                 @include('svg.comment')
@@ -71,29 +70,7 @@
                                     </div>
                                     <li class="text-sm comment-content">{{ $comment->content }}</li>
                                     <div class="flex items-center gap-2 text-sm font-thin comment-actions">
-                                        <span class="comment-time">
-                                            @php
-                                                $timeString = $comment->created_at->diffForHumans();
-                                                $search = [
-                                                    'hours',
-                                                    'days',
-                                                    'seconds',
-                                                    'minutes',
-                                                    'weeks',
-                                                    'week',
-                                                    'months',
-                                                    'years',
-                                                ];
-                                                $replace = ['h', 'd', 's', 'm', 'w', 'wk', 'mn', 'y'];
-                                                $formattedTimeString = str_replace($search, $replace, $timeString);
-                                                $stringspace = str_replace(
-                                                    ' ',
-                                                    '',
-                                                    str_replace('ago', '', $formattedTimeString),
-                                                );
-                                            @endphp
-                                            {{ $stringspace }}
-                                        </span>
+                                    <span class="comment-time">{{ $comment->formatted_time }}</span>
                                         @if ($comment->user_id == auth()->id() || $post->user_id == auth()->id())
                                             @include('pages.forms.delete-comment-form')
                                             @if ($comment->user_id == auth()->id())
@@ -104,7 +81,6 @@
                                             @endif
                                         @endif
                                     </div>
-                                    <!-- Edit Comment Form -->
                                     @include('pages.forms.edit-comment-form')
                                 </div>
                             </div>
@@ -116,7 +92,6 @@
         class="d-dashboard__border-gray mb-2 flex p-2 items-center w-full hidden transition-all duration-300">
         <div class="flex flex-col h-max-64 w-full">
             <div>
-                <!-- Add Comment Form -->
                 @include('pages.forms.add-comment-form')
             </div>
         </div>
