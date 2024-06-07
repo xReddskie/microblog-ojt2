@@ -1,15 +1,15 @@
 <div class=" pt-1 flex justify-start items-start gap-1 text-xs font-light">
     <div class="group inline-block relative">
-        <span class="likes-count hoverable">
+    <span id="likes-count-{{ $post->id }}" class="likes-count hoverable">
             {{ $post->likes->count() }} likes
         </span>
-        <div class="hidden text-white z-50 group-hover:block absolute bg-gray-800 border border-gray-800 text-sm py-2 px-4 rounded shadow-md">
-        @foreach ($post->likes->take(10) as $like)
-            {{ $like->user->username }}
-        @endforeach
-        @if ($post->likes->count() > 10)
-            <div>and {{ $post->likes->count() - 10 }} more...</div>
-        @endif
+        <div id="like-users-{{ $post->id }}" class="hidden text-white z-50 group-hover:block absolute bg-gray-800 border border-gray-800 text-sm py-2 px-4 rounded shadow-md">
+            @foreach ($post->likes->take(10) as $like)
+                {{ $like->user->username }}
+            @endforeach
+            @if ($post->likes->count() > 10)
+                <div>and {{ $post->likes->count() - 10 }} more...</div>
+            @endif
         </div>
     </div>
     {{ $post->comments()->count() }} comments
