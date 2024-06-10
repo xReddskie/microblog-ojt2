@@ -64,6 +64,9 @@ class Post extends Model
         return $this->belongsTo(Post::class, 'childPost_id');
     }
 
+    /**
+     * get the number of shares of the post
+     */
     public function numberOfShares(): hasMany
     {
         return $this->hasMany(Post::class, 'childPost_id');
