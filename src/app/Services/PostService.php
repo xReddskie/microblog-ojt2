@@ -152,7 +152,7 @@ class PostService
         $sharePost = Post::create([
             'user_id' => $userId,
             'content' => $request->content,
-            'childPost_id' => $post->childPost_id ?? $post->id
+            'child_post_id' => $post->child_post_id ?? $post->id
         ]);
 
         $sharePost->save();

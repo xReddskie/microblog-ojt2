@@ -61,7 +61,7 @@ class Post extends Model
      */
     public function sharedPost(): BelongsTo
     {
-        return $this->belongsTo(Post::class, 'childPost_id');
+        return $this->belongsTo(Post::class, 'child_post_id');
     }
 
     /**
@@ -69,6 +69,6 @@ class Post extends Model
      */
     public function numberOfShares(): hasMany
     {
-        return $this->hasMany(Post::class, 'childPost_id');
+        return $this->hasMany(Post::class, 'child_post_id');
     }
 }
