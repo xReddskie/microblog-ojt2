@@ -121,9 +121,7 @@ class PostService
      */
     public function unlike(Post $post): void
     {
-        $user = auth()->user();
-
-        $user->likes()->where('post_id', $post->id)->delete();
+        auth()->user()->likes()->where('post_id', $post->id)->delete();
     }
 
     /**
