@@ -49,6 +49,17 @@ class FollowController extends Controller
     }
 
     /**
+     * Unfollow user using jquery
+     */
+    public function unfollowAjax(User $user, Request $request): JsonResponse
+    {
+        $this->followService->unfollow($user);
+
+        return response()->json(['success' => true, 'message' => 'User unfollowed successfully.']);
+    }
+
+
+    /**
      * Retrieves suggested users from user model and pass it to dashboard method
      */
     public function showSuggestions(): Collection

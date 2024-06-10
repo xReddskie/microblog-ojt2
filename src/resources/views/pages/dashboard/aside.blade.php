@@ -37,11 +37,10 @@
                     </li>
                 @endif
         </div>
-        <div class="d-dashboard__user">
+        <div class="d-dashboard__user relative">
             <div class="font-semibold">Suggestions</div>
             @if ($suggestedUsers->count() >= 1)
-                @foreach ($suggestedUsers as $suggestion)
-                    <!-- User suggest number 1 -->
+                @foreach ($suggestedUsers->take(5) as $suggestion)
                     <hr class="d-dashboard__user-hr">
                     <div class="flex items-center py-1">
                         <img class="object-cover w-10 h-10 mr-1 border-2 border-white rounded-full"
@@ -60,31 +59,25 @@
                 <div class="flex justify-center p-2 items-center font-light">
                     No suggestions available
                 </div>
+                <div id="coffee">
+                    <div class="steam" id="steam1"> </div>
+                    <div class="steam" id="steam2"> </div>
+                    <div class="steam" id="steam3"> </div>
+                    <div class="steam" id="steam4"> </div>
+
+                    <div id="cup">
+                        <div id="cup-body">
+                            <div id="cup-shade"></div>
+                        </div>
+                        <div id="cup-handle"></div>
+                    </div>
+
+                    <div id="saucer"></div>
+
+                    <div id="shadow"></div>
+                </div>
             @endif
         </div>
     </div>
-    <script>
-        $(document).ready(function () {
-            $('.follow-button').on('click', function () {
-                const button = $(this);
-                const userId = button.data('user-id');
-
-                $.ajax({
-                    url: '/follow-ajax/' + userId,
-                    method: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function (response) {
-                        if (response.success) {
-                            button.text('Following').attr('disabled', true);
-                        }
-                    },
-                    error: function (response) {
-                        alert('Error following user.');
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="{{ asset('js/follow.js') }}"></script>
 </aside>
