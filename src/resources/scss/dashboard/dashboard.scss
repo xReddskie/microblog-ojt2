@@ -86,7 +86,7 @@
     }
 
     &__user {
-        @apply border-2 rounded-lg pt-1 pb-1 p-2 bg-whisperwhite py-3;
+        @apply border-2 rounded-lg pt-1 pb-1 p-2 bg-whisperwhite py-3 h-64 overflow-auto;
     }
 
     &__user-hr {
