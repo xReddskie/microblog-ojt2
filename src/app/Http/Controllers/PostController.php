@@ -64,7 +64,7 @@ class PostController extends Controller
     public function like(Post $post): JsonResponse
     {
         $this->postService->like($post);
-        $likeUsers = $post->likes->take(self::USER_LIKED)->map(function ($like) {
+        $likeUsers = $post->likes->take(self::LIKES_DISPLAYED)->map(function ($like) {
             return $like->user->username;
         });
     
@@ -80,7 +80,7 @@ class PostController extends Controller
     public function unlike(Post $post): JsonResponse
     {
         $this->postService->unlike($post);
-        $likeUsers = $post->likes->take(self::USER_LIKED)->map(function ($like) {
+        $likeUsers = $post->likes->take(self::LIKES_DISPLAYED)->map(function ($like) {
             return $like->user->username;
         });
     
