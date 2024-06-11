@@ -78,7 +78,7 @@ class PostController extends Controller
     /**
      * UnLike Post
      */
-    public function unlike(Post $post)
+    public function unlike(Post $post): RedirectResponse
     {
         $this->postService->unlike($post);
         $likeUsers = $post->likes->take(10)->map(function ($like) {
