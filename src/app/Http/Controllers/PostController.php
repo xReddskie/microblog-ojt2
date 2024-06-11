@@ -44,7 +44,7 @@ class PostController extends Controller
     /**
      * Edit Post
      */
-    public function editPost(Post $post, PostRequest $request): JsonResponse
+    public function editPost(Post $post, PostRequest $request): RedirectResponse
     {
         return $this->postService->editPost($post, $request) ?  redirect()->route('dashboard', ['id' => auth()->user()->id]) :
             redirect('/')->with('error', 'Unauthorized access');
