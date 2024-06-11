@@ -11,7 +11,7 @@ use Illuminate\Http\RedirectResponse;
 
 class PostController extends Controller
 {
-    private const USER_LIKED = 10;
+    private const LIKES_DISPLAYED = 10;
     public $postService;
     public $followController;
 
