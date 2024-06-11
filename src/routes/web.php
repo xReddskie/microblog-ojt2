@@ -49,7 +49,6 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
     Route::post('/post/{post}/like', [PostController::class, 'like'])->name('like.post');
     Route::post('/post/{post}/unlike', [PostController::class, 'unlike'])->name('unlike.post');
-    Route::get('/post/{post}/likes-count', [PostController::class, 'getLikesCount']);
     Route::get('/posts/{post}', [PostController::class, 'show'])->name('show.post');
     Route::post('/posts/{post}/comments', [PostCommentController::class, 'store'])->name('posts.comments.store');
     Route::put('/comments/{comment}/edit', [PostCommentController::class, 'editComment'])->name('posts.comments.edit');

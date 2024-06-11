@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\Photo;
-use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 use App\Services\PostService;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\PostRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 
 class PostController extends Controller
 {
+    private const MAX_LIKES_TO_BE_DISPLAYED = 10;
     public $postService;
     public $followController;
 
@@ -45,7 +44,7 @@ class PostController extends Controller
     /**
      * Edit Post
      */
-    public function editPost(Post $post, PostRequest $request): RedirectResponse
+    public function editPost(Post $post, PostRequest $request): JsonResponse
     {
         return $this->postService->editPost($post, $request) ?  redirect()->route('dashboard', ['id' => auth()->user()->id]) :
             redirect('/')->with('error', 'Unauthorized access');
@@ -62,19 +61,33 @@ class PostController extends Controller
     /**
      * Like Post
      */
-    public function like(Post $post): RedirectResponse
+    public function like(Post $post): JsonResponse
     {
         $this->postService->like($post);
-        return redirect()->back();
+        $likeUsers = $post->likes->take(self::MAX_LIKES_TO_BE_DISPLAYED)->map(function ($like) {
+            return $like->user->username;
+        });
+    
+        return response()->json([
+            'likes_count' => $post->likes->count(),
+            'like_users' => $likeUsers,
+        ]);
     }
-
+    
     /**
-     * Unlike Post
+     * UnLike Post
      */
-    public function unlike(Post $post): RedirectResponse
+    public function unlike(Post $post): JsonResponse
     {
         $this->postService->unlike($post);
-        return redirect()->back();
+        $likeUsers = $post->likes->take(self::MAX_LIKES_TO_BE_DISPLAYED)->map(function ($like) {
+            return $like->user->username;
+        });
+    
+        return response()->json([
+            'likes_count' => $post->likes->count(),
+            'like_users' => $likeUsers,
+        ]);
     }
     
     /**
