@@ -16,9 +16,11 @@ use App\Http\Requests\RegisterRequest;
 class UserService
 {
     public $followController;
+    public $postService;
     public function __construct()
     {
         $this->followController = new FollowController;
+        $this->postService = new PostService;
     }
 
     /**
@@ -39,7 +41,6 @@ class UserService
     /**
      * Initializes Password Reset Link Submission
      */
-
     public function initiatePasswordReset($email): void
     {
         $token = Str::random(64);
@@ -61,7 +62,6 @@ class UserService
     /**
      * Resets the User's Password
      */
-
     public function resetPassword($token, $newPassword): User
     {
         $passwordReset = DB::table('password_resets')->where('token', $token)->first();
@@ -97,6 +97,12 @@ class UserService
                 ->orderBy('created_at', 'desc')
                 ->paginate($perPage);
             $suggestedUsers = $this->followController->showSuggestions();
+
+            foreach ($posts as $post) {
+                foreach ($post->comments as $comment) {
+                    $comment->formatted_time = $this->postService->formatTime($comment->created_at);
+                }
+            }
 
             return ['user' => $user, 'posts' => $posts, 'suggestedUsers' => $suggestedUsers];
         } catch (\Exception $e) {

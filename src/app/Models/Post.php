@@ -3,18 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Post extends Model
 {
     use HasFactory;
     use SoftDeletes;
     
-    protected $fillable = ['content', 'user_id', 'childPost_id'];
+    protected $fillable = ['content', 'user_id', 'child_post_id'];
     
     /**
      * Post belongs to user
@@ -24,6 +24,9 @@ class Post extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * Post has many Photos
+     */
     public function photos(): HasMany
     {
         return $this->hasMany(Photo::class);
@@ -32,9 +35,17 @@ class Post extends Model
     /**
      * Likes belongs to many user
      */
-    public function likes(): belongsToMany
+    public function likes(): hasMany
     {
-        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
+        return $this->hasMany(Like::class, 'post_id');
+    }
+
+    /**
+     * Gets the user who liked the post
+     */
+    public function likedBy(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'likes');
     }
 
     /**

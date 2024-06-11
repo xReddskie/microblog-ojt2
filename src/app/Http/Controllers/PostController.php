@@ -62,28 +62,19 @@ class PostController extends Controller
     /**
      * Like Post
      */
-    public function like(Post $post): JsonResponse
+    public function like(Post $post): RedirectResponse
     {
         $this->postService->like($post);
-        return response()->json(['success' => true]);
+        return redirect()->back();
     }
 
     /**
      * Unlike Post
      */
-    public function unlike(Post $post): JsonResponse
+    public function unlike(Post $post): RedirectResponse
     {
         $this->postService->unlike($post);
-            return response()->json(['success' => true]);
-    }
-
-    /**
-     * Fetch likes count
-     */
-    public function getLikesCount(Post $post): JsonResponse
-    {
-        $likesCount = $post->likes()->distinct('user_id')->count();
-        return response()->json(['count' => $likesCount]);
+        return redirect()->back();
     }
     
     /**
