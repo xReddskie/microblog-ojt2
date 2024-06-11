@@ -13,7 +13,7 @@
         </div>
     </div>
     {{ $post->comments()->count() }} comments
-    {{ $post->comments()->count() }} shares
+    {{ $post->numberOfShares()->count() }} shares
 </div>
 <div class="py-1">
     <div class="flex justify-evenly m-0 relative border-t border-b border-gray-400 py-2">
