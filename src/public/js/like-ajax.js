@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
-            // Toggle the like button class and text
             likeButtonElement.classList.toggle('liked');
             const likeButtonText = likeButtonElement.querySelector('.like-text');
             likeButtonText.textContent = likeText;

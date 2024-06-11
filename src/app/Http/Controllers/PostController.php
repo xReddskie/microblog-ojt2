@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\Photo;
-use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 use App\Services\PostService;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\PostRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 
 class PostController extends Controller
 {
+    private const MAX_LIKES_TO_BE_DISPLAYED = 10;
     public $postService;
     public $followController;
 
@@ -45,7 +44,7 @@ class PostController extends Controller
     /**
      * Edit Post
      */
-    public function editPost(Post $post, PostRequest $request): RedirectResponse
+    public function editPost(Post $post, PostRequest $request): JsonResponse
     {
         return $this->postService->editPost($post, $request) ?  redirect()->route('dashboard', ['id' => auth()->user()->id]) :
             redirect('/')->with('error', 'Unauthorized access');
@@ -62,10 +61,10 @@ class PostController extends Controller
     /**
      * Like Post
      */
-    public function like(Post $post)
+    public function like(Post $post): JsonResponse
     {
         $this->postService->like($post);
-        $likeUsers = $post->likes->take(10)->map(function ($like) {
+        $likeUsers = $post->likes->take(self::MAX_LIKES_TO_BE_DISPLAYED)->map(function ($like) {
             return $like->user->username;
         });
     
@@ -78,10 +77,10 @@ class PostController extends Controller
     /**
      * UnLike Post
      */
-    public function unlike(Post $post): RedirectResponse
+    public function unlike(Post $post): JsonResponse
     {
         $this->postService->unlike($post);
-        $likeUsers = $post->likes->take(10)->map(function ($like) {
+        $likeUsers = $post->likes->take(self::MAX_LIKES_TO_BE_DISPLAYED)->map(function ($like) {
             return $like->user->username;
         });
     
