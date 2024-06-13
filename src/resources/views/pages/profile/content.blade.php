@@ -10,7 +10,9 @@
 @elseif ($x == 2)
     @include('pages.profile.nav.follower-lists')
 @elseif ($x == 3)
-    @include('pages.profile.nav.photos')
+    @include('pages.profile.nav.following-lists')
 @elseif ($x == 4)
+    @include('pages.profile.nav.photos')
+@elseif ($x == 5)
     @include('pages.profile.nav.about')
 @endif
