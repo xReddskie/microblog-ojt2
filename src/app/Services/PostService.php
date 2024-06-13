@@ -8,6 +8,7 @@ use App\Models\Photo;
 use App\Http\Requests\PostRequest;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 
 
 class PostService
@@ -55,6 +56,25 @@ class PostService
             ->paginate($perPage);
 
             foreach ($sortedPosts as $post) {
+                foreach ($post->comments as $comment) {
+                    $comment->formatted_time = $this->formatTime($comment->created_at);
+                }
+            }
+
+        return $sortedPosts;
+    }
+    
+    /**
+     * View all posts without paginator
+     */
+    public function viewAllPostsNotification(User $user): Collection
+    {
+        $followeesIds = $user->followees->pluck('id')->push($user->id)->toArray();
+        $sortedPosts = Post::whereIn('user_id', $followeesIds)
+        ->orderBy('created_at', 'desc')
+        ->get();
+            
+        foreach ($sortedPosts as $post) {
                 foreach ($post->comments as $comment) {
                     $comment->formatted_time = $this->formatTime($comment->created_at);
                 }

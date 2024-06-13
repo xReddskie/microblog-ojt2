@@ -53,6 +53,9 @@
                 </div>
                 <div class="d-dashboard__username">
                     <div class="flex items-center gap-3 mb-2 rounded-lg">
+                        <div class="flex justify-center items-center w-10 h-10 border-2 border-white rounded-full">
+                            @include('pages.dashboard.notification')
+                        </div>
                         <div class="w-10 h-10 border-2 border-white rounded-full overflow-hidden relative">
                             <img class="object-cover w-full h-full" src='{{ auth()->user()->profile->getImageURL() }}'
                                 alt='Profile Picture'>

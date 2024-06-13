@@ -103,8 +103,9 @@ class UserService
                     $comment->formatted_time = $this->postService->formatTime($comment->created_at);
                 }
             }
+            $notifications = $this->postService->viewAllPostsNotification($user);
 
-            return ['user' => $user, 'posts' => $posts, 'suggestedUsers' => $suggestedUsers];
+            return ['user' => $user, 'posts' => $posts, 'suggestedUsers' => $suggestedUsers, 'notifications' => $notifications];
         } catch (\Exception $e) {
             return ['error' => 'An error occurred: ' . $e->getMessage()];
         }

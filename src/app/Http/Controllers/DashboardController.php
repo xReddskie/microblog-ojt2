@@ -22,7 +22,8 @@ class DashboardController extends Controller
     {
         $user = User::with('profile')->findOrFail($id);
         $posts = $this->postService->viewAllPosts($user, 5);
+        $notifications = $this->postService->viewAllPostsNotification($user);
         $suggestedUsers = $this->followController->showSuggestions();
-        return view('app', compact('user', 'posts', 'suggestedUsers'));
+        return view('app', compact('user', 'posts', 'notifications', 'suggestedUsers'));
     }
 }
