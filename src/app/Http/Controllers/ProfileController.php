@@ -69,11 +69,10 @@ class ProfileController extends Controller
     {
         $user = User::findOrFail($id);
         $view = $this->userController->show($id);
-        $photos = $user->photos;
         $birthdate = new DateTime($user->profile->birth_date);
         $today = new DateTime();
         $age = $today->diff($birthdate)->y;
 
-        return $view->with(compact('x', 'photos', 'age'));
+        return $view->with(compact('x', 'user', 'age'));
     }
 }

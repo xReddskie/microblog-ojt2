@@ -59,6 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/share/{id}', [PostController::class, 'sharePost'])->name('share.post');
     Route::get('/posts/{id}/{x}', [ProfileController::class, 'profileNav'])->name('posts');
     Route::get('/followers/{id}/{x}', [ProfileController::class, 'profileNav'])->name('followers');
+    Route::get('/following/{id}/{x}', [ProfileController::class, 'profileNav'])->name('following');
     Route::get('/photos/{id}/{x}', [ProfileController::class, 'profileNav'])->name('photos');
     Route::get('/about/{id}/{x}', [ProfileController::class, 'profileNav'])->name('about');
 });

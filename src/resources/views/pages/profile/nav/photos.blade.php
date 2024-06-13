@@ -3,7 +3,7 @@
         <p class="pb-1">Photos</p>
         <hr class="border-gray-400 mb-1">
         <div class="flex flex-wrap">
-            @forelse ($photos as $photo)
+            @forelse ($user->photos as $photo)
                 @php
                     $cleanedPath = str_replace('public/', '', $photo->img_file);
                 @endphp
