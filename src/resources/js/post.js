@@ -1,19 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Modal related functions
     window.showOnlyPost = function (postId) {
         const post = document.getElementById('container-' + postId);
         const modal = document.getElementById('postModal');
         const modalContent = document.getElementById('modalPostContent');
 
-        // Clone the post content and append to modal content
         const postClone = post.cloneNode(true);
         modalContent.innerHTML = '';
         modalContent.appendChild(postClone);
 
-        // Show the modal
         modal.style.display = "block";
-
-        // Hide the close button within the post clone (because we have a modal close button)
         const closeButton = postClone.querySelector('.close-button');
         if (closeButton) {
             closeButton.style.display = 'none';
@@ -25,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
         modal.style.display = "none";
     }
 
-    // Close the modal when clicking outside of it
     window.onclick = function (event) {
         const modal = document.getElementById('postModal');
         if (event.target == modal) {
@@ -33,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Other functions
     window.openComment = function (postId) {
         const comment = document.getElementById("comment" + postId);
         comment.classList.toggle("hidden");
@@ -87,7 +80,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return confirm('Are you sure you want to delete this comment?');
     }
 
-    // Alert related functions
     const alert = document.getElementById('myAlert');
     if (alert) {
         alert.classList.remove('hide');
@@ -95,12 +87,4 @@ document.addEventListener('DOMContentLoaded', function () {
             alert.classList.add('hide');
         }, 5000);
     }
-
-    // Like button color change
-    const likeButtons = document.querySelectorAll('.like-button');
-    likeButtons.forEach(button => {
-        if (button.getAttribute('data-liked') === 'true') {
-            button.style.color = 'red';
-        }
-    });
 });

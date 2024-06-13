@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     window.toggleLike = function(postId) {
         const likeButtonElement = document.getElementById(`like-button-${postId}`);
-        const isLiked = likeButtonElement.classList.contains('liked');
+        const likeButtonText = likeButtonElement.querySelector('.like-text');
+        const isLiked = likeButtonText.textContent === 'Unlike';
         const url = isLiked ? `/post/${postId}/unlike` : `/post/${postId}/like`;
         const likeText = isLiked ? 'Like' : 'Unlike';
 
@@ -36,8 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
-            likeButtonElement.classList.toggle('liked');
-            const likeButtonText = likeButtonElement.querySelector('.like-text');
+            likeButtonElement.classList.toggle('liked')
             likeButtonText.textContent = likeText;
         })
         .catch(error => {
