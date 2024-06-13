@@ -108,9 +108,9 @@ class PostController extends Controller
     {
         $user = auth()->user();
         $post = $this->postService->sharePostPage($id);
-        $shares = $this->postService->postDetails($id);
+        $notifications = $this->postService->viewAllPostsNotification($user);
         $suggestedUsers = $this->followController->showSuggestions();
-        return view('pages.dashboard.share-page', compact('user','post', 'shares', 'suggestedUsers'));
+        return view('pages.dashboard.share-page', compact('user','post', 'notifications', 'suggestedUsers'));
     }
     
     /**
