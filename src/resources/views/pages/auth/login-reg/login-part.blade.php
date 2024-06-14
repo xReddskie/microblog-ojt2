@@ -1,7 +1,7 @@
 <div id="login" class="flex w-4/12 justify-center h-full p-10 absolute">
     <div class="flex flex-col w-60">
         <div class="mt-16 mb-12 text-4xl font-light text-gray-900">Login</div>
-        <form class="flex flex-col" action="{{ route('login') }}" method="POST">
+        <form id="loginContent" class="flex flex-col" action="{{ route('login') }}" method="POST">
             @csrf
             <div class="relative z-0 w-full mb-5 group">
 
@@ -27,13 +27,14 @@
                 @enderror
             </div>
 
-            <button
+            <button id="loginButton"
                 class="mt-8 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
-                Submit</button>
+                Submit
+            </button>
 
         </form>
         <p class="text-sm"><a href="/forgot-password" class="underline text-gray-900 hover:text-gray-600">
-                    Forgot Password?</a></p>
+                Forgot Password?</a></p>
         <p id="toSignUp" class="text-sm mt-4">Dont' have an account?
             <span id="signupMobile" class="link">Click Here</span>
         </p>

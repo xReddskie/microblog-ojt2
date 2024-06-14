@@ -1,6 +1,7 @@
 var shareButton = document.querySelector('#shareButton');
 var postContent = document.querySelector('#postContent');
 
+
 if (shareButton && postContent) {
   shareButton.addEventListener('click', function() {
       shareButton.disabled = true;
@@ -19,4 +20,43 @@ if (shareButton && postContent) {
         this.innerHTML = 'Share';
       }, 3000);
   });
+}
+
+const loginButton = document.getElementById('loginButton');
+var loginContent = document.querySelector('#loginContent');
+
+if (loginButton) {
+  loginButton.addEventListener('click', loginButtonClick);
+}
+
+function loginButtonClick() {
+  if (loginButton.disabled) return;
+  loginButton.disabled = true;
+  loginButton.classList.add('animate-pulse');
+  loginContent.submit();
+
+  setTimeout(() => {
+      loginButton.classList.remove('animate-pulse');
+      loginButton.disabled = false;
+  }, 2000);
+}
+
+const registerButton = document.getElementById('registerButton');
+var registerContent = document.querySelector('#registerContent');
+
+if (registerButton) {
+  registerButton.addEventListener('click', registerButtonClick);
+}
+
+function registerButtonClick() {
+  if (registerButton.disabled) return;
+  registerButton.disabled = true;
+  registerButton.classList.add('animate-pulse');
+  registerContent.submit();
+
+  setTimeout(() => {
+      registerButton.classList.remove('animate-pulse');
+      registerButton.disabled = false;
+
+  }, 2000);
 }
