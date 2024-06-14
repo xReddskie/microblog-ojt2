@@ -38,15 +38,15 @@ class PostController extends Controller
     public function deletePost(Post $post): RedirectResponse
     {
         $this->postService->deletePost($post);
-        return redirect()->route('dashboard', ['id' => auth()->user()->id])->with('deleted', 'Post deleted successfully!');
+        return redirect()->route('dashboard', ['id' => auth()->user()->id])->with('delete', 'Post deleted successfully!');
     }
 
     /**
      * Edit Post
      */
-    public function editPost(Post $post, PostRequest $request): JsonResponse
+    public function editPost(Post $post, PostRequest $request): RedirectResponse
     {
-        return $this->postService->editPost($post, $request) ?  redirect()->route('dashboard', ['id' => auth()->user()->id]) :
+        return $this->postService->editPost($post, $request) ?  redirect()->route('dashboard', ['id' => auth()->user()->id])->with('success', 'Post edited succesfully') :
             redirect('/')->with('error', 'Unauthorized access');
     }
 
@@ -67,7 +67,7 @@ class PostController extends Controller
         $likeUsers = $post->likes->take(self::MAX_LIKES_TO_BE_DISPLAYED)->map(function ($like) {
             return $like->user->username;
         });
-    
+
         return response()->json([
             'likes_count' => $post->likes->count(),
             'like_users' => $likeUsers,
@@ -122,6 +122,5 @@ class PostController extends Controller
         $post = $this->postService->sharePost($request, $userId, $id);
         $this->postService->addPhotos($request, $userId, $post);
         return redirect()->route('dashboard', ['id' => auth()->user()->id])->with('success', 'Post shared successfully!');
-        
     }
 }

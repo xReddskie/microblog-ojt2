@@ -35,22 +35,6 @@
     </div>
 
     <div class="bg-whisperwhite">
-        @if (session()->has('comment'))
-            <div id="myAlert" role="alert"
-                class="alert alert-success alert-dismissible border-2 hide overflow absolute top-0 left-0 right-0 bg-green-100 text-green-800 p-4 rounded-t-lg">
-                {{ session('comment') }}
-                <button type="button" class="close absolute top-0 right-0 px-4 py-3" aria-label="Close">
-                </button>
-            </div>
-        @endif
-        @if (session()->has('deleted'))
-            <div id="myAlert" role="alert"
-                class="alert alert-success alert-dismissible border-2 hide overflow absolute top-0 left-0 right-0 bg-red-100 text-red-800 p-4 rounded-t-lg">
-                {{ session('deleted') }}
-                <button type="button" class="close absolute top-0 right-0 px-4 py-3" aria-label="Close">
-                </button>
-            </div>
-        @endif
         <ul class="rounded-lg max-h-40 overflow-y-scroll scrollbar-hidden">
             @foreach ($post->comments->reverse() as $comment)
                         <div class="flex flex-col border-t border-b border-gray-400">

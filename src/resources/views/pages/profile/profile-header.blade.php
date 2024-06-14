@@ -1,37 +1,16 @@
-<style>
-    .alert.hide {
-        opacity: 0;
-        transition: opacity 0.5s ease-out;
-    }
-</style>
-
 <body>
     <div class="relative">
-        @if (session()->has('success'))
-            <div id="myAlert" role="alert"
-                class="alert alert-success alert-dismissible border-2 hide overflow absolute top-0 left-0 right-0 bg-green-100 text-green-800 p-4 rounded-t-lg">
-                {{ session('success') }}
-                <button type="button" class="close absolute top-0 right-0 px-4 py-3" aria-label="Close">
-                </button>
-            </div>
-        @endif
-        @if (session()->has('unfollow'))
-            <div id="myAlert" role="alert"
-                class="alert alert-success alert-dismissible border-2 hide overflow absolute top-0 left-0 right-0 bg-red-100 text-red-800 p-4 rounded-t-lg">
-                {{ session('unfollow') }}
-                <button type="button" class="close absolute top-0 right-0 px-4 py-3" aria-label="Close">
-                </button>
-            </div>
-        @endif
         <div class="p-profile">
             <div class="p-profile__container">
                 <div class="h-80 overflow-hidden rounded-lg">
                     <img class="object-cover w-full h-full" src='{{ $user->profile->getCoverURL() }}'
                         alt='Cover Picture'>
                 </div>
+                
                 <div class="p-profile__cover">
                     <div class="p-profile__name">
                         <p>{{ $user->profile->first_name ?? 'First Name' }}
+                            {{ $user->profile->middle_name ?? '' }}
                             {{ $user->profile->last_name ?? 'Last Name' }}
                         </p>
                         <div class="flex gap-2 -mt-2 ml-2 font-thin text-base">
@@ -75,6 +54,7 @@
                             alt='Profile Picture'>
                     </div>
                 </div>
+
                 <div class="flex justify-start m-4 relative">
                     @if (auth()->user()->id == $user->id)
                     @else

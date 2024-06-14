@@ -25,6 +25,4 @@
         </div>
 
         <script src="{{ asset('js/text-counter.js') }}"></script>
-
-    </div>
 </form>
