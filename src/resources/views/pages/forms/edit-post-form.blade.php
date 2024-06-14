@@ -1,4 +1,4 @@
-<form id="editPostForm{{ $post->id }}" action="/edit-post/{{ $post->id }}" method="POST"
+<form id="editPostForm{{ $post->id }}" action="{{ route('edit.post', ['post' => $post->id]) }}" method="POST"
     class="hidden mt-1 mb-1 edit-form">
     @csrf
     @method('PUT')
