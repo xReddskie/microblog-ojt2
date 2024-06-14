@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\DisableBackBtn;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostCommentController;
@@ -32,11 +33,11 @@ Route::post('/login', [AuthController::class, 'login'])->withoutMiddleware('auth
 // Resend Email
 Route::get('/resend-email', [AuthController::class, 'resendEmailVerification']);
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', DisableBackBtn::class])->group(function () {
     Route::get('/users/search/{id}', [UserController::class, 'search'])->name('users.search');
+    Route::get('/profile-page', [ProfileController::class, 'profilePage'])->name('profile-page');
     Route::get('/dashboard/{id}', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'app'])->name('app');
-    Route::get('/profile-page', [ProfileController::class, 'profilePage'])->name('profile-page');
     Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
     Route::post('/follow-ajax/{user}', [FollowController::class, 'followAjax'])->name('follow.ajax');
     Route::post('/unfollow-ajax/{user}', [FollowController::class, 'unfollowAjax'])->name('unfollow.ajax');
