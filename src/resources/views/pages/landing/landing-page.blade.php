@@ -13,12 +13,18 @@
                     </div>
                     <div class="grid-cols-3"></div>
                     <div class="l-landing__login">
+                    @auth
+                        <div class="font-normal">
+                            <a href="{{ route('dashboard', ['id' => auth()->id()])}}">Dashboard</a>
+                        </div>
+                    @else
                         <div class="font-normal">
                             <a href="{{ route('login')}}">Login</a>
                         </div>
                         <div class="font-normal">
                             <a href="{{ route('register-form')}}">Register</a>
                         </div>
+                    @endauth
                     </div>  
                 </nav>
             </div>
