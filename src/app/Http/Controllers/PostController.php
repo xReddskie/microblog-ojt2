@@ -46,7 +46,7 @@ class PostController extends Controller
      */
     public function editPost(Post $post, PostRequest $request): RedirectResponse
     {
-        return $this->postService->editPost($post, $request) ?  redirect()->route('dashboard', ['id' => auth()->user()->id])->with('success', 'Post Edited Successfully') :
+        return $this->postService->editPost($post, $request) ?  redirect()->route('dashboard', ['id' => auth()->user()->id])->with('success', 'Post edited succesfully') :
             redirect('/')->with('error', 'Unauthorized access');
     }
 
