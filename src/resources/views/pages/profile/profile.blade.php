@@ -11,6 +11,7 @@
             <div class="d-dashboard__space"></div>
             @include('pages.profile.profile-info')
             <main class="d-dashboard__post-content">
+                @include('pages.popup.message')
                 @include('pages.profile.profile-header')
                 @include('pages.profile.content')
             </main>

@@ -56,7 +56,7 @@ class ProfileController extends Controller
 
         try {
             $this->profileService->updateProfile($user, $request->validated());
-            return redirect()->back()->with('status', 'Your profile information has been successfully updated! You will be redirected to the profile page in 5 seconds.');
+            return redirect()->route('user.profile', ['id' => auth()->id()])->with('success', 'Your profile has been successfully updated!');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
