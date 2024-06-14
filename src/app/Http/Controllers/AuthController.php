@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Http\Requests\ForgotPasswordRequest;
-use App\Http\Requests\LoginRequest;
-use App\Http\Requests\RegisterRequest;
-use App\Http\Requests\ResetPasswordRequest;
+use Illuminate\View\View;
+use Illuminate\Http\Request;
 use App\Services\UserService;
 use App\Services\ProfileService;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\ResetPasswordRequest;
+use App\Http\Requests\ForgotPasswordRequest;
 
 class AuthController extends Controller
 {
@@ -60,55 +61,50 @@ class AuthController extends Controller
      * Handle user registration.
      */
     public function register(RegisterRequest $request): RedirectResponse
-    {
-        try {
-            $user = $this->userCreate->create($request);
-            $this->profileCreate->create($request, $user->id);
+{
+   try {
+       $user = $this->userCreate->create($request);
+       $this->profileCreate->create($request, $user->id);
 
-            Session::regenerate();
-            auth()->login($user);
-            event(new Registered($user));
+       Session::regenerate();
+       auth()->login($user);
+       event(new Registered($user));
 
-            return redirect('/verify-waiting')->with('success', 'Registration is successful! Please check your email for verification.');
-        } catch (\Exception $e) {
-            return redirect('/register-page')->with('error', 'Registration failed: ' . $e->getMessage());
-        }
-    }
+       return redirect('/verify-waiting')->with('success', 'Registration is successful! Please check your email for verification.');
+   } catch (\Exception $e) {
+       return redirect('/register-page')->with('error', 'Registration failed: ' . $e->getMessage());   }
+}
 
-    /**
-     * Verify user's email.
-     */
-    public function verifyEmail($id, $hash): RedirectResponse
-    {
-        $user = User::find($id);
+/**
+* Verify user's email.
+*/
+public function verifyEmail(Request $request, $id, $hash): RedirectResponse
+{
+   $user = User::findOrFail($id);
 
-        if (!$user) {
-            return redirect('/pages/auth/register')->with('error', 'User not found.');
-        }
+   if (!hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
+       return redirect('/pages/auth/register')->with('error', 'Invalid verification link.');
+   }
 
-        if ($hash != sha1($user->getEmailForVerification())) {
-            return redirect('/pages/auth/register')->with('error', 'Invalid verification link.');
-        }
+   if (!$user->hasVerifiedEmail()) {
+       $user->markEmailAsVerified();
+   }
 
-        if (!$user->hasVerifiedEmail()) {
-            $user->markEmailAsVerified();
-        }
+   $user->status = 1;
+   $user->save();
 
-        $user->status = 1;
-        $user->save();
+   event(new Verified($user));
 
-        event(new Verified($user));
+   return redirect()->route('dashboard', ['id' => auth()->id()])->with('verified', true);
+}
 
-        return redirect('/dashboard')->with('verified', true);
-    }
-
-    /**
-     * Redirect to email verification page.
-     */
-    public function emailVerifyRedirect(): View
-    {
-        return view('pages/auth/dummy-verify-wait');
-    }
+/**
+* Redirect to email verification page.
+*/
+public function emailVerifyRedirect(): View
+{
+   return view('pages/auth/dummy-verify-wait');
+}
 
     /**
      * Resend email verification link.
