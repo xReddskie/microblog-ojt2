@@ -2,7 +2,7 @@
     <div class="flex flex-col w-60">
         <div class="mb-8 text-4xl font-light text-gray-900">Sign Up</div>
 
-        <form action="/register" method="POST" class="flex flex-col">
+        <form id="registerContent" action="/register" method="POST" class="flex flex-col">
             @csrf
 
             <div class="grid md:grid-cols-3 md:gap-6">
@@ -186,8 +186,10 @@
                 </div>
             </div>
 
-            <button type="submit"
-                class="mb-3 mt-8 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">Submit</button>
+            <button id="registerButton" type="submit"
+                class="mb-3 mt-8 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                Submit
+            </button>
         </form>
         <p id="toLogin" class="text-sm mt-4">Already have an account?
             <span id="loginMobile" class="link">Click Here</span>
