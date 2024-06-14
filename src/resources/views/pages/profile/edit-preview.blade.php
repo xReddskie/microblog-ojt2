@@ -103,7 +103,6 @@
             previewLastName.textContent = this.value;
         });
     }
-    // Repeat the above code for other input fields and preview elements
 
     const profilePicInput = document.getElementById('profilepic');
     const previewProfilePic = document.getElementById('preview-profilepic');
