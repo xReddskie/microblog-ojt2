@@ -4,9 +4,11 @@
             <div class="d-dashboard__hidden-menu">
                 <!-- burger menu shows when sm -->
                 <input type="checkbox" id="toggle-menu" class="hidden" />
-                <div for="toggle-menu" class="cursor-pointer">
-                    @include('svg.burger')
-                </div>
+                <a href="{{ route('dashboard', ['id' => auth()->id()]) }}" class="z-10">
+                    <div for="toggle-menu" class="cursor-pointer">
+                        @include('svg.burger')
+                    </div>
+                </a>
                 <div class="menu bg-mygray fixed left-0 sm:flex hidden"
                     style="height: calc(100vh - 4rem); width: 12rem; top: 4rem;">
                     <ul class="">
@@ -29,12 +31,18 @@
                     </ul>
                 </div>
             </div>
-            <div class="d-dashboard__logo-lg gap-3">
-                @include('svg.logo')<a href="{{ route('dashboard', ['id' => auth()->id()]) }}">Microblog
-                    Ojt2</a>
+            <div class="d-dashboard__logo-lg gap-3 z-10">
+                <a href="{{ route('dashboard', ['id' => auth()->id()]) }}">
+                    @include('svg.logo')
+                </a>
+                <a href="{{ route('dashboard', ['id' => auth()->id()]) }}">Microblog
+                    Ojt2
+                </a>
             </div>
             <div class="d-dashboard__logo-sm">
-                @include('svg.logo')
+                <a href="{{ route('dashboard', ['id' => auth()->id()]) }}">
+                    @include('svg.logo')
+                </a>
             </div>
             <div class="d-dashboard__search">
                 <form action="{{ route('users.search', ['id' => auth()->id()]) }}" method="GET" class="w-full p-0 m-0">
@@ -57,7 +65,7 @@
                             <img class="object-cover w-full h-full" src='{{ auth()->user()->profile->getImageURL() }}'
                                 alt='Profile Picture'>
                         </div>
-                        <span class="ml-3 hidden sm:inline">{{ auth()->user()->username }}</span>
+                        <span class="ml-3 hidden sm:inline z-10">{{ auth()->user()->username }}</span>
                     </a>
                 </div>
             </div>
