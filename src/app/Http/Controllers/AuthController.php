@@ -103,7 +103,7 @@ public function verifyEmail(Request $request, $id, $hash): RedirectResponse
 */
 public function emailVerifyRedirect(): View
 {
-   return view('pages/auth/dummy-verify-wait');
+   return view('app');
 }
 
     /**
