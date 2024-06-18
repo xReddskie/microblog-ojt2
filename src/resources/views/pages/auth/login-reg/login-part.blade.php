@@ -23,7 +23,7 @@
                     class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-gray-900 peer-focus:dark:text-gray-900 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                     Password</label>
                 @error('password')
-                    <div class="text-sm font-light text-rose-700">{{$message}}</div>
+                    <div class="text-sm font-light text-rose-700">{{ $errors->first('content') }}</div>
                 @enderror
             </div>
 
