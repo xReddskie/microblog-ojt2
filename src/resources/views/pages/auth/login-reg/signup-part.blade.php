@@ -7,7 +7,7 @@
 
             <div class="grid md:grid-cols-3 md:gap-6">
                 <div class="relative z-0 w-full mb-5 group">
-                    <input type="text" id="first_name" name="first_name"
+                    <input type="text" id="first_name" name="first_name" value="{{ old('first_name') }}"
                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-900 focus:outline-none focus:ring-0 focus:border-gray-900 peer"
                         placeholder=" " />
                     <label for="first_name"
@@ -18,7 +18,7 @@
                     @enderror
                 </div>
                 <div class="relative z-0 w-full mb-5 group">
-                    <input type="text" id="middle_name" name="middle_name"
+                    <input type="text" id="middle_name" name="middle_name" value="{{ old('middle_name') }}"
                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-900 focus:outline-none focus:ring-0 focus:border-gray-900 peer"
                         placeholder=" " />
                     <label for="middle_name"
@@ -26,7 +26,7 @@
                         Middle</label>
                 </div>
                 <div class="relative z-0 w-full mb-5 group">
-                    <input type="text" id="last_name" name="last_name"
+                    <input type="text" id="last_name" name="last_name" value="{{ old('last_name') }}"
                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-900 focus:outline-none focus:ring-0 focus:border-gray-900 peer"
                         placeholder=" " />
                     <label for="last_name"
@@ -39,7 +39,7 @@
             </div>
 
             <div class="relative z-0 w-full mb-5 group">
-                <input type="date" id="birthday" name="birthday"
+                <input type="date" id="birthday" name="birthday" value="{{ old('birthday') }}"
                     class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-900 focus:outline-none focus:ring-0 focus:border-gray-900 peer"
                     placeholder=" " />
                 <label for="birthday"
@@ -52,7 +52,7 @@
 
             <div class="grid md:grid-cols-2 md:gap-6">
                 <div class="relative z-0 w-full mb-5 group">
-                    <input type="text" id="lot_block" name="lot_block"
+                    <input type="text" id="lot_block" name="lot_block" value="{{ old('lot_block') }}"
                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-900 focus:outline-none focus:ring-0 focus:border-gray-900 peer"
                         placeholder=" " />
                     <label for="lot_block"
@@ -63,7 +63,7 @@
                     @enderror
                 </div>
                 <div class="relative z-0 w-full mb-5 group">
-                    <input type="text" id="street" name="street"
+                    <input type="text" id="street" name="street" value="{{ old('street') }}"
                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-900 focus:outline-none focus:ring-0 focus:border-gray-900 peer"
                         placeholder=" " />
                     <label for="street"
@@ -77,7 +77,7 @@
 
             <div class="grid md:grid-cols-2 md:gap-6">
                 <div class="relative z-0 w-full mb-5 group">
-                    <input type="text" id="city" name="city"
+                    <input type="text" id="city" name="city" value="{{ old('city') }}"
                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-900 focus:outline-none focus:ring-0 focus:border-gray-900 peer"
                         placeholder=" " />
                     <label for="city"
@@ -88,7 +88,7 @@
                     @enderror
                 </div>
                 <div class="relative z-0 w-full mb-5 group">
-                    <input type="text" name="province" id="province"
+                    <input type="text" name="province" id="province" value="{{ old('province') }}"
                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-900 focus:outline-none focus:ring-0 focus:border-gray-900 peer"
                         placeholder=" " />
                     <label for="province"
@@ -102,7 +102,7 @@
 
             <div class="grid md:grid-cols-2 md:gap-6">
                 <div class="relative z-0 w-full mb-5 group">
-                    <input type="text" id="country" name="country"
+                    <input type="text" id="country" name="country" value="{{ old('country') }}"
                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-900 focus:outline-none focus:ring-0 focus:border-gray-900 peer"
                         placeholder=" " />
                     <label for="country"
@@ -113,7 +113,7 @@
                     @enderror
                 </div>
                 <div class="relative z-0 w-full mb-5 group">
-                    <input type="text" id="zip_code" name="zip_code"
+                    <input type="text" id="zip_code" name="zip_code" value="{{ old('zip_code') }}"
                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-900 focus:outline-none focus:ring-0 focus:border-gray-900 peer"
                         placeholder=" " />
                     <label for="zip_code"
@@ -126,7 +126,7 @@
             </div>
 
             <div class="relative z-0 w-full mb-5 group">
-                <input type="text" id="username" name="username"
+                <input type="text" id="username" name="username" value="{{ old('username') }}"
                     class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-900 focus:outline-none focus:ring-0 focus:border-gray-900 peer"
                     placeholder=" " />
                 <label for="username"
@@ -138,7 +138,7 @@
             </div>
 
             <div class="relative z-0 w-full mb-5 group">
-                <input type="text" id="phone_number" name="phone_number"
+                <input type="text" id="phone_number" name="phone_number" value="{{ old('phone_number') }}"
                     class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-900 focus:outline-none focus:ring-0 focus:border-gray-900 peer"
                     placeholder=" " />
                 <label for="phone_number"
@@ -150,7 +150,7 @@
             </div>
 
             <div class="relative z-0 w-full mb-5 group">
-                <input type="email" id="email" name="email"
+                <input type="email" id="email" name="email" value="{{ old('email') }}"
                     class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-900 focus:outline-none focus:ring-0 focus:border-gray-900 peer"
                     placeholder=" " />
                 <label for="email"
@@ -163,7 +163,7 @@
 
             <div class="grid md:grid-cols-2 md:gap-6">
                 <div class="relative z-0 w-full mb-5 group">
-                    <input type="password" id="password" name="password"
+                    <input type="password" id="password" name="password" value="{{ old('password') }}"
                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-900 focus:outline-none focus:ring-0 focus:border-gray-900 peer"
                         placeholder=" " />
                     <label for="password"
@@ -174,7 +174,7 @@
                     @enderror
                 </div>
                 <div class="relative z-0 w-full mb-5 group">
-                    <input type="password" id="password_confirmation" name="password_confirmation"
+                    <input type="password" id="password_confirmation" name="password_confirmation" value="{{ old('password_confirmation') }}"
                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-500 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-gray-900 focus:outline-none focus:ring-0 focus:border-gray-900 peer"
                         placeholder=" " />
                     <label for="password_confirmation"

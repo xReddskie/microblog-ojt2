@@ -1,5 +1,5 @@
 <div class="p-profile">
-    <div class="p-profile__container">
+    <div class="p-profile__container max-w-[5/6]">
         <div class="h-80 overflow-hidden rounded-lg">
             <img class="object-cover w-full h-full" id="preview-coverpic" src='{{ $user->profile->getCoverURL() }}' alt='Cover Picture'>
         </div>

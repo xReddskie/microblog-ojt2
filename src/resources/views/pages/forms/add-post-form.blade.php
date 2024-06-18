@@ -14,7 +14,7 @@
         @endif
 
         <div class="mt-2">
-            <textarea id="auto-resize-textarea" class="d-dashboard__write-post mb-3" name='content'></textarea>
+            <textarea id="auto-resize-textarea" class="d-dashboard__write-post mb-3" name='content'>{{ old('content') }}</textarea>
             <div id="image-preview-container" class="flex justify-center hidden"></div>
         </div>
 
