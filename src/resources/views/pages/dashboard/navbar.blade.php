@@ -11,16 +11,16 @@
                     style="height: calc(100vh - 4rem); width: 12rem; top: 4rem;">
                     <ul class="">
                         <li>
-                            <a href="#" aria-label="Go to Home page" class="d-dashboard__hidden-list">Home</a>
+                            <a href="{{ route('dashboard', ['id' => auth()->id()]) }}" aria-label="Go to Home page" class="d-dashboard__hidden-list">Home</a>
                         </li>
                         <li>
-                            <a href="#" aria-label="Go to Profile page" class="d-dashboard__hidden-list">Profile</a>
+                            <a href="{{ route('user.profile', ['id' => auth()->id()]) }}" aria-label="Go to Profile page" class="d-dashboard__hidden-list">Profile</a>
                         </li>
                         <li>
-                            <a href="#" aria-label="Go to Followers list" class="d-dashboard__hidden-list">Followers</a>
+                            <a href="{{ route('followers', ['id' => $user->id, 'x' => 2]) }}" aria-label="Go to Followers list" class="d-dashboard__hidden-list">Followers</a>
                         </li>
                         <li>
-                            <a href="#" aria-label="Go to Settings page" class="d-dashboard__hidden-list">Settings</a>
+                            <a href="{{ route('followers', ['id' => $user->id, 'x' => 3]) }}" aria-label="Go to Followings page" class="d-dashboard__hidden-list">Followings</a>
                         </li>
                         <li>
                             <a href="{{ route('logout') }}" aria-label="Logouts current user"
