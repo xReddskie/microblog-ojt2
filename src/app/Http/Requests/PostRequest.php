@@ -20,8 +20,19 @@ class PostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'content' => 'nullable|string|max:140',
+            'content' => 'required|string|max:140',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,jfif,webp|max:2048'
         ];
+    }
+    public function messages(): array
+    {
+        return [
+            'content.required' => 'The content field is required.',
+            'content.max' => 'The content field must not be greater than 140 characters.',
+            'images.*.image' => 'Each file must be an image.',
+            'images.*.mimes' => 'Each image must be of type: jpeg, png, jpg, gif, jfif, webp.',
+            'images.*.max' => 'Each image must not exceed 2048 kilobytes.',
+        ];
+
     }
 }

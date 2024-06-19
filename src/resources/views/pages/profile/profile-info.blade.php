@@ -21,9 +21,11 @@
 
             <li>
                 <div class="p-profile__icons d-dashboard__side-list">
+                    <a href="{{ route('dashboard', ['id' => auth()->id()]) }}">
                     <div class="col-span-2">
                         @include('svg.home')
-                    </div>
+                    </div>                         
+                    </a>
                     <div class="col-span-2 text-lg ">
                         <a href="{{ route('dashboard', ['id' => auth()->id()]) }}" aria-label="Go to Home page">
                             Home
@@ -63,8 +65,8 @@
                     <div class="col-span-2">
                         @include('svg.settings')
                     </div>
-                    <div class="col-span-2 text-lg "><a href="#"
-                            aria-label="Go to Settings page">Settings</a>
+                    <div class="col-span-2 text-lg "><a href="{{ route('followers', ['id' => $user->id, 'x' => 3]) }}"
+                            aria-label="Go to following page">Following</a>
                     </div>
                 </div>
             </li>

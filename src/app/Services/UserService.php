@@ -120,7 +120,8 @@ class UserService
         $results = User::where('username', 'like', "%$query%")->get();
         $user = User::with('profile')->findOrFail($id);
         $suggestedUsers = $this->followController->showSuggestions();
+        $notifications = $this->postService->viewAllPostsNotification($user);
 
-        return compact('results', 'user', 'request', 'suggestedUsers');
+        return compact('results', 'user', 'request', 'suggestedUsers', 'notifications');
     }
 }

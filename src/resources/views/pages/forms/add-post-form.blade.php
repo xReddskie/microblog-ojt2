@@ -6,11 +6,15 @@
         <label for="large-input" class="text-lg font-semibold">Share your mind with us</label>
 
         @if ($errors->has('content'))
-            <div class="text-[14px] text-rose-600">Post cannot exceed more the 140 characters </div>
+            <div class="text-[14px] text-rose-600">{{ $errors->first('content') }}</div>
+        @endif
+
+        @if ($errors->has('images'))
+            <div class="text-[14px] text-rose-600">{{ $errors->first('images') }}</div>
         @endif
 
         <div class="mt-2">
-            <textarea id="auto-resize-textarea" class="d-dashboard__write-post mb-3" name='content'></textarea>
+            <textarea id="auto-resize-textarea" class="d-dashboard__write-post mb-3" name='content'>{{ old('content') }}</textarea>
             <div id="image-preview-container" class="flex justify-center hidden"></div>
         </div>
 
